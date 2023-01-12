@@ -8,13 +8,15 @@ import heroImg from '../assets/2.jpg'
 function Contact() {
   return (
     <>
-       <Navbar />
-      <Hero 
+      <Navbar />
+      <Hero
         cName="hero-mid"
         heroImg={heroImg}
         title="Contact"
         btnClass="hide"
       />
+      <ContactForm />
+      <Footer />
     </>
   );
 }

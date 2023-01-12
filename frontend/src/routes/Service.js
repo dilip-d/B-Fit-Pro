@@ -2,8 +2,8 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import AboutImg from "../assets/night.jpg";
 import Footer from "../components/Footer";
-import Trip from "../components/Trip";
 import heroImg from '../assets/15.jpg'
+import TrainerList from "../screens/TrainerScreen";
 
 function Service() {
   return (
@@ -15,6 +15,8 @@ function Service() {
         title="Trainers"
         btnClass="hide"
       />
+      <TrainerList />
+      <Footer />
     </>
   );
 }

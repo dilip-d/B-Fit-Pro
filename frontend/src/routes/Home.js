@@ -1,9 +1,9 @@
-import Destination from "../components/Destination";
+import Trainer from "../components/Trainer";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
-import Trip from "../components/Trip";
 import AboutImg from '../assets/13.jpg'
+import Testimonials from "../components/Testimonials";
 
 function Home() {
   return (
@@ -18,6 +18,9 @@ function Home() {
         url='/'
         btnClass="show"
       />
+      <Trainer />
+      <Testimonials />
+      <Footer />
     </>
   );
 }
