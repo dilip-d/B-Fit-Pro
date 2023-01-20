@@ -38,11 +38,12 @@ function NewAdminLogin() {
     }, [navigate])
 
     return (
+        <>
+        <h1 className='heading'>WELCOME ADMIN</h1>
         <div class="container">
             <div class="body d-md-flex align-items-center justify-content-between">
-                <div class="box-1 mt-md-0 mt-5">
-                    <img src={img1}
-                        class="" alt="" />
+                <div class="box-1 mt-md-0 ">
+                    <img src={img1} alt="image" />
                 </div>
                 <div class=" box-2 d-flex flex-column h-100">
                     <div
@@ -120,6 +121,7 @@ function NewAdminLogin() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

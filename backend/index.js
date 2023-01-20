@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import path from 'path';
 import userRouter from './routes/userRoute.js';
 import adminRouter from './routes/adminRoute.js';
+import trainerRoute from './routes/trainerRoute.js';
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use(cors(corsOptions));
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter)
-
+app.use('/trainer', trainerRoute)
 
 const MONGODB_URL = "mongodb+srv://dilip_d:9311591685@cluster0.ni6eisu.mongodb.net/C-Fit?retryWrites=true&w=majority"
 const port = 5000 

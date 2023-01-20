@@ -10,8 +10,10 @@ import {
 function UserManagement() {
 
   const [details, setDetails] = useState([]);
+  const [search,setSearch] = useState('')
+  const [filterDetails, setFilterDetails] = useState([])
 
-  
+
   useEffect(() => {
     const token = localStorage.getItem('Admintoken');
     fetchData();
@@ -20,9 +22,18 @@ function UserManagement() {
       const data = await getUserInfo(token);
       console.log(data);
       setDetails(data.clientDetails);
+      setFilterDetails(data.clientDetails)
     }
   }, []);
   console.log(details);
+
+  useEffect(()=>{
+    const result = details.filter(detail =>{
+      return detail.fname.toLowerCase().match(search.toLowerCase())
+    })
+
+    setFilterDetails(result)
+  },[search])
 
   async function unBlock(id) {
     const token = localStorage.getItem('Admintoken');
@@ -30,9 +41,9 @@ function UserManagement() {
     console.log('unblockingg');
     console.log(data);
     if (data.unBlock) {
-      const newDetails = details.map(user =>{
-        if(user._id === id){
-          return {...user, isBlocked:false}
+      const newDetails = details.map(user => {
+        if (user._id === id) {
+          return { ...user, isBlocked: false }
         }
         return user;
       })
@@ -46,9 +57,9 @@ function UserManagement() {
     console.log('blockingggg');
     console.log(data);
     if (data.block) {
-      const newDetails = details.map(user =>{
-        if(user._id === id){
-          return {...user, isBlocked:true}
+      const newDetails = details.map(user => {
+        if (user._id === id) {
+          return { ...user, isBlocked: true }
         }
         return user;
       })
@@ -102,22 +113,32 @@ function UserManagement() {
   ];
 
   return (
-    <div className='row justify-content-center justify-content-center'>
+    <div className='row justify-content-center'>
       <div className="container d-flex flex-column align-items-center">
         <div className="row mt-4">
           <h1 >User Informations</h1>
         </div>
         <div className='table'>
-        <DataTable
-          columns={columns}
-          data={details}
-          fixedHeader
-          fixedHeaderScrollHeight="500px"
-          // selectableRows
-          selectableRowsHighlight
-          highlightOnHover
-          pagination
-        />
+          <DataTable
+            columns={columns}
+            data={filterDetails}
+            fixedHeader
+            fixedHeaderScrollHeight="500px"
+            // selectableRows
+            selectableRowsHighlight
+            highlightOnHover
+            pagination
+            subHeader
+            subHeaderComponent={
+              <input
+                type='text'
+                placeholder='Search here'
+                className='w-25 form-control'
+                value={search}
+                onChange={(e)=> setSearch(e.target.value)}
+              />
+            }
+            />
         </div>
       </div>
     </div>

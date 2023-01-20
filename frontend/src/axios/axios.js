@@ -9,3 +9,6 @@ export const axiosClientInstance = axios.create({
 export const axiosAdminInstance = axios.create({
   baseURL: 'http://localhost:5000/admin/api',
 });
+export const axiosTrainerInstance = axios.create({
+  baseURL: 'http://localhost:5000/trainer/api',
+});

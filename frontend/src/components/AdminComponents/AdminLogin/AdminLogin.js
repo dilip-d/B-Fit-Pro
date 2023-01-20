@@ -10,6 +10,7 @@ function AdminLogin() {
   const [password, setpassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  
   async function dologin(event) {
     event.preventDefault();
     console.log('started verifing');
@@ -39,7 +40,7 @@ function AdminLogin() {
 
   return (
     <div className='container d-flex'>
-    <img src={img1} className="adminlogin-img1" alt="modelimage" />
+      <img src={img1} className="adminlogin-img1" alt="modelimage" />
       <div className="adminlogin-Main  pt-1 w-100">
         <div className="container py-5 h-100 justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center h-100">

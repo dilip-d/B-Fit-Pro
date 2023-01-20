@@ -27,20 +27,19 @@ function Clogin() {
     }
   }
   useEffect(() => {
-    const user= localStorage.getItem('token');
+    const user = localStorage.getItem('token');
     if (!user) {
-        navigate('/login');
-      } else {
+      navigate('/login');
+    } else {
       navigate('/');
     }
-}, [navigate])
+  }, [navigate])
 
 
   return (
-    <div>
       <div className="row Clogin-Main justify-content-center align-items-center mt-5 pt-1">
         {/* <img src={ModelWoman} className="Clogin-img1" alt="modelimage" /> */}
-        <section className="row gradient-custom">
+        <section className="gradient-custom">
           <div className="container py-5 h-100 justify-content-center align-items-center">
             <div className="row justify-content-center align-items-center h-100">
               <div className="col-12 col-lg-12 col-xl-12">
@@ -48,7 +47,7 @@ function Clogin() {
                   className="card shadow-2-strong card-registration"
                   style={{ borderRadius: '15px' }}
                 >
-                  <div className="card-body p-4 p-md-5">
+                  <div className="card-body p-4 p-md-5 mx-5">
                     <h3 className="mb-3 text-start">Client Login</h3>
                     {error ? (
                       <p style={{ color: 'red' }} className="red-error">
@@ -59,7 +58,7 @@ function Clogin() {
                     )}
                     <form onSubmit={dologin}>
                       <div className="row">
-                        <div className="col-md-12 mb-4 pb-2">
+                        <div className="col-md-12">
                           <div className="form-outline">
                             <label className="form-label">Phone Number</label>
                             <input
@@ -71,15 +70,13 @@ function Clogin() {
                               onChange={(e) => {
                                 setPhone(e.target.value);
                               }}
-                              className="form-control form-control-lg"
+                              className="form-control form-control-sm"
                             />
-
                           </div>
                         </div>
                       </div>
-
                       <div className="row">
-                        <div className="col-md-12 mb-4 pb-2">
+                        <div className="col-md-12">
                           <div className="form-outline">
                             <label className="form-label">Password</label>
                             <input
@@ -90,7 +87,7 @@ function Clogin() {
                               onChange={(e) => {
                                 setpassword(e.target.value);
                               }}
-                              className="form-control form-control-lg"
+                              className="form-control form-control-sm"
                             />
 
                             <label className="d-flex pt-2 justify-content-end">
@@ -102,18 +99,18 @@ function Clogin() {
 
                       <div className="">
                         <input
-                          className="btn btn-lg"
+                          className="btn btn-md"
                           type="submit"
                           value="Submit"
                         />
                       </div>
                     </form>
                     <Link to="/login/ClientOTP">
-                      <h6 className="btnhover d-flex pt-3 justify-content-center  OTP-textcolour">
+                      <h6 className="btnhover d-flex pt-3 justify-content-center OTP-textcolour">
                         Login With OTP?
                       </h6>
                     </Link>
-                    <h5 className='pt-2'>Create an account ?<Link to='/signup' className='btnhover '> Sign Up</Link></h5>
+                    <h6 className='pt-2'>Create an account ?<Link to='/signup' className='btnhover'> Sign Up</Link></h6>
                   </div>
                 </div>
               </div>
@@ -121,7 +118,6 @@ function Clogin() {
           </div>
         </section>
       </div>
-    </div>
   );
 }
 

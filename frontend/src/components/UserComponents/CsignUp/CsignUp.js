@@ -41,21 +41,21 @@ function CsignUp() {
   console.log(errors);
 
   return (
-    <div className="row Csignup-Main py-3 justify-content-center align-items-center" >
+    <div className="row Csignup-Main pt-5 mt-2 justify-content-center align-items-center" >
       {/* <img src="" alt="modelimage" /> */}
-      <section className="gradient-custom py-5">
-        <div className="container py-5 h-100 justify-content-center align-items-center">
+      <section className="gradient-custom">
+        <div className="container py-4 h-100 justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center h-100">
             <div className="col-12 col-lg-12 col-xl-12">
               <div className="card shadow-2-strong card-registration" style={{ borderRadius: '15px' }}>
-                <div className="card-body p-4 p-md-5">
-                  <h3 className="mb-3 text-start">
+                <div className="card-body p-4 p-md-5 mx-5">
+                  <h4 className="mb-3 text-start">
                     Registration Form
-                  </h3>
+                  </h4>
                   <form onSubmit={handleSubmit}>
                     {error ? <p className="red-error">{error}</p> : ''}
                     <div className="row">
-                      <div className="col-md-6 mb-4">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">First Name</label>
                           <input
@@ -67,8 +67,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.fname && touched.fname
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
 
@@ -77,7 +77,7 @@ function CsignUp() {
                           )}
                         </div>
                       </div>
-                      <div className="col-md-6 mb-4">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Last Name</label>
 
@@ -90,8 +90,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.lname && touched.lname
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
                           {errors.lname && touched.lname && (
@@ -102,7 +102,7 @@ function CsignUp() {
                     </div>
 
                     <div className="row">
-                      <div className="col-md-6 mb-4 d-flex align-items-center">
+                      <div className="col-md-6 d-flex align-items-center">
                         <div className="form-outline datepicker w-100">
                           <label className="form-label">Birth Date</label>
 
@@ -110,8 +110,8 @@ function CsignUp() {
                             type="date"
                             className={
                               errors.dob && touched.dob
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                             value={values.dob}
                             onChange={handleChange}
@@ -123,46 +123,49 @@ function CsignUp() {
                           )}
                         </div>
                       </div>
-                      <div className="col-md-6 mb-4">
-                        <h6 className="mb-2 pb-1">Gender: </h6>
+                      <div className="col-md-6">
+                        <p className="mt-2 text-dark">Gender</p>
+                        <div className='d-flex justify-content-center mx-5'>
 
-                        <div className="form-check form-check-inline" id="clr">
-                          <label className="form-check-label">Female</label>
+                          <div className="form-check form-check-inline" id="clr">
+                            <label className="form-check-label">Female</label>
 
-                          <input
-                            className="form-check-input inputColor"
-                            type="radio"
-                            name="gender"
-                            value="Female"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
-                        </div>
+                            <input
+                              className="form-check-input inputColor"
+                              type="radio"
+                              name="gender"
+                              value="Female"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </div>
 
-                        <div className="form-check form-check-inline">
-                          <label className="form-check-label">Male</label>
 
-                          <input
-                            className="form-check-input inputColor"
-                            type="radio"
-                            name="gender"
-                            value="Male"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
-                        </div>
+                          <div className="form-check form-check-inline">
+                            <label className="form-check-label">Male</label>
 
-                        <div className="form-check form-check-inline">
-                          <label className="form-check-label">Other</label>
+                            <input
+                              className="form-check-input inputColor"
+                              type="radio"
+                              name="gender"
+                              value="Male"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </div>
 
-                          <input
-                            className="form-check-input inputColor"
-                            type="radio"
-                            name="gender"
-                            value="Other"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
+                          <div className="form-check form-check-inline">
+                            <label className="form-check-label">Other</label>
+
+                            <input
+                              className="form-check-input inputColor"
+                              type="radio"
+                              name="gender"
+                              value="Other"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          </div>
                         </div>
 
                         {errors.gender && touched.gender && (
@@ -172,7 +175,7 @@ function CsignUp() {
                     </div>
 
                     <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Email</label>
 
@@ -185,8 +188,8 @@ function CsignUp() {
                             id="email"
                             className={
                               errors.email && touched.email
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
                           {errors.email && touched.email && (
@@ -194,7 +197,7 @@ function CsignUp() {
                           )}
                         </div>
                       </div>
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Phone Number</label>
                           <input
@@ -206,8 +209,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.phone && touched.phone
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
                           {errors.phone && touched.phone && (
@@ -217,7 +220,7 @@ function CsignUp() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Password</label>
 
@@ -230,8 +233,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.password && touched.password
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
                           {errors.password && touched.password && (
@@ -239,7 +242,7 @@ function CsignUp() {
                           )}
                         </div>
                       </div>
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Confirm Password</label>
                           <input
@@ -251,8 +254,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.cpassword && touched.cpassword
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
 
@@ -263,7 +266,7 @@ function CsignUp() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Weight(Kg)</label>
                           <input
@@ -275,8 +278,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.weight && touched.weight
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
 
@@ -285,7 +288,7 @@ function CsignUp() {
                           )}
                         </div>
                       </div>
-                      <div className="col-md-6 mb-4 pb-2">
+                      <div className="col-md-6">
                         <div className="form-outline">
                           <label className="form-label">Height(Cm)</label>
                           <input
@@ -297,8 +300,8 @@ function CsignUp() {
                             onBlur={handleBlur}
                             className={
                               errors.height && touched.height
-                                ? 'form-control form-control-lg input-error'
-                                : 'form-control form-control-lg'
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                             }
                           />
 
@@ -325,15 +328,15 @@ function CsignUp() {
 
                     <div className="mt-4 pt-2">
                       <input
-                        className="btn btn-lg"
+                        className="btn btn-md"
                         type="submit"
                         value="Submit"
                       />
                     </div>
                   </form>
-                  <h5 className='pt-5'>Already have an account ?<Link to='/login' className='btnhover'> Sign In</Link></h5>
-                                        <h5>Or</h5>
-                  <h5 className=''>Join as a Trainer ?<Link to='/trainerLogin' className='btnhover'> Register</Link></h5>
+                  <h6 className='pt-3'>Already have an account ?<Link to='/login' className='btnhover'> Sign In</Link></h6>
+                  <h6>Or</h6>
+                  <h6 className=''>Join as a Trainer ?<Link to='/trainerSignup' className='btnhover'> Register</Link></h6>
                 </div>
               </div>
             </div>

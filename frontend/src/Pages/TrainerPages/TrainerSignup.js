@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
 import { ToastContainer } from 'react-toastify';
-import CsignUp from '../../components/UserComponents/CsignUp/CsignUp';
+import TrainerSignup from '../../components/TrainerComponents/TrainerSignup/TrainerSignup';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
 
-function Register() {
+function TrainerRegister() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ function Register() {
         setLoading(false)
       }, 1000)
     }, [])
-
+  
     return (
         <>
             {loading ? (
@@ -31,7 +31,7 @@ function Register() {
                 <>
                     <Navbar />
                     <ToastContainer />
-                    <CsignUp />
+                    <TrainerSignup />
                     <Footer />
                 </>
             )}
@@ -39,4 +39,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default TrainerRegister;

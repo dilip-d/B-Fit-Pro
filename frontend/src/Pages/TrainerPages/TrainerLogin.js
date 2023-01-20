@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import NewAdminLogin from '../../components/AdminComponents/AdminLogin/NewAdminLogin';
-// import AdminLogin from '../../screens/AdminLogin';
+import { ToastContainer } from 'react-toastify';
+import TrainerLogin from '../../components/TrainerComponents/TrainerLogin/TrainerLogin';
+import Footer from '../../components/UserComponents/Footer/Footer';
+import Navbar from '../../components/UserComponents/Navbar/Navbar';
 
-function AdminSignIn() {
+function TrainerSignIn() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,11 +29,14 @@ function AdminSignIn() {
         />
       ) : (
         <>
-          <NewAdminLogin />
+          <Navbar />
+          <ToastContainer />
+          <TrainerLogin />
+          <Footer />
         </>
       )}
     </>
   );
 }
 
-export default AdminSignIn;
+export default TrainerSignIn;

@@ -9,9 +9,10 @@ import Register from "./Pages/UserPages/Signup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setUser } from "./redux/authSlice";
-import AdminHome from "./Pages/Admin Pages/AdminHome";
-import TrainerSingup from "./components/TrainerComponents/TrainerSignup/TrainerSignup";
-import NewAdminLogin from "./components/AdminComponents/AdminLogin/NewAdminLogin";
+import AdminHome from "./Pages/AdminPages/AdminHome";
+import TrainerRegister from "./Pages/TrainerPages/TrainerSignup";
+import TrainerSignIn from "./Pages/TrainerPages/TrainerLogin";
+import AdminSignIn from "./Pages/AdminPages/AdminLogin";
 
 export default function App() {
 
@@ -33,8 +34,9 @@ export default function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/admin" element={<AdminHome />} />
-        <Route path="/adminLogin" element={<NewAdminLogin />} />
-        <Route path="/trainerLogin" element={<TrainerSingup />} />
+        <Route path="/adminLogin" element={<AdminSignIn />} />
+        <Route path="/trainerSignup" element={<TrainerRegister />} />
+        <Route path="/trainerLogin" element={<TrainerSignIn />} />
       </Routes>
     </div>
   );

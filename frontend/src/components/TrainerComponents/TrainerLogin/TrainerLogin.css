@@ -14,3 +14,11 @@
     right: 10px;
     bottom: 50px;
 }
+
+.btnhover{
+    color: orange;
+}
+
+.btnhover:hover{
+    color: blue;
+}

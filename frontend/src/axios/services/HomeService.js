@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   axiosClientInstance,
   axiosAdminInstance,
+  axiosTrainerInstance
 } from '../axios';
 
 export const clientRegister = async (value) => {
@@ -54,20 +55,6 @@ export const adminLogin = async (value) => {
   }
 };
 
-// export const adminLogin = createAsyncThunk(
-//   "/adminLogin",
-//   async ({ formValue, navigate, toast }, { rejectWithValue }) => {
-//     console.log('in admin');
-//     try {
-//       const response = await axiosAdminInstance.post('/adminLogin', formValue);
-//       toast.success("Login Successfully")
-//       navigate('/admin');
-//       return response.data;
-//     } catch (err) {
-//       return rejectWithValue(err.response.data)
-//     }
-//   })
-
 export const trainerRegister = async (value) => {
   const config = {
     headers: {
@@ -80,6 +67,24 @@ export const trainerRegister = async (value) => {
     config
   );
   if (data.status) {
+    return data;
+  }
+};
+
+// Trainer Login action
+export const trainerLogin = async (value) => {
+  console.log(value);
+  const config = {
+    headers: {
+      'content-type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(
+    '/trainerLogin',
+    value,
+    config
+  );
+  if (data) {
     return data;
   }
 };

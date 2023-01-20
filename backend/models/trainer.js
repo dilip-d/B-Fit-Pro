@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 // import  isEmail  from 'validator'
 
-const userSchema = mongoose.Schema({
+const trainerSchema = mongoose.Schema({
     fname: {
         type: String,
         trim: true,
@@ -22,18 +22,6 @@ const userSchema = mongoose.Schema({
         type:String,
         trim: true,
         required:true
-    },
-    weight:{
-        type:Number,
-        trim:true,
-        required:true,
-        minLength:2
-    },
-    height:{
-        type:Number,
-        trim:true,
-        required:true,
-        minLength:2
     },
     email: {
         type: String,
@@ -75,13 +63,19 @@ const userSchema = mongoose.Schema({
     }],
     profileImage: {
         type: String,
-        default: 'null'
+        default: 'null',
+        required: true
+    },
+    certificateImage:{
+        type:String,
+        dafault: 'null',
+        required: true
     },
     isVerified: {
         type: Boolean,
         default: false
-    }
+    },
 }, { timestamps: true })
 
-const User =  mongoose.model('User', userSchema)
-export default User;
+const Trainer =  mongoose.model('Trainer', trainerSchema)
+export default Trainer;

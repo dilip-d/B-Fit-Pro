@@ -16,3 +16,11 @@
     width:280px !important;
      height: 150px !important;;
 }
+
+.btnhover{
+    color: orange;
+}
+
+.btnhover:hover{
+    color: blue;
+}

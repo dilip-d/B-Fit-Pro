@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 import jwt from 'jwt-decode';
-import { trainerLogin } from '../../axios/serives/HomeServices';
+import { trainerLogin } from '../../../axios/services/HomeService';
 //images
-import Modelman from '../../images/LoginTrainer.png';
-//css
+// import Modelman from '../../images/LoginTrainer.png';
 import './TrainerLogin.css';
-import { Loading } from '..';
+
 function TrainerLogin() {
-  const [loading, setLoding] = useState(false);
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+
   async function dologin(event) {
     event.preventDefault();
-    setLoding(true);
     const values = { Phone: phone, password: password };
     const data = await trainerLogin(values);
     console.log(data);
@@ -23,36 +23,29 @@ function TrainerLogin() {
       localStorage.setItem('trainertoken', data.token);
       const trainer = jwt(data.token);
       localStorage.setItem('trainerDetails', trainer.name);
-      setLoding(false);
       navigate('/trainer');
     } else {
-      setLoding(false);
       setError('Invalid Phone Number/Password..');
     }
   }
 
   return (
     <div>
-      {loading ? (
-        <div>
-          <Loading />
-        </div>
-      ) : (
-        <div className="trainerlogin-Main">
-          <img src={Modelman} className="trainerlogin-img1" alt="modelimage" />
+        <div className="row trainerlogin-Main justify-content-center align-items-center mt-5 pt-1">
+          {/* <img src={Modelman} className="trainerlogin-img1" alt="modelimage" /> */}
 
           <section className=" gradient-custom">
-            <div className="container py-5 h-100">
+            <div className="container py-5 h-100 justify-content-center align-items-center">
               <div className="row justify-content-center align-items-center h-100">
-                <div className="col-12 col-lg-9 col-xl-7">
+                <div className="col-12 col-lg-12 col-xl-12">
                   <div
                     className="card shadow-2-strong card-registration"
                     style={{ borderRadius: '15px' }}
                   >
                     <div className="card-body p-4 p-md-5">
-                      <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
-                        Trainer Point
-                      </h3>
+                      <h4 className="mb-3 text-start">
+                        Trainer Login
+                      </h4>
                       {error ? (
                         <p style={{ color: 'red' }} className="red-error">
                           {error}
@@ -62,59 +55,59 @@ function TrainerLogin() {
                       )}
                       <form onSubmit={dologin}>
                         <div className="row">
-                          <div className="col-md-12 mb-4 pb-2">
+                          <div className="col-md-12">
                             <div className="form-outline">
+                              <label className="form-label">Phone Number</label>
                               <input
+                                style={{ background: "white" }}
                                 type="text"
                                 id="phone"
                                 value={phone}
                                 onChange={(e) => {
                                   setPhone(e.target.value);
                                 }}
-                                className="form-control form-control-lg"
+                                className="form-control form-control-sm"
                               />
-                              <label className="form-label">Phone Number</label>
                             </div>
                           </div>
                         </div>
 
                         <div className="row">
-                          <div className="col-md-12 mb-4 pb-2">
+                          <div className="col-md-12">
                             <div className="form-outline">
+                              <label className="form-label">Password</label>
                               <input
+                                style={{ background: "white" }}
                                 type="Password"
                                 value={password}
                                 onChange={(e) => {
                                   setpassword(e.target.value);
                                 }}
-                                className="form-control form-control-lg"
+                                className="form-control form-control-sm"
                               />
-                              <label className="form-label">Password</label>
+
                               <label className="d-flex justify-content-end">
                                 Forgot Password ?
                               </label>
                             </div>
                           </div>
                         </div>
-                        <Link to="/login/trainerOTP">
-                          <label className="d-flex justify-content-center  OTP-textcolour">
-                            Login With OTP?
-                          </label>
-                        </Link>
-                        <Link to="/signup">
-                          {' '}
-                          <label className="d-flex justify-content-center CreatSingup-textcolour">
-                            Create an account Sign Up
-                          </label>
-                        </Link>
-                        <div className="mt-4 pt-2">
+                        <div className=" pt-2">
                           <input
-                            className="btn btn-primary btn-lg"
+                            className="btn btn-md"
                             type="submit"
                             value="Submit"
                           />
                         </div>
                       </form>
+                      <Link to="/login/trainerOTP">
+                        <h6 className="btnhover d-flex justify-content-center pt-4  OTP-textcolour">
+                          Login With OTP ?
+                        </h6>
+                      </Link>
+                      <h6 className="d-flex justify-content-center pt-2 CreatSingup-textcolour">
+                        Create an account ?
+                        <Link to="/trainerSignup" className='btnhover'> Sign Up</Link></h6>
                     </div>
                   </div>
                 </div>
@@ -122,7 +115,6 @@ function TrainerLogin() {
             </div>
           </section>
         </div>
-      )}
     </div>
   );
 }
