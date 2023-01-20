@@ -1,0 +1,18 @@
+.TrainerSignup-Main {
+    color: white;
+    position: relative;
+}
+
+.TrainerSignup-Main-image {
+    width: 500px;
+    height: 900px;
+    position: absolute;
+
+
+    bottom: 20px;
+
+}
+.trainerSignup-idproof{
+    width:280px !important;
+     height: 150px !important;;
+}

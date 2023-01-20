@@ -3,7 +3,7 @@ const router = express.Router();
 
 import {signin, signup} from '../controllers/userController.js';
 
-router.post('/signup',signup);
-router.post('/signin',signin)
+router.post('/api/clientRegister', signup);
+router.post('/api/clientLogin', signin);
 
 export default router;

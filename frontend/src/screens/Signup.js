@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { register } from '../redux/features/authSlice'
+// import { register } from '../redux/authSlice'
 
 
 const initialState = {
@@ -143,6 +143,10 @@ function Signup() {
                     <MDBCardFooter>
                         <Link to='/login'>
                             <p style={{ color: "black" }}>Already have an account ? <span style={{ color: "red" }}>Sign In </span> </p>
+                        </Link>
+                        <h6 className='text-danger'>OR</h6>
+                        <Link to='/trainerLogin'>
+                            <p style={{ color: "black" }}>Login as a trainer !<span style={{ color: "red" }}>Sign In</span> </p>
                         </Link>
                     </MDBCardFooter>
                 </MDBCard>

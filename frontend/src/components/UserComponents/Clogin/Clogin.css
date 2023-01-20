@@ -1,0 +1,30 @@
+
+.Clogin-Main {
+    color: white;
+    position: relative;
+}
+
+.Clogin-Main img {
+    width: 500px;
+    height: 520px;
+    position: absolute;
+
+}
+
+.Clogin-img1 {
+    right: 10px;
+    bottom: 50px;
+}
+
+.btn{
+    background: black;
+    color: white;
+}
+
+.btnhover{
+    color: orange;
+}
+
+.btnhover:hover{
+    color: blue;
+}

@@ -1,0 +1,50 @@
+.card {
+    background-color: #2423239c !important;
+
+}
+
+.input{
+    background: #fff;
+}
+
+.Csignup-Main {
+    color: white;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.Csignup-Main img {
+    width: 500px;
+    height: 900px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+input.input-error,
+select.input-error {
+    border-color: red;
+    border-width: 2px;
+}
+
+.red-error {
+    color: rgb(158, 15, 15);
+}
+
+.btn{
+    background: black;
+    color: white;
+}
+
+.btnhover{
+    color: orange;
+}
+
+.btnhover:hover{
+    color: blue;
+}
+
+.btn:hover{
+    background: white;
+    color: black;
+}

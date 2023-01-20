@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import {
     MDBBtn, MDBCard, MDBCardBody, MDBCardFooter,
-    MDBIcon, MDBInput, MDBInputGroup, MDBSpinner, MDBValidation, MDBValidationItem
+    MDBIcon, MDBInput, MDBSpinner, MDBValidation, MDBValidationItem
 } from "mdb-react-ui-kit"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../redux/features/authSlice';
+// import { login } from '../redux/authSlice';
 
 const initialState = {
     email: "",
@@ -43,7 +43,7 @@ function Login() {
             <div
                 style={{
                     margin: "auto", padding: "15px", maxWidth: "450px",
-                    alignContent: "center", marginTop: "120px", color: "#551a8b"
+                    alignContent: "center", marginTop: "120px", color: "#551a8b", height:"100vh"
                 }}>
                 <MDBCard alignment='center'>
                     <MDBIcon fas icon='user-circle' className='fa-3x' style={{color:"black"}} />
@@ -88,6 +88,10 @@ function Login() {
                     <MDBCardFooter>
                         <Link to='/signup'>
                             <p style={{ color: "black" }}>Don't have an account ? <span style={{ color: "red" }}>Sign Up </span> </p>
+                        </Link>
+                        <h6 className='text-danger'>OR</h6>
+                        <Link to='/trainerLogin'>
+                            <p style={{ color: "black" }}>Signup as a trainer !<span style={{ color: "red" }}>Sign Up</span> </p>
                         </Link>
                     </MDBCardFooter>
                 </MDBCard>
