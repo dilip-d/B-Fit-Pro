@@ -9,15 +9,51 @@ import './TrainerSignup.css';
 function TrainerSignup() {
   const navigate = useNavigate();
 
+  const [filef, setFilef] = useState([]);
+  const [fileb, setFileb] = useState([]);
+
   const [error, setError] = useState('');
+
   const onSubmit = async (values, actions) => {
-    const status = await trainerRegister(values);
+    console.log('in frontend');
+    // console.log(values);
+    const status = await trainerRegister({ values, file1:filef,file2: fileb });
     if (status.status === 'error') {
       setError('Trainer already existed');
     } else if (status.status === 'success') {
       navigate('/trainerLogin');
     }
   };
+
+  //handle and convert it in base 64
+  const handleImage1 = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+    console.log(file);
+  }
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setFilef(reader.result);
+    }
+  }
+
+  const handleImage2 = (e) => {
+    const file = e.target.files[0];
+    setFileToBase2(file);
+    console.log(file);
+  }
+
+  const setFileToBase2 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setFileb(reader.result);
+    }
+  }
+
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -248,7 +284,7 @@ function TrainerSignup() {
                       </div>
                       <div className="col-md-6">
                         <div className="form-outline">
-                        <label className="form-label">Confirm Password</label>
+                          <label className="form-label">Confirm Password</label>
                           <input
                             style={{ background: "white" }}
                             type="password"
@@ -262,7 +298,7 @@ function TrainerSignup() {
                                 : 'form-control form-control-sm'
                             }
                           />
-                          
+
                           {errors.cpassword && touched.cpassword && (
                             <p className="red-error">{errors.cpassword}</p>
                           )}
@@ -270,63 +306,61 @@ function TrainerSignup() {
                       </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-6">
-                          <div className="form-outline">
+                      <div className="col-md-6">
+                        <div className="form-outline">
                           <label className="form-label">
-                              Photo Id (Front)
-                            </label>
-                            <input
+                            Profile Photo
+                          </label>
+                          <input
                             style={{ background: "white" }}
-                              type="file"
-                              id="filef"
-                              
-                              onChange={(e)=>{
-                                setFilef(e.target.files[0])
-                               
-                              }
-                              }
-                             // onChange={handleChange}
-                              // onBlur={handleBlur}
-                              className={
-                                errors.filef && touched.filef
-                                  ? 'form-control form-control-sm input-error'
-                                  : 'form-control form-control-sm'
-                              }
-                            />
-                            
-                             {values.filef ? <img className='trainerSignup-idproof' alt="Posts"  src={values.filef ? URL.createObjectURL(values.filef) : ""}></img> : ""} 
-                            {errors.filef && touched.filef && <p className='red-error'>{errors.filef}</p>}
-                           
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-outline">
-                          <label className="form-label">
-                              Photo Id (Back)
-                            </label>
-                            <input
-                            style={{ background: "white" }}
-                              type="file"
-                              id="fileb"
-                              onChange={(e)=>{
-                                setFileb(e.target.files[0])
-                               
-                              }}
-                              className={
-                                errors.fileb && touched.fileb
-                                  ? 'form-control form-control-sm input-error'
-                                  : 'form-control form-control-sm'
-                              }
-                            />
-                            
-                            {errors.fileb && touched.fileb && <p className='red-error'>{errors.fileb}</p>}
-                          </div>
+                            type="file"
+                            id="filef"
+                            name='filef'
+                            accept="image/*"
+                            // value={values.filef}
+                            onChange={handleImage1}
+                            // onChange={handleChange}
+                            // onBlur={handleBlur}
+                            className={
+                              errors.filef && touched.filef
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
+                            }
+                          />
+
+                          {/* {values.filef ? <img className='trainerSignup-idproof' alt="Posts" src={values.filef ? URL.createObjectURL(values.filef) : ""}></img> : ""} */}
+                          {errors.filef && touched.filef && <p className='red-error'>{errors.filef}</p>}
+
                         </div>
                       </div>
+                      <div className="col-md-6">
+                        <div className="form-outline">
+                          <label className="form-label">
+                            Certificate
+                          </label>
+                          <input
+                            style={{ background: "white" }}
+                            type="file"
+                            id="fileb"
+                            name='fileb'
+                            accept="image/*"
+                            // value={values.fileb}
+                            onChange={handleImage2}
+                            className={
+                              errors.fileb && touched.fileb
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
+                            }
+                          />
+
+                          {errors.fileb && touched.fileb && <p className='red-error'>{errors.fileb}</p>}
+                        </div>
+                      </div>
+                    </div>
                     <div className="row">
                       <div className="form-outline pt-2">
                         <label className="form-label">
-          
+
                           Upload Video Link <br></br>(Paste a link to your
                           YouTube video introducing yourself and training a
                           client.)
@@ -345,8 +379,8 @@ function TrainerSignup() {
                           }
                         />
                         {errors.link && touched.link && (
-                            <p className="red-error">{errors.link}</p>
-                          )}
+                          <p className="red-error">{errors.link}</p>
+                        )}
                       </div>
                     </div>
                     {/* 

@@ -1,37 +1,65 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-
+import dotenv from 'dotenv';
+import { v2 as cloudinary } from 'cloudinary'
 import Trainer from '../models/trainer.js'
+
+dotenv.config();
 
 const secret = 'trainer';
 
+// Config
+cloudinary.config({
+    cloud_name: process.env.cloud_name,
+    api_key: process.env.api_key,
+    api_secret: process.env.api_secret,
+    secure: true
+})
+
 export const trainerSignup = async (req, res) => {
-    const { fname, lname, dob, gender, email, phone, password } = req.body
-    console.log(req.body);
+    console.log('in trainer signup');
     try {
-        const oldTrainer = await Trainer.findOne({ email });
-        const extphone = await Trainer.findOne({ phone });
+        const values = req.body.values
+        console.log(values);
+        const ytUrl = values.link;
+        values.link = ytUrl.replace('/watch?v=', '/embed/');
+        console.log(values.link);
+
+        const profileImage = req.body.file1
+        const certificateImage = req.body.file2
+
+        const oldTrainer = await Trainer.findOne({ email: values.email });
+        const extphone = await Trainer.findOne({ phone: values.phone });
 
         if (oldTrainer !== null && extphone !== null) {
             console.log('duplicate');
             return res.json({ status: 'error', error: "Duplicate phone number" })
         } else {
-            const hashedPassword = await bcrypt.hash(password, 12);
+            const hashedPassword = await bcrypt.hash(values.password, 12);
+
+            const file1 = await cloudinary.uploader.upload(profileImage, {
+                folder: "trainers"
+            })
+            console.log(file1);
+            const file2 = await cloudinary.uploader.upload(certificateImage, {
+                folder: 'certificates'
+            })
+            console.log(file2);
 
             const result = await Trainer.create({
-                fname,
-                lname,
-                dob,
-                gender,
-                weight,
-                height,
-                email,
-                phone,
+                fname: values.fname,
+                lname: values.lname,
+                dob: values.dob,
+                gender: values.gender,
+                email: values.email,
+                phone: values.phone,
                 password: hashedPassword,
+                profileImage: file1.url,
+                certificateImage: file2.url,
+                link: values.link
             })
-
             const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1h' });
-            console.log('signup success');
+            console.log('trainer signup success');
             res.json({ status: 'success' });
         }
     } catch (error) {
@@ -42,22 +70,25 @@ export const trainerSignup = async (req, res) => {
 };
 
 export const trainerLogin = async (req, res) => {
-    const { phone, password } = req.body;
-    console.log(req.body);
     try {
+        const { phone, password } = req.body;
+        console.log(req.body);
         const oldTrainer = await Trainer.findOne({ phone });
-        console.log( oldTrainer);
-        if (oldTrainer) {
+        console.log(oldTrainer.isVerified);
+        if (oldTrainer.isVerified === true) {
+            console.log('verified');
             const isPasswordCorrect = await bcrypt.compare(password, oldTrainer.password)
             console.log(isPasswordCorrect);
             if (isPasswordCorrect) {
                 const token = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, secret, { expiresIn: "1h" });
                 console.log('user login success');
                 return res.json({ status: 'ok', trainer: token })
-            }else{
-                res.json({ status: 'error', trainer: false })
+            } else {
+                res.json({ error: 'error', trainer: false })
                 console.log('login failed');
             }
+        } else {
+            res.json({ pending: "pending" })
         }
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })

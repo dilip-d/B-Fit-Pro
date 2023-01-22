@@ -61,7 +61,7 @@ export const trainerRegister = async (value) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosHomeInstance.post(
+  const { data } = await axiosTrainerInstance.post(
     '/trainerRegister',
     value,
     config

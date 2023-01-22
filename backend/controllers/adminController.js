@@ -2,9 +2,11 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import Admin from '../models/admin.js'
 import User from '../models/user.js'
+import Trainer from '../models/trainer.js'
 
 const secret = 'admin';
 
+//admin
 export const adminSignup = async (req, res) => {
     const { email, password } = req.body
     try {
@@ -38,7 +40,7 @@ export const adminSignin = async (req, res) => {
             if (isPasswordCorrect) {
                 const token = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, secret, { expiresIn: "1h" });
                 return res.json({ status: "ok", user: token });
-            }else{
+            } else {
                 res.json({ status: 'error', user: false })
             }
         }
@@ -47,6 +49,7 @@ export const adminSignin = async (req, res) => {
     }
 }
 
+//user
 export const userInfo = async (req, res) => {
     console.log('find user');
     try {
@@ -63,7 +66,7 @@ export const blockUser = async (req, res) => {
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: true })
-        res.json({ status: 'ok', block: true, userDetails: user })
+        res.json({ status: 'ok', block: true, clientDetails: user })
     } catch (err) {
         console.log(err);
     }
@@ -74,7 +77,77 @@ export const unblockUser = async (req, res) => {
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: false })
-        res.json({ status: 'ok', unBlock: true, userDetails: user })
+        res.json({ status: 'ok', unBlock: true, clientDetails: user })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//trainer
+export const activeTrainerInfo = async (req, res) => {
+    console.log('find trainers');
+    try {
+        const trainers = await Trainer.find({ isVerified: true });
+        console.log('found');
+        console.log(trainers);
+        res.json({ activetrainerDetails: trainers, status: 'ok' })
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+export const blockTrainer = async (req, res) => {
+    console.log('block trainer');
+    try {
+        const trainerId = req.params.id
+        const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: true })
+        res.json({ status: 'ok', block: true, trainerDetails: trainer })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const unBlockTrainer = async (req, res) => {
+    console.log('unblock trainer');
+    try {
+        const trainerId = req.params.id
+        const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: false })
+        res.json({ status: 'ok', unBlock: true, trainerDetails: trainer })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const approvalPendingTrainers = async (req, res) => {
+    console.log('find trainers');
+    try {
+        const trainers = await Trainer.find({ isVerified: false });
+        console.log('found');
+        console.log(trainers);
+        res.json({ trainerDetails: trainers, status: 'ok' })
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+export const rejectTrainer = async (req, res) => {
+    console.log('reject trainer');
+    try {
+        const trainerId = req.params.id
+        const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isVerified: true })
+        res.json({ status: 'ok', rejected: true, trainerDetails: trainer })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const approveTrainer = async (req, res) => {
+    console.log('approve trainer');
+    try {
+        const trainerId = req.params.id
+        console.log(trainerId);
+        const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isVerified: true })
+        res.json({ status: 'ok', approved: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
     }

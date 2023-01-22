@@ -6,7 +6,7 @@ const trainerSchema = mongoose.Schema({
         type: String,
         trim: true,
         required: [true, 'Please enter first name'],
-        minLength: [4, 'Name is too short!']
+        minLength: [2, 'Name is too short!']
     },
     lname: {
         type: String,
@@ -70,6 +70,11 @@ const trainerSchema = mongoose.Schema({
         type:String,
         dafault: 'null',
         required: true
+    },
+    link:{
+        type:String,
+        default:'null',
+        required:true
     },
     isVerified: {
         type: Boolean,

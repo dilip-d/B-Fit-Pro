@@ -34,12 +34,20 @@ export const SidebarData = [
   {
     icon: UilUsersAlt,
     heading: "Trainers",
-    url:'/trainers'
+    url:'/trainers',
+    page: 'trainers'
+  },
+  {
+    icon: UilUsersAlt,
+    heading: "Verify Trainers",
+    url:'/verifyTrainers',
+    page: 'verify'
   },
   {
     icon: UilPackage,
     heading: 'Bookings',
-    url:'/bookings'
+    url:'/bookings',
+    page: 'bookings'
   },
   // {
   //   icon: UilChart,

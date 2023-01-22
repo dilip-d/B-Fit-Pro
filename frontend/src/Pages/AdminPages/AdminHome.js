@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import UserManagement from "./UserManagement";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TrainerManagement from "./TrainerManagement";
+import AdminTrainerDetailsView from "../../components/AdminComponents/AdminTrainerDetailsView/AdminTrainerDetailsView";
+import VerifyTrainer from "./VerifyTrainer";
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -19,7 +22,7 @@ const AdminHome = () => {
   }, [navigate]);
 
   const App = styled.div`
- background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -53,6 +56,9 @@ const AdminHome = () => {
           <Sidebar setPage={setPage} />
           {pages === 'dashboard' && <MainDash />}
           {pages === 'users' && <UserManagement />}
+          {pages === 'trainers' && <TrainerManagement />}
+          {/* {pages === 'verify' && <AdminTrainerDetailsView />} */}
+          {pages === 'verify' && <VerifyTrainer />}
         </AppGlass>
       </App>
     </>
