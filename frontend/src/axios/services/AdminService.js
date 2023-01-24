@@ -1,4 +1,6 @@
 import { axiosAdminInstance } from '../axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 
 export const getUserInfo = async (token) => {
   const config = {

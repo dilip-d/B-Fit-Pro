@@ -68,12 +68,10 @@ export const trainerSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'Password must match')
     .required('Required'),
-  // profileImage: yup
-  //   .string()
-  //   .required('Required'),
-  // certificateImage: yup
-  //   .string()
-  //   .required('Required'),
+  fileb: yup.mixed().required()
+    .test('fileType', 'Unsupported File Type', value => value && value.type.startsWith('image/')),
+  filef: yup.mixed().required()
+    .test('fileType', 'Unsupported File Type', value => value && value.type.startsWith('image/')),
   link: yup
     .string()
     .matches(link, 'Please paste a valid youtube link here')

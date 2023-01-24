@@ -13,6 +13,7 @@ import AdminHome from "./Pages/AdminPages/AdminHome";
 import TrainerRegister from "./Pages/TrainerPages/TrainerSignup";
 import TrainerSignIn from "./Pages/TrainerPages/TrainerLogin";
 import AdminSignIn from "./Pages/AdminPages/AdminLogin";
+import TrainerHome from "./Pages/TrainerPages/TrainerHome";
 
 export default function App() {
 
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/adminLogin" element={<AdminSignIn />} />
         <Route path="/trainerSignup" element={<TrainerRegister />} />
         <Route path="/trainerLogin" element={<TrainerSignIn />} />
+        <Route path="/trainerHome" element={<TrainerHome />} />
       </Routes>
     </div>
   );

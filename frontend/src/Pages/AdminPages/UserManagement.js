@@ -30,7 +30,7 @@ function UserManagement() {
       return detail.fname.toLowerCase().match(search.toLowerCase())
     })
     setFilterDetails(result)
-  }, [search, details])
+  }, [search])
 
   async function unBlock(id) {
     const token = localStorage.getItem('Admintoken');

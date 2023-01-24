@@ -1,14 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
-// import AuthReducer from './features/authSlice';
-// import adminAuthReducer from './features/adminSlice'
-
-// export default configureStore({
-//     reducer:{
-//         auth: AuthReducer,
-//         adminAuth: adminAuthReducer
-//     }
-// })
 
 import {
   persistReducer,

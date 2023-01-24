@@ -80,9 +80,10 @@ export const trainerLogin = async (req, res) => {
             const isPasswordCorrect = await bcrypt.compare(password, oldTrainer.password)
             console.log(isPasswordCorrect);
             if (isPasswordCorrect) {
-                const token = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, secret, { expiresIn: "1h" });
-                console.log('user login success');
-                return res.json({ status: 'ok', trainer: token })
+                const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, secret, { expiresIn: "1h" });
+                console.log('trainer login success');
+                console.log(toke);
+                return res.json({token: toke, status:'Login success'})
             } else {
                 res.json({ error: 'error', trainer: false })
                 console.log('login failed');

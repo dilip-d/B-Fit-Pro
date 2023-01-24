@@ -26,14 +26,12 @@ function TrainerManagement() {
         fetchData();
     }, []);
 
-
     useEffect(() => {
         const result = details.filter(detail => {
             return detail.fname.toLowerCase().match(search.toLowerCase())
         })
         setFilterDetails(result)
     }, [search, details])
-
 
     async function unBlock(id) {
         const token = localStorage.getItem('Admintoken');
