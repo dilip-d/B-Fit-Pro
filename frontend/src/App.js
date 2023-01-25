@@ -8,12 +8,13 @@ import SignIn from "./Pages/UserPages/Login";
 import Register from "./Pages/UserPages/Signup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setUser } from "./redux/authSlice";
+import { setUser } from "./redux/userSlice";
 import AdminHome from "./Pages/AdminPages/AdminHome";
 import TrainerRegister from "./Pages/TrainerPages/TrainerSignup";
 import TrainerSignIn from "./Pages/TrainerPages/TrainerLogin";
 import AdminSignIn from "./Pages/AdminPages/AdminLogin";
 import TrainerHome from "./Pages/TrainerPages/TrainerHome";
+import AddMoreDetails from "./Pages/TrainerPages/AddDetails";
 
 export default function App() {
 
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/trainerSignup" element={<TrainerRegister />} />
         <Route path="/trainerLogin" element={<TrainerSignIn />} />
         <Route path="/trainerHome" element={<TrainerHome />} />
+        <Route path="/addDetails" element={<AddMoreDetails />} />
       </Routes>
     </div>
   );

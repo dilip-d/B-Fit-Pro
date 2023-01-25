@@ -63,7 +63,7 @@ const Sidebar = ({setPage}) => {
           })}
           {/* signoutIcon */}
           <div className="menuItem">
-            <UilSignOutAlt />
+            {/* <UilSignOutAlt /> */}
           </div>
         </div>
         <Link to='/adminLogin' onClick={() => handleLogout()}><button style={{ margin: '3rem' }}>Logout</button></Link>

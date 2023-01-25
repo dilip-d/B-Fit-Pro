@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import jwt from 'jwt-decode';
 import { trainerLogin } from '../../../axios/services/TrainerService';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,51 +11,26 @@ function TrainerLogin() {
 
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
-  // const [error, setError] = useState('');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { error } = useSelector(state => state.trainerLogin)
   console.log(error);
-  const { success } = useSelector(state => state.trainerLogin)
-  console.log(success);
 
-  useEffect(()=> {
-error && toast.error(error)
-success && toast.success(success)
-  },[error, success])
-
-  // async function dologin(event) {
-  //   event.preventDefault();
-
-  //   const values = { phone: phone, password: password };
-
-  //   const data = await trainerLogin(values);
-  //   console.log(data);
-  //   if (data.token) {
-  //     localStorage.setItem('trainertoken', data.token);
-  //     const trainer = jwt(data.token);
-  //     localStorage.setItem('trainerDetails', trainer.name);
-  //     navigate('/trainer');
-  //   }else if(data.error){
-  //     setError('Invalid Phone Number/Password..');
-  //   }else if(data.pending){
-  //     toast.info('Approval pending')
-  //   }
-  // }
-  const dispatch = useDispatch()
+  useEffect(() => {
+    error && toast.error(error)
+  }, [error])
 
   const onSubmit = (event) => {
     event.preventDefault()
 
     const values = { phone, password }
-
-    dispatch(trainerLogin(values))
+    dispatch(trainerLogin({ values, navigate, toast }))
   }
-
 
   return (
     <div>
-    <ToastContainer />
+      <ToastContainer />
       <div className="row trainerlogin-Main justify-content-center align-items-center mt-5 pt-1">
         {/* <img src={Modelman} className="trainerlogin-img1" alt="modelimage" /> */}
         <section className=" gradient-custom">

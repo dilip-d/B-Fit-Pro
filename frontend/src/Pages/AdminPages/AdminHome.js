@@ -5,7 +5,6 @@ import UserManagement from "./UserManagement";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TrainerManagement from "./TrainerManagement";
-import AdminTrainerDetailsView from "../../components/AdminComponents/AdminTrainerDetailsView/AdminTrainerDetailsView";
 import VerifyTrainer from "./VerifyTrainer";
 
 const AdminHome = () => {
@@ -13,7 +12,7 @@ const AdminHome = () => {
   const [pages, setPage] = useState('dashboard')
   console.log('pages', pages);
   useEffect(() => {
-    const token = localStorage.getItem('Admintoken');
+    const token = localStorage.getItem('admin');
     if (!token) {
       navigate('/adminLogin');
     } else {

@@ -6,23 +6,27 @@ import User from '../models/user.js'
 const secret = 'bfit';
 
 export const signin = async (req, res) => {
-    const { phone, password } = req.body;
-    console.log(req.body);
+    console.log('in user login');
     try {
+        const { phone, password } = req.body;
         const oldUser = await User.findOne({ phone });
-        console.log( oldUser);
-        if (oldUser) {
-            const isPasswordCorrect = await bcrypt.compare(password, oldUser.password)
-            console.log(isPasswordCorrect);
-            if (isPasswordCorrect) {
-                const token = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
-                console.log('user login success');
-                return res.json({ status: 'ok', user: token })
-            }else{
-                res.json({ status: 'error', user: false })
-                console.log('login failed');
-            }
-        }
+
+        if (!oldUser)
+            return res.status(404).json({ message: "User doesn't exist" })
+
+        if (oldUser.isBlocked === true)
+            return res.status(404).json({ message: "User is blocked" })
+
+        const isPasswordCorrect = await bcrypt.compare(password, oldUser.password)
+
+        if (!isPasswordCorrect)
+            return res.status(400).json({ message: "Invalid Credentials" })
+
+        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
+        console.log('user login success');
+
+        res.status(200).json({ token: toke, status: 'Login success', user : oldUser })
+
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })
         console.log(error);

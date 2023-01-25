@@ -70,27 +70,27 @@ export const trainerSignup = async (req, res) => {
 };
 
 export const trainerLogin = async (req, res) => {
+    console.log('in trainer Login');
     try {
         const { phone, password } = req.body;
-        console.log(req.body);
         const oldTrainer = await Trainer.findOne({ phone });
-        console.log(oldTrainer.isVerified);
-        if (oldTrainer.isVerified === true) {
-            console.log('verified');
-            const isPasswordCorrect = await bcrypt.compare(password, oldTrainer.password)
-            console.log(isPasswordCorrect);
-            if (isPasswordCorrect) {
-                const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, secret, { expiresIn: "1h" });
-                console.log('trainer login success');
-                console.log(toke);
-                return res.json({token: toke, status:'Login success'})
-            } else {
-                res.json({ error: 'error', trainer: false })
-                console.log('login failed');
-            }
-        } else {
-            res.json({ pending: "pending" })
+
+        if (!oldTrainer)
+            return res.status(404).json({ message: "Trainer doesn't exist" })
+
+        if (!oldTrainer.isVerified === true) {
+            return res.status(400).json({ message: "Pending verification" })
         }
+
+        const isPasswordCorrect = await bcrypt.compare(password, oldTrainer.password)
+
+        if (!isPasswordCorrect)
+            return res.status(400).json({ message: "Invalid Credentials" })
+
+        const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, secret, { expiresIn: "1h" });
+
+        res.status(200).json({ token: toke, status: 'Login success', trainer: oldTrainer })
+
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })
         console.log(error);

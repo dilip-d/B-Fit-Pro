@@ -67,9 +67,9 @@ function VerifyTrainer() {
                                             <div className='d-flex'>
                                                 <button className='btn btn-sm'
                                                     onClick={() => approve(item._id)}>Approve</button>
-                                                <button className='btn mx-3 btn-sm'
+                                                {/* <button className='btn mx-3 btn-sm'
                                                     onClick={() => reject(item._id)}
-                                                    style={{ background: "darkred" }}>Reject</button>
+                                                    style={{ background: "darkred" }}>Reject</button> */}
                                             </div>
                                         </div>
                                     </div>

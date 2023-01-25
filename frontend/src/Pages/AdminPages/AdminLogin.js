@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import NewAdminLogin from '../../components/AdminComponents/AdminLogin/NewAdminLogin';
-// import AdminLogin from '../../screens/AdminLogin';
+import AdminLogin from '../../components/AdminComponents/AdminLogin/AdminLogin';
 
 function AdminSignIn() {
   const [loading, setLoading] = useState(false);
@@ -23,11 +22,10 @@ function AdminSignIn() {
           size={25}
           aria-label="Loading Spinner"
           data-testid="loader"
-
         />
       ) : (
         <>
-          <NewAdminLogin />
+          <AdminLogin />
         </>
       )}
     </>

@@ -66,8 +66,6 @@ function TrainerSignup() {
         phone: '',
         password: '',
         cpassword: '',
-        filef:'',
-        fileb:'',
         link: '',
       },
       validationSchema: trainerSchema,

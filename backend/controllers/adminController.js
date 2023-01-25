@@ -32,19 +32,24 @@ export const adminSignup = async (req, res) => {
 };
 
 export const adminSignin = async (req, res) => {
-    const { email, password } = req.body;
+    console.log('in admin signin');
     try {
+        const { email, password } = req.body;
         const oldAdmin = await Admin.findOne({ email });
-        if (oldAdmin) {
-            const isPasswordCorrect = await bcrypt.compare(password, oldAdmin.password)
-            if (isPasswordCorrect) {
-                const token = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, secret, { expiresIn: "1h" });
-                return res.json({ status: "ok", user: token });
-            } else {
-                res.json({ status: 'error', user: false })
-            }
-        }
+
+        if (!oldAdmin)
+            return res.status(404).json({ message: "Admin doesn't exist" })
+
+        const isPasswordCorrect = await bcrypt.compare(password, oldAdmin.password)
+
+        if (!isPasswordCorrect)
+            return res.status(400).json({ message: "Invalid Credentials" })
+
+        const toke = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, secret, { expiresIn: "1h" });
+
+        res.status(200).json({ token: toke, status: 'Login success', admin: oldAdmin })
     } catch (error) {
+        res.status(500).json({ message: 'Something went wrong' })
         console.log(error);
     }
 }

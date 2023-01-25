@@ -1,5 +1,5 @@
 .NavbarItems {
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,7 +9,7 @@
     height: 70px;
     border-radius: 13px;
     position: fixed;
-    top: 20px;
+    top: 10px;
     left: 50%;
     transform: translate(-50%);
     z-index: 9999;
@@ -20,11 +20,11 @@
 }
 
 .nav-menu ul{
-    margin-bottom: 0 !important;
+    margin-top: 10px !important;
 }
 
 .navbar-logo {
-    color: #222;
+    color: rgb(34, 2, 71);
     cursor: pointer;
     font-weight:900;
     font-size: xx-large;
@@ -40,6 +40,7 @@
     grid-gap: 10px;
     list-style: none;
     align-items: center;
+    padding-top: 15px;
 }
 
 .nav-links {

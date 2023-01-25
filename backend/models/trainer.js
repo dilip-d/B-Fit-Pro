@@ -14,14 +14,14 @@ const trainerSchema = mongoose.Schema({
         required: [true, 'Please enter last name '],
         minLength: 1
     },
-    dob:{
-        type:String,
-        required:true,
+    dob: {
+        type: String,
+        required: true,
     },
-    gender:{
-        type:String,
+    gender: {
+        type: String,
         trim: true,
-        required:true
+        required: true
     },
     email: {
         type: String,
@@ -66,21 +66,30 @@ const trainerSchema = mongoose.Schema({
         default: 'null',
         required: true
     },
-    certificateImage:{
-        type:String,
+    certificateImage: {
+        type: String,
         dafault: 'null',
         required: true
     },
-    link:{
-        type:String,
-        default:'null',
-        required:true
+    link: {
+        type: String,
+        default: 'null',
+        required: true
     },
     isVerified: {
         type: Boolean,
         default: false
     },
+    description: {
+        type: String
+    },
+    tips: {
+        type: [String]
+    },
+    service: {
+        type: [String]
+    }
 }, { timestamps: true })
 
-const Trainer =  mongoose.model('Trainer', trainerSchema)
+const Trainer = mongoose.model('Trainer', trainerSchema)
 export default Trainer;
