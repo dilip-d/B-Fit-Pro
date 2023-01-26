@@ -2,9 +2,9 @@ import Hero from "../../components/UserComponents/Hero/Hero";
 import Navbar from "../../components/UserComponents/Navbar/Navbar";
 import Footer from "../../components/UserComponents/Footer/Footer";
 import heroImg from '../../assets/15.jpg'
-import TrainerList from "../../screens/TrainerScreen";
+import TrainerList from "../../components/UserComponents/TrainerList/TrainerList";
 
-function Service() {
+function Trainers() {
   return (
     <>
        <Navbar />
@@ -20,4 +20,4 @@ function Service() {
   );
 }
 
-export default Service;
+export default Trainers;

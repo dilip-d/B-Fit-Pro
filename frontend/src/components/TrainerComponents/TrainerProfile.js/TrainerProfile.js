@@ -14,6 +14,7 @@ import {
     MDBListGroupItem,
 } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
+import { getProfile } from '../../../axios/services/TrainerService';
 
 export default function TrainerProfile() {
 
@@ -21,15 +22,22 @@ export default function TrainerProfile() {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
+    async function fetchData() {
+        const token = localStorage.getItem('Admintoken');
         const result = JSON.parse(localStorage.getItem("trainer"))
-        console.log(result);
         if (result) {
-            setDetails(result.trainer)
+            const id = result.trainer._id
+            const data = await getProfile(token, id);
+            console.log('in front');
+            setDetails(data[0]);
             navigate('/trainerHome')
         } else {
             navigate('/trainerLogin')
         }
+    }
+
+    useEffect(() => {
+        fetchData();
     }, []);
 
     return (
@@ -85,66 +93,75 @@ export default function TrainerProfile() {
                         <MDBCardBody style={{ backgroundColor: "white" }}>
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText>Full Name</MDBCardText>
+                                    <MDBCardText className='text-start'>Full Name</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">{details.fname} {details.lname}</MDBCardText>
+                                    <MDBCardText className="text-muted text-start">{details.fname} {details.lname}</MDBCardText>
                                 </MDBCol>
                             </MDBRow>
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText>Gender</MDBCardText>
+                                    <MDBCardText className='text-start'>Gender</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">{details.gender}</MDBCardText>
+                                    <MDBCardText className="text-muted text-start">{details.gender}</MDBCardText>
                                 </MDBCol>
                             </MDBRow>
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText>DOB</MDBCardText>
+                                    <MDBCardText className='text-start'>DOB</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">{details.dob}</MDBCardText>
+                                    <MDBCardText className="text-muted text-start">{details.dob}</MDBCardText>
                                 </MDBCol>
                             </MDBRow>
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText>Email</MDBCardText>
+                                    <MDBCardText className='text-start'>Email</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">{details.email}</MDBCardText>
+                                    <MDBCardText className="text-muted text-start">{details.email}</MDBCardText>
                                 </MDBCol>
                             </MDBRow>
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText>Phone</MDBCardText>
+                                    <MDBCardText className='text-start'>Phone</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">{details.phone}</MDBCardText>
-                                </MDBCol>
-                            </MDBRow>
-                            {/* <hr />
-                            <MDBRow>
-                                <MDBCol sm="3">
-                                    <MDBCardText>Mobile</MDBCardText>
-                                </MDBCol>
-                                <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">{details.phone}</MDBCardText>
+                                    <MDBCardText className="text-muted text-start">{details.phone}</MDBCardText>
                                 </MDBCol>
                             </MDBRow>
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText>Address</MDBCardText>
+                                    <MDBCardText className='text-start'>Description</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                    <MDBCardText className="text-muted">Street, Land Mark</MDBCardText>
+                                    <MDBCardText className="text-muted text-start">{details.description}</MDBCardText>
                                 </MDBCol>
-                            </MDBRow> */}
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                                <MDBCol sm="3">
+                                    <MDBCardText className='text-start'>Services</MDBCardText>
+                                </MDBCol>
+                                <MDBCol sm="9">
+                                {details.service?.map((item, index) => <MDBCardText key={index} className="text-muted text-start">{index+1}.  {item}</MDBCardText>)}
+                                </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                                <MDBCol sm="3">
+                                    <MDBCardText className='text-start'>Tips</MDBCardText>
+                                </MDBCol>
+                                <MDBCol sm="9">
+                                {details.tips?.map((item, index) => <MDBCardText key={index} className="text-muted text-start">{index+1}.  {item}</MDBCardText>)}
+                                </MDBCol>
+                            </MDBRow>
                         </MDBCardBody>
                     </MDBCard>
 

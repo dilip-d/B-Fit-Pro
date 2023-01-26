@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { setLogout } from "../../../redux/userSlice";
 import logo from '../../../assets/logo7.png'
 import { MDBIcon } from "mdb-react-ui-kit";
-import { color } from "@mui/system";
 
 const Navbar = () => {
 
@@ -20,12 +19,14 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(setLogout())
   }
-  const user = localStorage.getItem('user');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const trainer = JSON.parse(localStorage.getItem('trainer'));
+  console.log(user);
 
   return (
     <nav className="NavbarItems">
       <div className="d-flex justify-content-center">
-      <MDBIcon fas icon="dumbbell pe-3" style={{fontSize:'39px' , color:'black'}}/>
+        <MDBIcon fas icon="dumbbell pe-3" style={{ fontSize: '39px', color: 'black' }} />
         {/* <img src={logo} style={{ height: '30px', width: "30px" }} className='align-items-center'></img> */}
         <Link to='/'><h1 className="navbar-logo">B-Fit Pro</h1></Link>
       </div>
@@ -33,6 +34,11 @@ const Navbar = () => {
         <i className={menuOpen ? "fas fa-times" : "fas fa-bars"}></i>
       </div>
       <ul className={menuOpen ? "nav-menu active" : "nav-menu"}>
+      {user ? (
+         <li className="text-dark">Welcome {user.user.fname}</li>
+        ) : (
+          ' '
+        )}
         {MenuItems.map((item, index) => {
           return (
             <li key={index}>

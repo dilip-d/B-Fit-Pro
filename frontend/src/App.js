@@ -2,13 +2,11 @@ import "./styles.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/UserPages/Home";
 import About from "./Pages/UserPages/About";
-import Service from "./Pages/UserPages/Service";
+import Service from "./Pages/UserPages/Trainers";
 import Contact from "./Pages/UserPages/Contact";
 import SignIn from "./Pages/UserPages/Login";
 import Register from "./Pages/UserPages/Signup";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setUser } from "./redux/userSlice";
+import { useEffect, useState } from "react";
 import AdminHome from "./Pages/AdminPages/AdminHome";
 import TrainerRegister from "./Pages/TrainerPages/TrainerSignup";
 import TrainerSignIn from "./Pages/TrainerPages/TrainerLogin";
@@ -18,13 +16,14 @@ import AddMoreDetails from "./Pages/TrainerPages/AddDetails";
 
 export default function App() {
 
-  const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const isAdminAuth = JSON.parse(localStorage.getItem("admin"));
+  // const [trainerAuth, setTrainerAuth] = useState(JSON.parse(localStorage.getItem("trainer")) || null);
+  const userAuth = JSON.parse(localStorage.getItem("user"));
+  const trainerAuth = JSON.parse(localStorage.getItem("trainer"));
+  const adminAuth = JSON.parse(localStorage.getItem("admin"));
 
-  useEffect(() => {
-    dispatch(setUser(user))
-  }, [])
+  // useEffect(() => {
+  //   setTrainerAuth(JSON.parse(localStorage.getItem("trainer")));
+  // }, [])
 
   return (
     <div className="App">
@@ -37,8 +36,8 @@ export default function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />
-        <Route path="/trainerSignup" element={<TrainerRegister />} />
-        <Route path="/trainerLogin" element={<TrainerSignIn />} />
+        <Route path="/trainerSignup" element={trainerAuth ? <TrainerHome /> : <TrainerRegister />} />
+        <Route path="/trainerLogin" element={trainerAuth ? <TrainerHome /> : <TrainerSignIn />} />
         <Route path="/trainerHome" element={<TrainerHome />} />
         <Route path="/addDetails" element={<AddMoreDetails />} />
       </Routes>

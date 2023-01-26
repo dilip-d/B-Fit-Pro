@@ -12,8 +12,10 @@ function TrainerNavbar() {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-    dispatch(setLogout())
-  }
+        dispatch(setLogout())
+    }
+
+    const trainer = JSON.parse(localStorage.getItem('trainer'));
 
     const StyledButton = styled.button`
   background-color: white;
@@ -33,10 +35,10 @@ function TrainerNavbar() {
 
     return (
         <>
-            <MDBNavbar expand='lg' light style={{background:"#336699"}}>
+            <MDBNavbar expand='lg' light style={{ background: "#336699" }}>
                 <MDBContainer fluid>
-                {/* <img src={logo} style={{height:'30px', width:"30px"}}></img> */}
-                    <MDBNavbarBrand href='#' className='text-lg px-3' style={{fontSize:"2rem"}}>B-Fit Pro</MDBNavbarBrand>
+                    {/* <img src={logo} style={{height:'30px', width:"30px"}}></img> */}
+                    <MDBNavbarBrand href='#' className='text-lg px-3' style={{ fontSize: "2rem" }}>B-Fit Pro</MDBNavbarBrand>
                     <MDBNavbarToggler
                         type='button'
                         data-target='#navbarTogglerDemo02'
@@ -49,23 +51,28 @@ function TrainerNavbar() {
                     </MDBNavbarToggler>
                     <MDBCollapse navbar show={showNavNoTogglerSecond}>
                         <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-                            <MDBNavbarItem>
+                            {/* <MDBNavbarItem>
                                 <MDBNavbarLink  href='#'>
                                 <StyledButton>Home</StyledButton>
                                 </MDBNavbarLink>
+                            </MDBNavbarItem> */}
+                            <MDBNavbarItem>
+                                <Link to='/trainerHome'><MDBNavbarLink ><StyledButton>Profile</StyledButton></MDBNavbarLink></Link>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
-                                <MDBNavbarLink href='#'><StyledButton>Profile</StyledButton></MDBNavbarLink>
-                            </MDBNavbarItem>
-                            <MDBNavbarItem>
-                                <MDBNavbarLink href='#'>
-                                <StyledButton>Bookings</StyledButton>
+                                <MDBNavbarLink>
+                                    <StyledButton>Bookings</StyledButton>
                                 </MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>
-                        <MDBInputGroup tag="form" className='d-flex w-auto mb-3'>
+                        <MDBInputGroup tag="form" className='d-flex justify-content-end mb-3'>
+                            {trainer ? (
+                                <MDBNavbarLink className="text-white">Welcome {trainer.trainer.fname}</MDBNavbarLink>
+                            ) : (
+                                ' '
+                            )}
                             {/* <input className='form-control' placeholder="Type query" aria-label="Search" type='Search' /> */}
-                            <Link to='/trainerLogin' onClick={() => handleLogout()}><MDBBtn>Logout</MDBBtn></Link>
+                            <Link to='/trainerLogin' onClick={() => handleLogout()}><MDBBtn className='mt-1'>Logout</MDBBtn></Link>
                         </MDBInputGroup>
                     </MDBCollapse>
                 </MDBContainer>

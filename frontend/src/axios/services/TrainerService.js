@@ -19,3 +19,67 @@ export const trainerLogin = createAsyncThunk('trainer/trainerLogin', async ({ va
     return rejectWithValue(error.response.data)
   }
 })
+
+export const getProfile = async (token, id) => {
+  console.log('in get profile')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.get(`/getProfile/${id}`, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const addService = async (values, id) => {
+  console.log('in add service')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(`/addService/${id}`,values, config);
+  if (data) {
+    console.log(data);
+    return data;
+  }
+};
+
+export const addTips = async (values, id) => {
+  console.log('in add tips')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(`/addTips/${id}`,values, config);
+  if (data) {
+    console.log(data);
+    return data;
+  }
+};
+
+export const addDescription = async (values, id) => {
+  console.log('in add description')
+  console.log(id);
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(`/addDescription/${id}`,values, config);
+  if (data) {
+    console.log(data);
+    return data;
+  }
+};

@@ -96,3 +96,65 @@ export const trainerLogin = async (req, res) => {
         console.log(error);
     }
 }
+
+export const getProfile = async (req, res) => {
+    console.log('trainer profile');
+    try {
+        const trainerId = req.params.id
+        const trainer = await Trainer.find({ _id: trainerId })
+        res.json(trainer)
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const addService = async (req, res) => {
+    console.log('add service');
+    try {
+        const trainerId = req.params.id
+        const newService = req.body.service
+        const data = await Trainer.findOne({ _id: trainerId, service: { $in: [newService] } });
+        if (data) {
+            res.json({ error: 'Already Added' })
+        } else {
+            await Trainer.updateOne({ _id: trainerId }, { $push: { service: newService } });
+            res.json({ status: 'ok', message: 'Added Successfully' })
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const addTips = async (req, res) => {
+    console.log('add tip');
+    try {
+        const trainerId = req.params.id
+        const newTip = req.body.tips
+        const data = await Trainer.findOne({ _id: trainerId, tips: { $in: [newTip] } });
+        if (data) {
+            res.json({ error: 'Already Added' })
+        } else {
+            await Trainer.updateOne({ _id: trainerId }, { $push: { tips: newTip } });
+            res.json({ status: 'ok', message: 'Added Successfully' })
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const addDescription = async (req, res) => {
+    console.log('add description');
+    try {
+        const trainerId = req.params.id
+        const newDescription = req.body.description
+        const data = await Trainer.findOne({ _id: trainerId, description: { $eq: newDescription } });
+        if (data) {
+            res.json({ error: 'Already Added' })
+        } else {
+            await Trainer.updateOne({ _id: trainerId }, { $set: { description: newDescription } });
+            res.json({ status: 'ok', message: 'Added Successfully' })
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}

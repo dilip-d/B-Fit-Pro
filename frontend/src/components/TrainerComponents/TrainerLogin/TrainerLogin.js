@@ -61,6 +61,7 @@ function TrainerLogin() {
                               style={{ background: "white" }}
                               type="text"
                               id="phone"
+                              required
                               value={phone}
                               onChange={(e) => {
                                 setPhone(e.target.value);
@@ -79,6 +80,7 @@ function TrainerLogin() {
                               style={{ background: "white" }}
                               type="Password"
                               value={password}
+                              required
                               onChange={(e) => {
                                 setpassword(e.target.value);
                               }}

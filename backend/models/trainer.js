@@ -81,7 +81,7 @@ const trainerSchema = mongoose.Schema({
         default: false
     },
     description: {
-        type: String
+        type: String,
     },
     tips: {
         type: [String]

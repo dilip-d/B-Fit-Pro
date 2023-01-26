@@ -11,8 +11,14 @@ export const userSchema = yup.object().shape({
     .string()
     .min(2, 'First name must be at least 2 characters')
     .max(20)
+    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed')
     .required('Required'),
-  lname: yup.string().min(1).max(20).required('Required'),
+  lname: yup
+    .string()
+    .min(1)
+    .max(20)
+    .required('Required')
+    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed'),
   dob: yup.date().required('Required'),
   gender: yup.string().required('Required'),
   email: yup.string().email('Please enter a valid email').required('Required'),
@@ -20,6 +26,7 @@ export const userSchema = yup.object().shape({
     .number('Phone number must be a 10 digit number')
     .positive()
     .integer()
+    .test('len', 'Phone number should be a 10 digit number', val => /^\d{10}$/.test(val))
     .required('Required'),
   password: yup
     .string()
@@ -31,8 +38,20 @@ export const userSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'Password must match')
     .required('Required'),
-  weight: yup.number().positive().integer().required('Required'),
-  height: yup.number().positive().integer().required('Required'),
+  weight: yup
+    .number()
+    .positive()
+    .integer()
+    .test('len', 'Weight should be maximum of 3 digits', val => /^\d{3}$/.test(val))
+    .max(300)
+    .required('Required'),
+  height: yup
+    .number()
+    .positive()
+    .integer()
+    .test('len', 'Height should be maximum of 3 digits', val => /^\d{3}$/.test(val))
+    .max(400)
+    .required('Required'),
 });
 export const userUpdateSchema = yup.object().shape({
   email: yup.string().email('Please enter a valid email').required('Required'),
@@ -40,6 +59,7 @@ export const userUpdateSchema = yup.object().shape({
     .number('Phone number must be a 10 digit number')
     .positive()
     .integer()
+    .test('len', 'Phone number should be a 10 digit number', val => /^\d{10}$/.test(val))
     .required('Required'),
 });
 
@@ -48,8 +68,14 @@ export const trainerSchema = yup.object().shape({
     .string()
     .min(2, 'First name must be at least 2 characters')
     .max(20)
+    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed')
     .required('Required'),
-  lname: yup.string().min(1).max(20).required('Required'),
+  lname: yup
+    .string()
+    .min(1)
+    .max(20)
+    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed')
+    .required('Required'),
   dob: yup.date().required('Required'),
   gender: yup.string().required('Required'),
   email: yup.string().email('Please enter a valid email').required('Required'),
@@ -57,6 +83,7 @@ export const trainerSchema = yup.object().shape({
     .number('Phone number must be a 10 digit number')
     .positive()
     .integer()
+    .test('len', 'Phone number should be a 10 digit number', val => /^\d{10}$/.test(val))
     .required('Required'),
   password: yup
     .string()

@@ -1,50 +1,127 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { addDescription, addService, addTips } from '../../../axios/services/TrainerService';
 
 function AddMoreDetails() {
 
-  const Div = styled.div`
-   border: 3px solid #336699;
-    border-radius: 10px;
+  const [service, setService] = useState('');
+  const [tips, setTips] = useState('');
+  const [description, setDescription] = useState('');
+  const formRef = useRef(null);
+
+  const result = JSON.parse(localStorage.getItem('trainer'));
+  const id = result.trainer._id
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const values = { service: service };
+    const data = await addService(values, id);
+    if (data.message) {
+      toast.success(data.message)
+    } else {
+      toast.error(data.error)
+    }
+    formRef.current.reset();
   }
-  `;
+
+  const addTip = async (event) => {
+    event.preventDefault();
+
+    const values = { tips: tips };
+    const data = await addTips(values, id);
+    if (data.message) {
+      toast.success(data.message)
+    } else {
+      toast.error(data.error)
+    }
+    formRef.current.reset();
+  }
+
+  const addDescriptn = async (event) => {
+    event.preventDefault();
+
+    const values = { description: description };
+    const data = await addDescription(values, id);
+    if (data.message) {
+      toast.success(data.message)
+    } else {
+      toast.error(data.error)
+    }
+    formRef.current.reset();
+  }
+
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+  }, [service])
+
+  const handleChange = (e) => {
+    setService(e.target.value)
+    setTips(e.target.value)
+    setDescription(e.target.value)
+  }
+
   return (
     <>
       <div className="row">
+        <ToastContainer />
         <div className="col-sm-6 py-3 px-5">
-          <Div className="card">
+          <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
             <div className="card-body bg-white">
               <h5 className="card-title">Add Services</h5>
-              <form>
-                <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" />
+              <form ref={formRef} onSubmit={onSubmit}>
+                <input
+                  type="text"
+                  id="service"
+                  value={service}
+                  required
+                  onChange={handleChange}
+                  className="form-control" placeholder="Enter service here" />
+                <div>
+                  <button className="btn btn-primary mx-auto my-2">Add</button>
+                </div>
               </form>
-              <button href="#" class="btn btn-primary mx-auto my-2">Add</button>
             </div>
-          </Div>
+          </div>
         </div>
         <div className="col-sm-6 py-3 px-5">
-          <Div className="card">
+          <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
             <div className="card-body bg-white">
               <h5 className="card-title">Add Tips</h5>
-              <form>
-                <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" />
+              <form ref={formRef} onSubmit={addTip}>
+                <input
+                  type="text"
+                  id="tips"
+                  value={tips}
+                  required
+                  onChange={handleChange}
+                  className="form-control" placeholder="Enter tips here" aria-label="default input example" />
+                <button className="btn btn-primary mx-auto my-2">Add</button>
               </form>
-              <button href="#" class="btn btn-primary mx-auto my-2">Add</button>
             </div>
-          </Div>
+          </div>
         </div>
         <div className="col-sm-6 py-3 px-5">
-          <Div className="card">
+          <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
             <div className="card-body bg-white border-dashed border-blue">
               <h5 className="card-title">Add Description</h5>
               <div>
-                <form>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <form ref={formRef} onSubmit={addDescriptn}>
+                  <textarea
+                    type="text"
+                    id="description"
+                    value={description}
+                    required
+                    onChange={handleChange}
+                    className="form-control" rows="3"></textarea>
+                  <button className="btn btn-primary mx-auto my-2">Add</button>
                 </form>
               </div>
-              <button href="#" class="btn btn-primary mx-auto my-2">Add</button>
             </div>
-          </Div>
+          </div>
         </div>
       </div>
     </>
