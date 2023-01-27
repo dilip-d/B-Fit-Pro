@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { addDescription, addService, addTips } from '../../../axios/services/TrainerService';
+import { addDescription, addPrice, addService, addTips } from '../../../axios/services/TrainerService';
 
 function AddMoreDetails() {
 
   const [service, setService] = useState('');
   const [tips, setTips] = useState('');
   const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
   const formRef = useRef(null);
 
   const result = JSON.parse(localStorage.getItem('trainer'));
@@ -52,17 +53,24 @@ function AddMoreDetails() {
     formRef.current.reset();
   }
 
+  const addPricePerHour = async (event) => {
+    event.preventDefault();
+
+    const values = { price: price };
+    const data = await addPrice(values, id);
+    if (data.message) {
+      toast.success(data.message)
+    } else {
+      toast.error(data.error)
+    }
+    formRef.current.reset();
+  }
+
   useEffect(() => {
     if (formRef.current) {
       formRef.current.reset();
     }
   }, [service])
-
-  const handleChange = (e) => {
-    setService(e.target.value)
-    setTips(e.target.value)
-    setDescription(e.target.value)
-  }
 
   return (
     <>
@@ -78,7 +86,9 @@ function AddMoreDetails() {
                   id="service"
                   value={service}
                   required
-                  onChange={handleChange}
+                  onChange={(e) => {
+                      setService(e.target.value);
+                    }}
                   className="form-control" placeholder="Enter service here" />
                 <div>
                   <button className="btn btn-primary mx-auto my-2">Add</button>
@@ -97,7 +107,9 @@ function AddMoreDetails() {
                   id="tips"
                   value={tips}
                   required
-                  onChange={handleChange}
+                  onChange={(e) => {
+                      setTips(e.target.value);
+                    }}
                   className="form-control" placeholder="Enter tips here" aria-label="default input example" />
                 <button className="btn btn-primary mx-auto my-2">Add</button>
               </form>
@@ -115,8 +127,31 @@ function AddMoreDetails() {
                     id="description"
                     value={description}
                     required
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
                     className="form-control" rows="3"></textarea>
+                  <button className="btn btn-primary mx-auto my-2">Add</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-6 py-3 px-5">
+          <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
+            <div className="card-body bg-white border-dashed border-blue">
+              <h5 className="card-title">Add Price/hour</h5>
+              <div>
+                <form ref={formRef} onSubmit={addPricePerHour}>
+                  <input
+                    type="text"
+                    id="price"
+                    value={price}
+                    required
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
+                    className="form-control" placeholder="Enter tips here" aria-label="default input example" />
                   <button className="btn btn-primary mx-auto my-2">Add</button>
                 </form>
               </div>

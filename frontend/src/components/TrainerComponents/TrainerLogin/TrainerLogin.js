@@ -36,12 +36,12 @@ function TrainerLogin() {
         <section className=" gradient-custom">
           <div className="container py-5 h-100 justify-content-center align-items-center">
             <div className="row justify-content-center align-items-center h-100">
-              <div className="col-12 col-lg-12 col-xl-12">
+              <div className="col-12 col-lg-12 col-xl-12" style={{maxWidth:'480px'}}>
                 <div
                   className="card shadow-2-strong card-registration"
                   style={{ borderRadius: '15px' }}
                 >
-                  <div className="card-body p-4 p-md-5">
+                  <div className="card-body p-4 p-md-5 mx-3" >
                     <h4 className="mb-3 text-start">
                       Trainer Login
                     </h4>
@@ -53,52 +53,54 @@ function TrainerLogin() {
                       ' '
                     )}
                     <form onSubmit={onSubmit}>
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="form-outline">
-                            <label className="form-label">Phone Number</label>
-                            <input
-                              style={{ background: "white" }}
-                              type="text"
-                              id="phone"
-                              required
-                              value={phone}
-                              onChange={(e) => {
-                                setPhone(e.target.value);
-                              }}
-                              className="form-control form-control-sm"
-                            />
+                      <div className='form-group'>
+                        <div className="row" >
+                          <div className="col-md-12" >
+                            <div className="form-outline" >
+                              <label className="form-label">Phone Number</label>
+                              <input
+                                style={{ background: "white" }}
+                                type="text"
+                                id="phone"
+                                required
+                                value={phone}
+                                onChange={(e) => {
+                                  setPhone(e.target.value);
+                                }}
+                                className="form-control form-control-sm"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="form-outline">
-                            <label className="form-label">Password</label>
-                            <input
-                              style={{ background: "white" }}
-                              type="Password"
-                              value={password}
-                              required
-                              onChange={(e) => {
-                                setpassword(e.target.value);
-                              }}
-                              className="form-control form-control-sm"
-                            />
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="form-outline">
+                              <label className="form-label">Password</label>
+                              <input
+                                style={{ background: "white" }}
+                                type="Password"
+                                value={password}
+                                required
+                                onChange={(e) => {
+                                  setpassword(e.target.value);
+                                }}
+                                className="form-control form-control-sm"
+                              />
 
-                            <label className="d-flex justify-content-end">
-                              Forgot Password ?
-                            </label>
+                              <label className="d-flex justify-content-end">
+                                Forgot Password ?
+                              </label>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className=" pt-2">
-                        <input
-                          className="btn btn-md"
-                          type="submit"
-                          value="Submit"
-                        />
+                        <div className=" pt-2">
+                          <input
+                            className="btn btn-md"
+                            type="submit"
+                            value="Submit"
+                          />
+                        </div>
                       </div>
                     </form>
                     <Link to="/login/trainerOTP">

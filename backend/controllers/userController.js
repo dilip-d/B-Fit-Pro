@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 import User from '../models/user.js'
+import Trainer from '../models/trainer.js'
 
 const secret = 'bfit';
 
@@ -69,3 +70,23 @@ export const signup = async (req, res) => {
     }
 };
 
+export const trainerList = async (req, res) => {
+    console.log('trainer list');
+    try {
+        const trainer = await Trainer.find({})
+        res.json(trainer)
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const trainerDetail = async (req, res) => {
+    console.log('trainer Detail');
+    try {
+        const trainerId = req.params.id
+        const trainer = await Trainer.find({_id: trainerId})
+        res.json(trainer)
+    } catch (err) {
+        console.log(err);
+    }
+}

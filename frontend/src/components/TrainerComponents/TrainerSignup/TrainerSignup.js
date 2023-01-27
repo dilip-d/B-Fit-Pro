@@ -82,7 +82,7 @@ function TrainerSignup() {
       <section className="gradient-custom">
         <div className="container h-100 justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center h-100">
-            <div className="col-12 col-lg-12 col-xl-12">
+            <div className="col-12 col-lg-12 col-xl-12" style={{maxWidth:'810px'}}>
               <div
                 className="card shadow-2-strong card-registration"
                 style={{ borderRadius: '15px' }}>
@@ -92,7 +92,7 @@ function TrainerSignup() {
                   </h4>
                   {error ? <p className="red-error">{error}</p> : ''}
                   <form onSubmit={handleSubmit}>
-                    <div className='form-group' style={{ maxWidth: '600px' }}>
+                    <div className='form-group'>
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">

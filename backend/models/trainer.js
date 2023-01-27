@@ -88,6 +88,10 @@ const trainerSchema = mongoose.Schema({
     },
     service: {
         type: [String]
+    },
+    price: {
+        type: Number,
+        trim: true
     }
 }, { timestamps: true })
 

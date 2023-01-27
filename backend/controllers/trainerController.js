@@ -158,3 +158,20 @@ export const addDescription = async (req, res) => {
         console.log(err);
     }
 }
+
+export const addPrice = async (req, res) => {
+    console.log('add description');
+    try {
+        const trainerId = req.params.id
+        const newPrice = req.body.price
+        const data = await Trainer.findOne({ _id: trainerId, price: { $eq: newPrice } });
+        if (data) {
+            res.json({ error: 'Already Added' })
+        } else {
+            await Trainer.updateOne({ _id: trainerId }, { $set: { price: newPrice } });
+            res.json({ status: 'ok', message: 'Added Successfully' })
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}

@@ -2,7 +2,7 @@ import "./styles.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/UserPages/Home";
 import About from "./Pages/UserPages/About";
-import Service from "./Pages/UserPages/Trainers";
+import Trainers from "./Pages/UserPages/Trainers";
 import Contact from "./Pages/UserPages/Contact";
 import SignIn from "./Pages/UserPages/Login";
 import Register from "./Pages/UserPages/Signup";
@@ -13,6 +13,7 @@ import TrainerSignIn from "./Pages/TrainerPages/TrainerLogin";
 import AdminSignIn from "./Pages/AdminPages/AdminLogin";
 import TrainerHome from "./Pages/TrainerPages/TrainerHome";
 import AddMoreDetails from "./Pages/TrainerPages/AddDetails";
+import TrainerDetails from "./Pages/UserPages/TrainerDetails";
 
 export default function App() {
 
@@ -30,7 +31,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/trainers" element={<Service />} />
+        <Route path="/trainers" element={<Trainers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<SignIn />} />
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/trainerLogin" element={trainerAuth ? <TrainerHome /> : <TrainerSignIn />} />
         <Route path="/trainerHome" element={<TrainerHome />} />
         <Route path="/addDetails" element={<AddMoreDetails />} />
+        <Route path="/trainerDetailedView" element={<TrainerDetails />} />
       </Routes>
     </div>
   );

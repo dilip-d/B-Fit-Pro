@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {userLogin} from '../axios/services/HomeService';
+import { userLogin } from '../axios/services/HomeService';
 
 const userSlice = createSlice({
     name: 'user',
@@ -7,7 +7,8 @@ const userSlice = createSlice({
         user: null,
         error: null,
         pending: false,
-        success: null
+        success: null,
+        selectedTrainerdetails: '',
     },
     reducers: {
         setUser: (state, action) => {
@@ -16,7 +17,14 @@ const userSlice = createSlice({
         setLogout: (state, action) => {
             localStorage.removeItem("user");
             state.user = null;
-        }
+        },
+        getSelectedTrainerDetails: (state, action) => {
+            let { selectedTrainerdetails } = state;
+
+            selectedTrainerdetails = action.payload;
+
+            return { ...state, selectedTrainerdetails };
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -35,23 +43,23 @@ const userSlice = createSlice({
                 state.pending = false
                 state.error = action.payload.message
             })
-            // .addCase(userRegister.pending, (state) => {
-            //     state.pending = true
-            // })
-            // .addCase(userRegister.fulfilled, (state, action) => {
-            //     console.log('hii')
-            //     state.pending = false
-            //     state.user = action.payload
-            //     state.success = action.payload
-            // })
-            // .addCase(userRegister.rejected, (state, action) => {
-            //     console.log('in slice error');
-            //     state.pending = false
-            //     state.error = action.payload.message
-            // })
+        // .addCase(userRegister.pending, (state) => {
+        //     state.pending = true
+        // })
+        // .addCase(userRegister.fulfilled, (state, action) => {
+        //     console.log('hii')
+        //     state.pending = false
+        //     state.user = action.payload
+        //     state.success = action.payload
+        // })
+        // .addCase(userRegister.rejected, (state, action) => {
+        //     console.log('in slice error');
+        //     state.pending = false
+        //     state.error = action.payload.message
+        // })
     }
 })
 
-export const { setUser, setLogout } = userSlice.actions;
+export const { setUser, setLogout, getSelectedTrainerDetails } = userSlice.actions;
 
 export default userSlice.reducer;

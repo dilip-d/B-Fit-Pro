@@ -114,3 +114,31 @@ export const trainerRegister = async (value) => {
 //     return data;
 //   }
 // };
+
+export const getTrainerList = async () => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get('/trainerList', config);
+  if (data) {
+    return data;
+  }
+};
+
+export const getTrainerDetail = async (id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/trainerDetail/${id}`, config);
+  if (data) {
+    return data;
+  }
+};

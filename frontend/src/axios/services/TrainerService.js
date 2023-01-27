@@ -83,3 +83,19 @@ export const addDescription = async (values, id) => {
     return data;
   }
 };
+
+export const addPrice = async (values, id) => {
+  console.log('in add price')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(`/addPrice/${id}`,values, config);
+  if (data) {
+    console.log(data);
+    return data;
+  }
+};

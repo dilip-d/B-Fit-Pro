@@ -37,12 +37,12 @@ function Clogin() {
       <section className="gradient-custom">
         <div className="container py-5 h-100 justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center h-100">
-            <div className="col-12 col-lg-12 col-xl-12">
+            <div className="col-12 col-lg-12 col-xl-12" style={{maxWidth:'480px'}}>
               <div
                 className="card shadow-2-strong card-registration"
                 style={{ borderRadius: '15px' }}
               >
-                <div className="card-body p-4 p-md-5 mx-5">
+                <div className="card-body p-4 p-md-5 mx-4">
                   <h3 className="mb-3 text-start">Client Login</h3>
                   {error ? (
                     <p style={{ color: 'red' }} className="red-error">
