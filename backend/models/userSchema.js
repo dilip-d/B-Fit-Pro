@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
-// import  isEmail  from 'validator'
 
-const userSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
     fname: {
         type: String,
         trim: true,
@@ -83,5 +82,5 @@ const userSchema = mongoose.Schema({
     }
 }, { timestamps: true })
 
-const User =  mongoose.model('User', userSchema)
-export default User;
+const userSchema =  mongoose.model('User', UserSchema)
+export default userSchema;

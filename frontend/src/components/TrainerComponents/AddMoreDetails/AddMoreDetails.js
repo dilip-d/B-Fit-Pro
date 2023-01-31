@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addDescription, addPrice, addService, addTips } from '../../../axios/services/TrainerService';
@@ -13,6 +14,12 @@ function AddMoreDetails() {
 
   const result = JSON.parse(localStorage.getItem('trainer'));
   const id = result.trainer._id
+
+  const navigate = useNavigate()
+
+  function handleBackButtonClick() {
+    navigate(-1);
+  }
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -72,8 +79,21 @@ function AddMoreDetails() {
     }
   }, [service])
 
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  useFormik({
+    initialValues: {
+      description:'',
+      tips:'',
+      service:'',
+      price:''
+    },
+    validationSchema: trainerSchema,
+    onSubmit,addDescriptn,addTip,addPricePerHour
+  });
+
   return (
     <>
+       <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
       <div className="row">
         <ToastContainer />
         <div className="col-sm-6 py-3 px-5">
@@ -140,7 +160,7 @@ function AddMoreDetails() {
         <div className="col-sm-6 py-3 px-5">
           <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
             <div className="card-body bg-white border-dashed border-blue">
-              <h5 className="card-title">Add Price/hour</h5>
+              <h5 className="card-title">Add Price/Month</h5>
               <div>
                 <form ref={formRef} onSubmit={addPricePerHour}>
                   <input
@@ -151,7 +171,7 @@ function AddMoreDetails() {
                     onChange={(e) => {
                       setPrice(e.target.value);
                     }}
-                    className="form-control" placeholder="Enter tips here" aria-label="default input example" />
+                    className="form-control" placeholder="Enter amount here" aria-label="default input example" />
                   <button className="btn btn-primary mx-auto my-2">Add</button>
                 </form>
               </div>

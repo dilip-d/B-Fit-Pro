@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../../../redux/userSlice";
 import logo from '../../../assets/logo7.png'
-import { MDBIcon } from "mdb-react-ui-kit";
+import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBIcon } from "mdb-react-ui-kit";
 
 const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+
   function toggleMenu() {
     setMenuOpen(!menuOpen);
   }
@@ -34,11 +36,11 @@ const Navbar = () => {
         <i className={menuOpen ? "fas fa-times" : "fas fa-bars"}></i>
       </div>
       <ul className={menuOpen ? "nav-menu active" : "nav-menu"}>
-      {user ? (
-         <li className="text-dark">Welcome {user.user.fname}</li>
+        {/* {user ? (
+          <li className="text-dark">Welcome {user.user.fname}</li>
         ) : (
           ' '
-        )}
+        )} */}
         {MenuItems.map((item, index) => {
           return (
             <li key={index}>
@@ -50,7 +52,13 @@ const Navbar = () => {
           )
         })}
         {user ? (
-          <Link to='/login' onClick={() => handleLogout()}><button>Logout</button></Link>
+          <MDBDropdown>
+            <MDBDropdownToggle> {user.user.fname}</MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem link><Link to='/login' className="text-black" onClick={() => handleLogout()}>Logout</Link></MDBDropdownItem>
+              <MDBDropdownItem link><Link to='#' className="text-black" onClick={() => handleLogout()}>Profile</Link></MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
         ) : (
           <li className="nav-item dropdown">
             <Link to='/signup'><button className="btn">Sign Up</button></Link>

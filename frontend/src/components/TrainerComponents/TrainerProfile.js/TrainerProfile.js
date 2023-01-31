@@ -52,10 +52,10 @@ export default function TrainerProfile() {
                                 className="rounded-circle"
                                 style={{ width: '150px' }}
                                 fluid />
-                            <p className="text-muted mb-1">{details.fname} {details.lname}</p>
+                            <p className="text-muted mb-1 fw-bold">{details.fname} {details.lname}</p>
                             <p className="text-muted mb-4"></p>
                             <div className="d-flex justify-content-center mb-2">
-                                <MDBBtn>Edit</MDBBtn>
+                                <Link to={`/editDetails/${details._id}`}><MDBBtn>Edit</MDBBtn></Link>
                                 <Link to='/addDetails'><MDBBtn outline className="ms-1">Add</MDBBtn></Link>
                             </div>
                         </MDBCardBody>
@@ -93,7 +93,7 @@ export default function TrainerProfile() {
                         <MDBCardBody style={{ backgroundColor: "white" }}>
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Full Name</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Full Name</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
                                     <MDBCardText className="text-muted text-start">{details.fname} {details.lname}</MDBCardText>
@@ -102,7 +102,7 @@ export default function TrainerProfile() {
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Gender</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Gender</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
                                     <MDBCardText className="text-muted text-start">{details.gender}</MDBCardText>
@@ -111,7 +111,7 @@ export default function TrainerProfile() {
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>DOB</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>DOB</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
                                     <MDBCardText className="text-muted text-start">{details.dob}</MDBCardText>
@@ -120,7 +120,7 @@ export default function TrainerProfile() {
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Email</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Email</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
                                     <MDBCardText className="text-muted text-start">{details.email}</MDBCardText>
@@ -129,7 +129,7 @@ export default function TrainerProfile() {
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Phone</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Phone</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
                                     <MDBCardText className="text-muted text-start">{details.phone}</MDBCardText>
@@ -138,7 +138,16 @@ export default function TrainerProfile() {
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Description</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Price</MDBCardText>
+                                </MDBCol>
+                                <MDBCol sm="9">
+                                    <MDBCardText className="text-muted text-start">₹ {details.price} /Month</MDBCardText>
+                                </MDBCol>
+                            </MDBRow>
+                            <hr />
+                            <MDBRow>
+                                <MDBCol sm="3">
+                                    <MDBCardText className='text-start fw-bold'>Description</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
                                     <MDBCardText className="text-muted text-start">{details.description}</MDBCardText>
@@ -147,19 +156,19 @@ export default function TrainerProfile() {
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Services</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Services</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                {details.service?.map((item, index) => <MDBCardText key={index} className="text-muted text-start">{index+1}.  {item}</MDBCardText>)}
+                                    {details.service?.map((item, index) => <MDBCardText key={index} className="text-muted text-start">{index + 1}.  {item}</MDBCardText>)}
                                 </MDBCol>
                             </MDBRow>
                             <hr />
                             <MDBRow>
                                 <MDBCol sm="3">
-                                    <MDBCardText className='text-start'>Tips</MDBCardText>
+                                    <MDBCardText className='text-start fw-bold'>Tips</MDBCardText>
                                 </MDBCol>
                                 <MDBCol sm="9">
-                                {details.tips?.map((item, index) => <MDBCardText key={index} className="text-muted text-start">{index+1}.  {item}</MDBCardText>)}
+                                    {details.tips?.map((item, index) => <MDBCardText key={index} className="text-muted text-start">{index + 1}.  {item}</MDBCardText>)}
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>

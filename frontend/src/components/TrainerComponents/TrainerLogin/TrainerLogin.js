@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function TrainerLogin() {
 
+  const [passShow, setPassShow] = useState(false)
+
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ function TrainerLogin() {
         <section className=" gradient-custom">
           <div className="container py-5 h-100 justify-content-center align-items-center">
             <div className="row justify-content-center align-items-center h-100">
-              <div className="col-12 col-lg-12 col-xl-12" style={{maxWidth:'480px'}}>
+              <div className="col-12 col-lg-12 col-xl-12" style={{ maxWidth: '480px' }}>
                 <div
                   className="card shadow-2-strong card-registration"
                   style={{ borderRadius: '15px' }}
@@ -77,17 +79,19 @@ function TrainerLogin() {
                           <div className="col-md-12">
                             <div className="form-outline">
                               <label className="form-label">Password</label>
-                              <input
-                                style={{ background: "white" }}
-                                type="Password"
-                                value={password}
-                                required
-                                onChange={(e) => {
-                                  setpassword(e.target.value);
-                                }}
-                                className="form-control form-control-sm"
-                              />
-
+                              <div className='two'>
+                                <input
+                                  style={{ background: "white" }}
+                                  type={!passShow ? "Password" :"text"}
+                                  value={password}
+                                  required
+                                  onChange={(e) => {
+                                    setpassword(e.target.value);
+                                  }}
+                                  className="form-control form-control-sm"
+                                />
+                                <div className='showpass' onClick={() => setPassShow(!passShow)}>Show</div>
+                              </div>
                               <label className="d-flex justify-content-end">
                                 Forgot Password ?
                               </label>
@@ -103,11 +107,11 @@ function TrainerLogin() {
                         </div>
                       </div>
                     </form>
-                    <Link to="/login/trainerOTP">
+                    {/* <Link to="/login/trainerOTP">
                       <h6 className="btnhover d-flex justify-content-center pt-4  OTP-textcolour">
                         Login With OTP ?
                       </h6>
-                    </Link>
+                    </Link> */}
                     <h6 className="d-flex justify-content-center pt-2 CreatSingup-textcolour">
                       Create an account ?
                       <Link to="/trainerSignup" className='btnhover'> Sign Up</Link></h6>

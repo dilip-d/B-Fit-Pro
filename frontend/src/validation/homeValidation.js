@@ -42,7 +42,7 @@ export const userSchema = yup.object().shape({
     .number()
     .positive()
     .integer()
-    .test('len', 'Weight should be maximum of 3 digits', val => /^\d{3}$/.test(val))
+    .test('len', 'Weight should be maximum of 3 digits', val => /^\d{2}$/.test(val))
     .max(300)
     .required('Required'),
   height: yup
@@ -99,6 +99,36 @@ export const trainerSchema = yup.object().shape({
     .string()
     .matches(link, 'Please paste a valid youtube link here')
     .required('Required'),
+  description: yup
+    .string()
+    .required('Required'),
+  tips: yup
+    .string()
+    .required('Required'),
+  service: yup
+    .string()
+    .required('Required'),
+  price: yup
+  .number('Only numbers are allowed')
+  .positive()
+  .integer()
+  .required('Required'),
+});
+
+export const editTrainerSchema = yup.object().shape({
+  fname: yup
+    .string()
+    .min(2, 'First name must be at least 2 characters')
+    .max(20)
+    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed'),
+  lname: yup
+    .string()
+    .min(1)
+    .max(20)
+    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed'),
+  link: yup
+    .string()
+    .matches(link, 'Please paste a valid youtube link here')
 });
 
 export const uploadVideoSchema = yup.object().shape({

@@ -5,6 +5,8 @@ import { userSchema } from '../../../validation/homeValidation';
 import { clientRegister } from '../../../axios/services/HomeService';
 import '../../UserComponents/CsignUp/CsignUp.css'
 import Model from '../../../assets/13.jpg';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //css
 import './CsignUp.css';
 
@@ -12,12 +14,17 @@ function CsignUp() {
   const navigate = useNavigate();
 
   const [error, setError] = useState('');
+  const [msg, setMsg] = useState("")
+
   const onSubmit = async (values, actions) => {
     const status = await clientRegister(values);
+    console.log(status);
     if (status.status === 'error') {
       setError('Client already existed');
-    } else if (status.status === 'success') {
-      navigate('/login');
+    } else if (status.status === 'pending') {
+      const id = status.data.userId
+      toast.success(status.send)
+      navigate(`/emailVerification/${id}`);
     }
   };
 
@@ -41,19 +48,21 @@ function CsignUp() {
   console.log(errors);
 
   return (
-    <div className="row Csignup-Main pt-5 mt-2 justify-content-center align-items-center" >
-      {/* <img src="" alt="modelimage" /> */}
-      <section className="gradient-custom">
-        <div className="container py-4 h-100 justify-content-center align-items-center">
-          <div className="row justify-content-center align-items-center h-100">
-            <div className="col-12 col-lg-12 col-xl-12" style={{maxWidth:'810px'}}>
-              <div className="card shadow-2-strong card-registration" style={{ borderRadius: '15px' }}>
-                <div className="card-body p-4 p-md-5 mx-5">
-                  <h4 className="mb-3 text-start">
-                    Client Register
-                  </h4>
-                  <form onSubmit={handleSubmit}>
-                    
+    <>
+      <ToastContainer />
+      <div className="row Csignup-Main pt-5 mt-2 justify-content-center align-items-center" >
+        {/* <img src="" alt="modelimage" /> */}
+        <section className="gradient-custom">
+          <div className="container py-4 h-100 justify-content-center align-items-center">
+            <div className="row justify-content-center align-items-center h-100">
+              <div className="col-12 col-lg-12 col-xl-12" style={{ maxWidth: '810px' }}>
+                <div className="card shadow-2-strong card-registration" style={{ borderRadius: '15px' }}>
+                  <div className="card-body p-4 p-md-5 mx-5">
+                    <h4 className="mb-3 text-start">
+                      Client Register
+                    </h4>
+                    <form onSubmit={handleSubmit}>
+
                       {error ? <p className="red-error">{error}</p> : ''}
                       <div className="row" >
                         <div className="col-md-6">
@@ -326,7 +335,7 @@ function CsignUp() {
 
                                             </div>
                                         </div> */}
-
+                      {msg && <div className={styles.success_msg}>{msg}</div>}
                       <div className="mt-4 pt-2">
                         <input
                           className="btn btn-md"
@@ -334,18 +343,19 @@ function CsignUp() {
                           value="Submit"
                         />
                       </div>
-                    
-                  </form>
-                  <h6 className='pt-3'>Already have an account ?<Link to='/login' className='btnhover'> Sign In</Link></h6>
-                  <h6>Or</h6>
-                  <h6 className=''>Join as a Trainer ?<Link to='/trainerSignup' className='btnhover'> Register</Link></h6>
+
+                    </form>
+                    <h6 className='pt-3'>Already have an account ?<Link to='/login' className='btnhover'> Sign In</Link></h6>
+                    <h6>Or</h6>
+                    <h6 className=''>Join as a Trainer ?<Link to='/trainerSignup' className='btnhover'> Register</Link></h6>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }
 

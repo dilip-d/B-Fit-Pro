@@ -44,18 +44,18 @@ img {
 
 .hero-text .show {
     text-decoration: none;
-    background: #fff;
+    background: #222;
     padding: 1rem 2rem;
     border-radius: 6px;
     font-size: 1.1rem;
     font-weight: bold;
     letter-spacing: 2px;
-    color: #222;
+    color: #fff;
 }
 
 .hero-text .show:hover{
-    background: #222;
-    color: #fff;
+    background: #fff;
+    color: #222;
 }
 
 .hero-text .hide {

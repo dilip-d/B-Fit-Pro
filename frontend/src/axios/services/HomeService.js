@@ -21,6 +21,40 @@ export const clientRegister = async (value) => {
   }
 };
 
+export const verifyOTP = async (values, id) => {
+  console.log('in verify otp')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.post(`/verifyOTP/${id}`,values, config);
+  if (data) {
+    console.log(data);
+    return data;
+  }
+};
+
+
+export const resendOTP = async (values) => {
+  console.log('in resend otp')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.post('/resendOTP',values, config);
+  if (data) {
+    console.log(data);
+    return data;
+  }
+};
+
+
 // Client Login action
 
 export const login = (formData) => axiosClientInstance.post('/clientLogin', formData)
@@ -41,24 +75,6 @@ export const userLogin = createAsyncThunk('user/userLogin', async ({ values, nav
     return rejectWithValue(error.response.data)
   }
 })
-
-// export const clientLogin = async (value) => {
-//   console.log(value);
-//   const config = {
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//   };
-//   const { data } = await axiosClientInstance.post(
-//     '/clientLogin',
-//     value,
-//     config
-//   );
-//   if (data) {
-//     return data;
-//   }
-// };
-
 
 // admin Login action
 
@@ -96,24 +112,6 @@ export const trainerRegister = async (value) => {
     return data;
   }
 };
-
-// Trainer Login action
-// export const trainerLogin = async (value) => {
-//   console.log(value);
-//   const config = {
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//   };
-//   const { data } = await axiosTrainerInstance.post(
-//     '/trainerLogin',
-//     value,
-//     config
-//   );
-//   if (data) {
-//     return data;
-//   }
-// };
 
 export const getTrainerList = async () => {
   const config = {

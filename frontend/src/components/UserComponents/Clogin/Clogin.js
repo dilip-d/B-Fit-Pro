@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Clogin() {
 
+  const [passShow, setPassShow] = useState(false)
+
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
  
@@ -74,9 +76,11 @@ function Clogin() {
                       <div className="col-md-12">
                         <div className="form-outline">
                           <label className="form-label">Password</label>
+                          <div className='two'>
+
                           <input
                             style={{ background: "white" }}
-                            type="Password"
+                            type={!passShow ? "Password" :"text"}
                             value={password}
                             required
                             onChange={(e) => {
@@ -84,6 +88,8 @@ function Clogin() {
                             }}
                             className="form-control form-control-sm"
                           />
+                            <div className='showpass' onClick={()=>setPassShow(!passShow)}>Show</div>
+                          </div>
 
                           <label className="d-flex pt-2 justify-content-end">
                             Forgot Password ?
@@ -100,9 +106,9 @@ function Clogin() {
                       />
                     </div>
                   </form>
-                  <Link to="/login/ClientOTP">
+                  <Link to="/resendOtp">
                     <h6 className="btnhover d-flex pt-3 justify-content-center OTP-textcolour">
-                      Login With OTP?
+                      Click here to verify your account !
                     </h6>
                   </Link>
                   <h6 className='pt-2'>Create an account ?<Link to='/signup' className='btnhover'> Sign Up</Link></h6>

@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-// import pkg from 'validator';
-// const { isEmail } = pkg;
 
 const AdminSchema = mongoose.Schema({
 
@@ -9,7 +7,6 @@ const AdminSchema = mongoose.Schema({
         trim: true,
         required: [true, 'Please enter an email'],
         unique: true,
-        // validate: [true, 'Please enter a valid email']
     },
     password: {
         type: String,
@@ -19,5 +16,5 @@ const AdminSchema = mongoose.Schema({
     },
 }, { timestamps: true })
 
-const Admin = mongoose.model('Admin', AdminSchema);
-export default Admin;
+const adminSchema = mongoose.model('Admin', AdminSchema);
+export default adminSchema;

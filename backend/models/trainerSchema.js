@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
-// import  isEmail  from 'validator'
 
-const trainerSchema = mongoose.Schema({
+const TrainerSchema = mongoose.Schema({
     fname: {
         type: String,
         trim: true,
@@ -28,7 +27,6 @@ const trainerSchema = mongoose.Schema({
         trim: true,
         required: [true, 'Please enter an email'],
         unique: true,
-        // validate: [ true,'Please enter a valid email']
     },
     phone: {
         type: Number,
@@ -95,5 +93,5 @@ const trainerSchema = mongoose.Schema({
     }
 }, { timestamps: true })
 
-const Trainer = mongoose.model('Trainer', trainerSchema)
-export default Trainer;
+const trainerSchema = mongoose.model('Trainer', TrainerSchema)
+export default trainerSchema;

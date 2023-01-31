@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import { v2 as cloudinary } from 'cloudinary'
-import Trainer from '../models/trainer.js'
+import Trainer from '../models/trainerSchema.js'
 
 dotenv.config();
 
@@ -174,4 +174,53 @@ export const addPrice = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+}
+
+export const editProfile = async (req, res) => {
+
+    console.log('edit profile');
+    // console.log(req.body);
+    try {
+        const trainerId = req.body.id
+        const file = req.body.file1
+
+        const data = await Trainer.findOne({ _id: trainerId });
+        console.log(data);
+
+        if(file){
+            const imageUrl = data.profileImage
+            console.log(imageUrl);
+            const publicId = imageUrl.match(/\/([^\/]*)$/)[1].split('.')[0];
+            console.log(publicId);
+             cloudinary.uploader.destroy(publicId, function (error, result) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(result);
+                }
+            });
+        }
+
+        const file1 = await cloudinary.uploader.upload(file, {
+            folder: "trainers"
+        })
+
+        await Trainer.updateOne({ _id: trainerId }, { $set: { profileImage: file1.url } });
+        res.json({ status: 'ok', message: 'Added Successfully' })
+
+    } catch (err) {
+        console.log(err);
+    }
+
+    //code to first delete the image
+    // var imageUrl = 'https://res.cloudinary.com/your_cloud_name/image/upload/v1567891234/sample.jpg';
+    // var publicId = imageUrl.match(/\/([^\/]*)$/)[1].split('.')[0];
+    // cloudinary.v2.uploader.destroy(publicId, function (error, result) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         console.log(result);
+    //     }
+    // });
+
 }

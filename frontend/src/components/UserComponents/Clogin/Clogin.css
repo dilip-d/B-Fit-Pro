@@ -28,3 +28,24 @@
 .btnhover:hover{
     color: blue;
 }
+
+.two{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.showpass{
+    position: absolute;
+    right: 0;
+    top:1px;
+    bottom: 1px;
+    padding: 3px 10px;
+    margin-right: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2a4365;
+    background-color: #cfd2d4;
+    border-radius: 5px;
+    cursor: pointer;
+}

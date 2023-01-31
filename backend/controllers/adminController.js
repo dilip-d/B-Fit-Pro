@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import Admin from '../models/admin.js'
-import User from '../models/user.js'
-import Trainer from '../models/trainer.js'
+import Admin from '../models/adminSchema.js'
+import User from '../models/userSchema.js'
+import Trainer from '../models/trainerSchema.js'
 
 const secret = 'admin';
 
