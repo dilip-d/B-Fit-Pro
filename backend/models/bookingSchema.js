@@ -24,10 +24,10 @@ const bookingSchema = mongoose.Schema({
     status: {
         type: String,
         required: true,
-        default: 'pending'
+        default: 'active'
     },
-    time:{
-        type : String,
+    timing: {
+        type: String,
         required: true
     }
 }, { timestamps: true })

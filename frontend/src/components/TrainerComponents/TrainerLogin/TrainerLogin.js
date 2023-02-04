@@ -11,7 +11,7 @@ function TrainerLogin() {
 
   const [passShow, setPassShow] = useState(false)
 
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setpassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function TrainerLogin() {
   const onSubmit = (event) => {
     event.preventDefault()
 
-    const values = { phone, password }
+    const values = { email, password }
     dispatch(trainerLogin({ values, navigate, toast }))
   }
 
@@ -59,15 +59,15 @@ function TrainerLogin() {
                         <div className="row" >
                           <div className="col-md-12" >
                             <div className="form-outline" >
-                              <label className="form-label">Phone Number</label>
+                              <label className="form-label">Email</label>
                               <input
                                 style={{ background: "white" }}
-                                type="text"
-                                id="phone"
+                                type="email"
+                                id="email"
                                 required
-                                value={phone}
+                                value={email}
                                 onChange={(e) => {
-                                  setPhone(e.target.value);
+                                  setEmail(e.target.value);
                                 }}
                                 className="form-control form-control-sm"
                               />
@@ -113,7 +113,7 @@ function TrainerLogin() {
                       </h6>
                     </Link> */}
                     <h6 className="d-flex justify-content-center pt-2 CreatSingup-textcolour">
-                      Create an account ?
+                      Create an account ? 
                       <Link to="/trainerSignup" className='btnhover'> Sign Up</Link></h6>
                   </div>
                 </div>

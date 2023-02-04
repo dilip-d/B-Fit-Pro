@@ -13,8 +13,9 @@ function UserManagement() {
   const [search, setSearch] = useState('')
   const [filterDetails, setFilterDetails] = useState([])
 
+  const token =  JSON.parse(localStorage.getItem('admin')).token;
+
   async function fetchData() {
-    const token = localStorage.getItem('Admintoken');
     const data = await getUserInfo(token);
     console.log(data);
     setDetails(data.clientDetails);
@@ -33,7 +34,6 @@ function UserManagement() {
   }, [search])
 
   async function unBlock(id) {
-    const token = localStorage.getItem('Admintoken');
     const data = await unBlockuserinfo(token, id);
     console.log('unblockingg');
     console.log(data);
@@ -43,7 +43,6 @@ function UserManagement() {
   }
 
   async function Block(id) {
-    const token = localStorage.getItem('Admintoken');
     const data = await blockunsrinfo(token, id);
     console.log('blockingggg');
     console.log(data);

@@ -1,12 +1,12 @@
 import { axiosAdminInstance } from '../axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-
 export const getUserInfo = async (token) => {
+  console.log(token);
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -22,7 +22,7 @@ export const unBlockuserinfo = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -39,7 +39,7 @@ export const blockunsrinfo = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -54,7 +54,7 @@ export const getActiveTrainerInfo = async (token) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -68,7 +68,7 @@ export const blockTrainer = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -82,7 +82,7 @@ export const unBlockTrainer = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -99,7 +99,7 @@ export const getTrainerdetails = async (token) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -113,7 +113,7 @@ export const trainerReject = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -127,7 +127,7 @@ export const trainerApproval = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };

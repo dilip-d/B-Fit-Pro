@@ -3,8 +3,9 @@ import jwt from 'jsonwebtoken'
 import Admin from '../models/adminSchema.js'
 import User from '../models/userSchema.js'
 import Trainer from '../models/trainerSchema.js'
+import dotenv from 'dotenv';
 
-const secret = 'admin';
+dotenv.config();
 
 //admin
 export const adminSignup = async (req, res) => {
@@ -23,7 +24,7 @@ export const adminSignup = async (req, res) => {
             password: hashedPassword,
         })
 
-        const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1h' });
+        const token = jwt.sign({ email: result.email, id: result._id }, process.env.ADMINJWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ result, token });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })
@@ -45,7 +46,7 @@ export const adminSignin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, secret, { expiresIn: "1h" });
+        const toke = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, process.env.ADMINJWT_SECRET , { expiresIn: "10h" });
 
         res.status(200).json({ token: toke, status: 'Login success', admin: oldAdmin })
     } catch (error) {
@@ -94,7 +95,6 @@ export const activeTrainerInfo = async (req, res) => {
     try {
         const trainers = await Trainer.find({ isVerified: true });
         console.log('found');
-        console.log(trainers);
         res.json({ activetrainerDetails: trainers, status: 'ok' })
     } catch (err) {
         res.status(500).json(err);

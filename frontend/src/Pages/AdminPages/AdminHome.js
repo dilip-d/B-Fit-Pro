@@ -37,14 +37,16 @@ const AdminHome = () => {
   ${'' /* border-radius: 2rem; */}
   ${'' /* gap: 16px; */}
   grid-template-columns: 11rem auto 2rem;
-  overflow: hidden;
+  overflow-y: scroll;
 
-  @media screen and (max-width: 1200px) {
-    grid-template-columns: 10% 50% auto;
+
+ @media screen and (max-width: 1200px) {
+    ${'' /* grid-template-columns: 10% 50% auto; */}
     overflow-y: scroll;
 }
 @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
+    overflow-y: scroll;
 }
 `;
 

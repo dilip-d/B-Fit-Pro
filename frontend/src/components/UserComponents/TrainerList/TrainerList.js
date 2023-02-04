@@ -19,7 +19,7 @@ function TrainerList() {
     const [details, setDetails] = useState([]);
 
     async function fetchData() {
-        
+        // const token =  JSON.parse(localStorage.getItem('user')).token;
         const data = await getTrainerList();
         console.log('in frontend');
         console.log(data);

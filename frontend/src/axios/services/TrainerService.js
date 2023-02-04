@@ -25,7 +25,7 @@ export const getProfile = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
@@ -35,81 +35,81 @@ export const getProfile = async (token, id) => {
   }
 };
 
-export const addService = async (values, id) => {
+export const addService = async (token, values, id) => {
   console.log('in add service')
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addService/${id}`,values, config);
+  const { data } = await axiosTrainerInstance.post(`/addService/${id}`, values, config);
   if (data) {
     console.log(data);
     return data;
   }
 };
 
-export const addTips = async (values, id) => {
+export const addTips = async (token, values, id) => {
   console.log('in add tips')
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addTips/${id}`,values, config);
+  const { data } = await axiosTrainerInstance.post(`/addTips/${id}`, values, config);
   if (data) {
     console.log(data);
     return data;
   }
 };
 
-export const addDescription = async (values, id) => {
+export const addDescription = async (token, values, id) => {
   console.log('in add description')
   console.log(id);
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addDescription/${id}`,values, config);
+  const { data } = await axiosTrainerInstance.post(`/addDescription/${id}`, values, config);
   if (data) {
     console.log(data);
     return data;
   }
 };
 
-export const addPrice = async (values, id) => {
+export const addPrice = async (token, values, id) => {
   console.log('in add price')
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addPrice/${id}`,values, config);
+  const { data } = await axiosTrainerInstance.post(`/addPrice/${id}`, values, config);
   if (data) {
     console.log(data);
     return data;
   }
 };
 
-export const editProfile = async (values, id) => {
+export const editProfile = async (token, values, id) => {
   console.log('in add price')
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/editProfile/${id}`,values, config);
+  const { data } = await axiosTrainerInstance.post(`/editProfile/${id}`, values, config);
   if (data) {
     console.log(data);
     return data;

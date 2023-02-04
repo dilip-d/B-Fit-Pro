@@ -13,8 +13,9 @@ function TrainerManagement() {
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
 
+    const token =  JSON.parse(localStorage.getItem('admin')).token;
+
     async function fetchData() {
-        const token = localStorage.getItem('Admintoken');
         const data = await getActiveTrainerInfo(token);
         console.log('in frontend');
         console.log(data);
@@ -34,7 +35,6 @@ function TrainerManagement() {
     }, [search, details])
 
     async function unBlock(id) {
-        const token = localStorage.getItem('Admintoken');
         const data = await unBlockTrainer(token, id);
         console.log('unblockingg');
         console.log(data);
@@ -44,7 +44,6 @@ function TrainerManagement() {
     }
 
     async function Block(id) {
-        const token = localStorage.getItem('Admintoken');
         const data = await blockTrainer(token, id);
         console.log('blockingg');
         console.log(data);

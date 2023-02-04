@@ -6,8 +6,8 @@ import { Clientprotect } from '../middleware/authMiddleware.js';
 
 //signup and login
 router.post('/api/clientRegister', signup);
-router.post('/api/verifyOTP/:id', verifyOTP)
-router.post('/api/resendOTP', resendOTP)
+router.post('/api/verifyOTP/:id', verifyOTP);
+router.post('/api/resendOTP', resendOTP);
 router.post('/api/clientLogin', signin);
 
 //trainer list and detail
@@ -15,6 +15,6 @@ router.get('/api/trainerList', trainerList);
 router.get('/api/trainerDetail/:id', trainerDetail);
 
 //booking
-router.post('/bookTrainer', bookTrainer)
+router.post('/bookTrainer', Clientprotect, bookTrainer);
 
 export default router;

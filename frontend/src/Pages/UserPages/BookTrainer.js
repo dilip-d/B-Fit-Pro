@@ -16,7 +16,7 @@ function BookTrainer() {
         <Hero
           cName="hero-mid"
           heroImg={heroImg}
-          title="Trainer"
+          title="Booking"
           btnClass="hide"
         />
         <BookingPage

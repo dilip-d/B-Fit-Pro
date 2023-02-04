@@ -7,14 +7,16 @@ import { trainerSchema } from '../../../validation/homeValidation';
 import './TrainerSignup.css';
 
 function TrainerSignup() {
+
   const navigate = useNavigate();
 
   const [filef, setFilef] = useState([]);
   const [fileb, setFileb] = useState([]);
 
   const [error, setError] = useState('');
+  console.log('in trainer signup');
 
-  const onSubmit = async (values, actions) => {
+  const onSubmit = async (values) => {
     console.log('in frontend');
     // console.log(values);
     const status = await trainerRegister({ values, file1: filef, file2: fileb });
@@ -67,6 +69,8 @@ function TrainerSignup() {
         password: '',
         cpassword: '',
         link: '',
+        // filef:'',
+        // fileb:'',
       },
       validationSchema: trainerSchema,
       onSubmit,
@@ -82,7 +86,7 @@ function TrainerSignup() {
       <section className="gradient-custom">
         <div className="container h-100 justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center h-100">
-            <div className="col-12 col-lg-12 col-xl-12" style={{maxWidth:'810px'}}>
+            <div className="col-12 col-lg-12 col-xl-12" style={{ maxWidth: '810px' }}>
               <div
                 className="card shadow-2-strong card-registration"
                 style={{ borderRadius: '15px' }}>
@@ -315,7 +319,7 @@ function TrainerSignup() {
                               style={{ background: "white" }}
                               type="file"
                               id="filef"
-                              name='filef'
+                              required
                               accept="image/*"
                               // value={values.filef}
                               onChange={handleImage1}
@@ -342,8 +346,8 @@ function TrainerSignup() {
                               style={{ background: "white" }}
                               type="file"
                               id="fileb"
-                              name='fileb'
-                              accept="image/*"
+                              required
+                              accept=".pdf"
                               // value={values.fileb}
                               onChange={handleImage2}
                               className={
@@ -352,7 +356,6 @@ function TrainerSignup() {
                                   : 'form-control form-control-sm'
                               }
                             />
-
                             {errors.fileb && touched.fileb && <p className='red-error'>{errors.fileb}</p>}
                           </div>
                         </div>

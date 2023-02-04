@@ -13,7 +13,8 @@ function EditProfile(props) {
     const [details, setDetails] = useState({});
 
     async function fetchData() {
-        const data = await getTrainerDetail(id);
+        const token =  JSON.parse(localStorage.getItem('trainer')).token;
+        const data = await getTrainerDetail(token,id);
         setDetails(data[0]);
     }
     useEffect(() => {

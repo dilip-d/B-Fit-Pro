@@ -117,7 +117,7 @@ export const getTrainerList = async () => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization:`Bearer `,
       'Content-Type': 'application/json',
     },
   };
@@ -131,11 +131,25 @@ export const getTrainerDetail = async (id) => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization: 'Bearer ',
+      Authorization: `Bearer `,
       'Content-Type': 'application/json',
     },
   };
   const { data } = await axiosClientInstance.get(`/trainerDetail/${id}`, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const CheckAvailability = async (token,values,id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/checkAvailability/${id}`, config);
   if (data) {
     return data;
   }

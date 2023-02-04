@@ -90,6 +90,25 @@ const TrainerSchema = mongoose.Schema({
     price: {
         type: Number,
         trim: true
+    },
+    availableSlots: [{
+        type: String,
+    }],
+    timing: {
+        type: [String],
+        default: [
+            "05:00am-06:00am",
+            "06:30am-07:30am",
+            "08:00am-09:00am",
+            "05:00pm-06:00pm",
+            "06:30pm-07:30pm",
+            "08:00pm-09:00pm"
+        ]
+    },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5
     }
 }, { timestamps: true })
 

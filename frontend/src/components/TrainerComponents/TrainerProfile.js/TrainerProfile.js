@@ -23,17 +23,15 @@ export default function TrainerProfile() {
     const navigate = useNavigate()
 
     async function fetchData() {
-        const token = localStorage.getItem('Admintoken');
-        const result = JSON.parse(localStorage.getItem("trainer"))
-        if (result) {
+        const token =  JSON.parse(localStorage.getItem('trainer')).token;
+        console.log(token);
+        const result =  JSON.parse(localStorage.getItem('trainer'))
+        console.log(result.trainer._id);
             const id = result.trainer._id
             const data = await getProfile(token, id);
+            console.log(data);
             console.log('in front');
             setDetails(data[0]);
-            navigate('/trainerHome')
-        } else {
-            navigate('/trainerLogin')
-        }
     }
 
     useEffect(() => {

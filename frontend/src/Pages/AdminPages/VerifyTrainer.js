@@ -10,8 +10,9 @@ function VerifyTrainer() {
 
     const [details, setDetails] = useState([]);
 
-    async function fetchData() {
-        const token = localStorage.getItem('Admintoken');
+    const token =  JSON.parse(localStorage.getItem('admin')).token;
+
+    async function fetchData() {  
         const data = await getTrainerdetails(token);
         console.log('in front');
         console.log(data);
@@ -23,7 +24,6 @@ function VerifyTrainer() {
     }, []);
 
     async function reject(id) {
-        const token = localStorage.getItem('Admintoken');
         const rejected = await trainerReject(token, id);
         if (rejected.trainerDetails) {
             fetchData();
@@ -31,7 +31,6 @@ function VerifyTrainer() {
     }
 
     async function approve(id) {
-        const token = localStorage.getItem('Admintoken');
         const Approved = await trainerApproval(token, id);
         if (Approved.trainerDetails) {
             fetchData();
@@ -64,8 +63,15 @@ function VerifyTrainer() {
                                             <h6 className="card-title">Name : {item.fname} {item.lname}</h6>
                                             <p className="card-text">Cerificate : <Link href={item.certificateImage} target="_blank">View Cerificate</Link></p>
                                             <p className="card-text">Youtube Link : <Link href={item.link} target="_blank">{item.link}</Link></p>
+                                            <div class="ratio ratio-16x9 ">
+                                                <iframe
+                                                    src={item.link}
+                                                    title="YouTube video"
+                                                    allowFullScreen
+                                                ></iframe>
+                                            </div>
                                             <div className='d-flex'>
-                                                <button className='btn btn-sm'
+                                                <button className='btn btn-sm mt-2'
                                                     onClick={() => approve(item._id)}>Approve</button>
                                                 {/* <button className='btn mx-3 btn-sm'
                                                     onClick={() => reject(item._id)}

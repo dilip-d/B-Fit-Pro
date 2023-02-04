@@ -63,6 +63,21 @@ export const userUpdateSchema = yup.object().shape({
     .required('Required'),
 });
 
+const imageSchema = yup.mixed().test(
+  'fileType',
+  'Unsupported file format',
+  value => value && value.name && imageExtensions.includes(value.name.split('.').pop().toLowerCase())
+);
+
+const pdfSchema = yup.mixed().test(
+  'fileType',
+  'Unsupported file format',
+  value => value && value.name && pdfExtensions.includes(value.name.split('.').pop().toLowerCase())
+);
+
+const imageExtensions = ['jpeg', 'jpg', 'png'];
+const pdfExtensions = ['pdf'];
+
 export const trainerSchema = yup.object().shape({
   fname: yup
     .string()
@@ -99,20 +114,12 @@ export const trainerSchema = yup.object().shape({
     .string()
     .matches(link, 'Please paste a valid youtube link here')
     .required('Required'),
-  description: yup
-    .string()
-    .required('Required'),
-  tips: yup
-    .string()
-    .required('Required'),
-  service: yup
-    .string()
-    .required('Required'),
-  price: yup
-  .number('Only numbers are allowed')
-  .positive()
-  .integer()
-  .required('Required'),
+  // filef: yup
+  // .string()
+  // .required('Required'),
+  // fileb: yup
+  // .string()
+  // .required('Required'),
 });
 
 export const editTrainerSchema = yup.object().shape({

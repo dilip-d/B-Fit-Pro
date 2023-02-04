@@ -6,8 +6,6 @@ import Trainer from '../models/trainerSchema.js'
 
 dotenv.config();
 
-const secret = 'trainer';
-
 // Config
 cloudinary.config({
     cloud_name: process.env.cloud_name,
@@ -58,7 +56,7 @@ export const trainerSignup = async (req, res) => {
                 certificateImage: file2.url,
                 link: values.link
             })
-            const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1h' });
+            const token = jwt.sign({ email: result.email, id: result._id }, process.env.TRAINERJWT_SECRET, { expiresIn: '1h' });
             console.log('trainer signup success');
             res.json({ status: 'success' });
         }
@@ -72,8 +70,8 @@ export const trainerSignup = async (req, res) => {
 export const trainerLogin = async (req, res) => {
     console.log('in trainer Login');
     try {
-        const { phone, password } = req.body;
-        const oldTrainer = await Trainer.findOne({ phone });
+        const { email, password } = req.body;
+        const oldTrainer = await Trainer.findOne({ email });
 
         if (!oldTrainer)
             return res.status(404).json({ message: "Trainer doesn't exist" })
@@ -87,8 +85,42 @@ export const trainerLogin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, secret, { expiresIn: "1h" });
+        const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, process.env.TRAINERJWT_SECRET, { expiresIn: "1h" });
 
+        
+        const startDate = new Date();
+        const endDate = new Date();
+        endDate.setMonth(endDate.getMonth() + 1);
+        
+        oldTrainer.availableSlots = generateDates(startDate.getFullYear(), startDate.getMonth());
+        
+        oldTrainer.save(function (error) {
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ message: 'Something went wrong' });
+            }
+        });
+        
+        function generateDates(year, month) {
+            let date = new Date(year, month, 1);
+            let endOfMonth = new Date(year, month + 1, 0);
+            let dateArray = [];
+        
+            while (date <= endOfMonth) {
+                for (let i = 0; i < 48; i++) {
+                    let hour = i % 2 === 0 ? 5 : 6;
+                    let minute = i % 2 === 0 ? 0 : 30;
+                    let time = hour + ":" + minute;
+                    let timePeriod = i < 24 ? "AM" : "PM";
+                    let formattedDate = date.toLocaleDateString() + " " + time + " " + timePeriod;
+                    dateArray.push(formattedDate);
+                }
+        
+                date.setDate(date.getDate() + 1);
+            }
+        
+            return dateArray;
+        }
         res.status(200).json({ token: toke, status: 'Login success', trainer: oldTrainer })
 
     } catch (error) {
@@ -187,12 +219,12 @@ export const editProfile = async (req, res) => {
         const data = await Trainer.findOne({ _id: trainerId });
         console.log(data);
 
-        if(file){
+        if (file) {
             const imageUrl = data.profileImage
             console.log(imageUrl);
             const publicId = imageUrl.match(/\/([^\/]*)$/)[1].split('.')[0];
             console.log(publicId);
-             cloudinary.uploader.destroy(publicId, function (error, result) {
+            cloudinary.uploader.destroy(publicId, function (error, result) {
                 if (error) {
                     console.log(error);
                 } else {

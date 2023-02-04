@@ -11,6 +11,7 @@ function TrainerDetailedView(props) {
     const [details, setDetails] = useState({});
 
     async function fetchData() {
+        // const token =  JSON.parse(localStorage.getItem('user')).token;
         const data = await getTrainerDetail(id);
         setDetails(data[0]);
     }

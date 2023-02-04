@@ -12,7 +12,7 @@ function TrainerRegister() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false)
-      }, 1000)
+      }, 500)
     }, [])
   
     return (
@@ -20,7 +20,7 @@ function TrainerRegister() {
             {loading ? (
                 <GridLoader
                     style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
-                    color={'#ee9802'}
+                    color={'#32C9A6'}
                     loading={loading}
                     size={25}
                     aria-label="Loading Spinner"

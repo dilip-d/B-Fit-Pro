@@ -6,8 +6,9 @@ import bookingModel from '../models/bookingSchema.js';
 // import { sendEmail } from '../utils/sendEmail.js';
 import nodemailer from 'nodemailer'
 import userOTPVerificationSchema from '../models/userOTPVerificationSchema.js';
+import dotenv from 'dotenv';
 
-const secret = 'bfit';
+dotenv.config();
 
 export const signup = async (req, res) => {
     console.log('in sign up');
@@ -164,7 +165,6 @@ export const resendOTP = async (req, res) => {
 
         const oldUser = await User.findOne({ email });
 
-
         if (!oldUser)
             return res.json({ message: "User doesn't exist" })
 
@@ -172,6 +172,7 @@ export const resendOTP = async (req, res) => {
             return res.json({ message: "Already Verified Please do login !" })
 
         const userId = oldUser._id;
+        
         //delete existing records and resend
         await userOTPVerificationSchema.deleteMany({ userId })
         sendOTPVerificationEmail(oldUser, res)
@@ -187,8 +188,8 @@ export const resendOTP = async (req, res) => {
 export const signin = async (req, res) => {
     console.log('in user login');
     try {
-        const { phone, password } = req.body;
-        const oldUser = await User.findOne({ phone });
+        const { email, password } = req.body;
+        const oldUser = await User.findOne({ email });
 
         if (!oldUser)
             return res.status(404).json({ message: "User doesn't exist" })
@@ -204,7 +205,7 @@ export const signin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
+        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "1h" });
         console.log('user login success');
 
         res.status(200).json({ token: toke, status: 'Login success', user: oldUser })
@@ -240,6 +241,8 @@ export const bookTrainer = async (req, res) => {
     console.log('in book trainer');
 
     try {
+        req.body.date = moment(req.body.date,'DD-MM-YYYY').toISOString();
+        req.body.time = moment(req.body.time, 'HH:mm').toISOString(); 
         req.body.status = "pending"
         const newBooking = new bookingModel(req.body)
         await newBooking.save()

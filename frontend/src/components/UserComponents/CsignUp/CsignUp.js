@@ -14,7 +14,7 @@ function CsignUp() {
   const navigate = useNavigate();
 
   const [error, setError] = useState('');
-  const [msg, setMsg] = useState("")
+  const [msg, setMsg] = useState("");
 
   const onSubmit = async (values, actions) => {
     const status = await clientRegister(values);

@@ -1,5 +1,5 @@
 import { MDBBtn, MDBCollapse, MDBContainer, MDBIcon, MDBInputGroup, MDBNavbar, MDBNavbarBrand, MDBNavbarItem, MDBNavbarLink, MDBNavbarNav, MDBNavbarToggler } from 'mdb-react-ui-kit'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,14 +8,19 @@ import logo from '../../../../src/assets/logo7.png'
 
 function TrainerNavbar() {
 
+    // const [trainer, setTrainer] = useState(null);
+    const trainer = JSON.parse(localStorage.getItem('trainer'));
+
+    // useEffect(() => {
+    //     setTrainer(JSON.parse(localStorage.getItem('trainer')));
+    // }, [trainer]);
+
     const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
     const dispatch = useDispatch();
 
     const handleLogout = () => {
         dispatch(setLogout())
     }
-
-    const trainer = JSON.parse(localStorage.getItem('trainer'));
 
     const StyledButton = styled.button`
   background-color: white;

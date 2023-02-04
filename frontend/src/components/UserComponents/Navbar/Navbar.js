@@ -10,7 +10,6 @@ import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBIc
 const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isOpen, setIsOpen] = useState(false);
 
   function toggleMenu() {
     setMenuOpen(!menuOpen);
@@ -53,14 +52,14 @@ const Navbar = () => {
         })}
         {user ? (
           <MDBDropdown>
-            <MDBDropdownToggle> {user.user.fname}</MDBDropdownToggle>
+            <MDBDropdownToggle > {user.user.fname}</MDBDropdownToggle>
             <MDBDropdownMenu>
               <MDBDropdownItem link><Link to='/login' className="text-black" onClick={() => handleLogout()}>Logout</Link></MDBDropdownItem>
               <MDBDropdownItem link><Link to='#' className="text-black" onClick={() => handleLogout()}>Profile</Link></MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
         ) : (
-          <li className="nav-item dropdown">
+          <li className="nav-links-mobile">
             <Link to='/signup'><button className="btn">Sign Up</button></Link>
           </li>
         )}

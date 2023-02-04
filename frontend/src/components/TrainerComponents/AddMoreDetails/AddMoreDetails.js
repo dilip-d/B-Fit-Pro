@@ -1,8 +1,10 @@
+import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addDescription, addPrice, addService, addTips } from '../../../axios/services/TrainerService';
+import { trainerSchema } from '../../../validation/homeValidation';
 
 function AddMoreDetails() {
 
@@ -14,6 +16,7 @@ function AddMoreDetails() {
 
   const result = JSON.parse(localStorage.getItem('trainer'));
   const id = result.trainer._id
+  const token =  JSON.parse(localStorage.getItem('trainer')).token;
 
   const navigate = useNavigate()
 
@@ -25,7 +28,7 @@ function AddMoreDetails() {
     event.preventDefault();
 
     const values = { service: service };
-    const data = await addService(values, id);
+    const data = await addService(token,values, id);
     if (data.message) {
       toast.success(data.message)
     } else {
@@ -38,7 +41,7 @@ function AddMoreDetails() {
     event.preventDefault();
 
     const values = { tips: tips };
-    const data = await addTips(values, id);
+    const data = await addTips(token,values, id);
     if (data.message) {
       toast.success(data.message)
     } else {
@@ -51,7 +54,7 @@ function AddMoreDetails() {
     event.preventDefault();
 
     const values = { description: description };
-    const data = await addDescription(values, id);
+    const data = await addDescription(token,values, id);
     if (data.message) {
       toast.success(data.message)
     } else {
@@ -64,7 +67,7 @@ function AddMoreDetails() {
     event.preventDefault();
 
     const values = { price: price };
-    const data = await addPrice(values, id);
+    const data = await addPrice(token,values, id);
     if (data.message) {
       toast.success(data.message)
     } else {

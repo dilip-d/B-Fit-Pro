@@ -40,13 +40,13 @@ export default function App() {
         <Route path="/resendOtp" element={<ResendOtp />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/trainerDetailedView/:id" element={<TrainerDetails />} />
-        <Route path="/bookTrainer/:id" element={userAuth ? <BookTrainer /> : <SignIn />} />
+        <Route path="/bookTrainer/:id" element={<BookTrainer />} />
         {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />
         {/* trainer */}
-        <Route path="/trainerSignup" element={trainerAuth ? <TrainerHome /> : <TrainerRegister />} />
-        <Route path="/trainerLogin" element={trainerAuth ? <TrainerHome /> : <TrainerSignIn />} />
+        <Route path="/trainerSignup" element={<TrainerRegister />} />
+        <Route path="/trainerLogin" element={<TrainerSignIn />} />
         <Route path="/trainerHome" element={<TrainerHome />} />
         <Route path="/addDetails" element={<AddMoreDetails />} />
         <Route path="/editDetails/:id" element={<EditDetails />} />
