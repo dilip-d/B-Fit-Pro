@@ -172,7 +172,7 @@ export const resendOTP = async (req, res) => {
             return res.json({ message: "Already Verified Please do login !" })
 
         const userId = oldUser._id;
-        
+
         //delete existing records and resend
         await userOTPVerificationSchema.deleteMany({ userId })
         sendOTPVerificationEmail(oldUser, res)
@@ -239,10 +239,9 @@ export const trainerDetail = async (req, res) => {
 
 export const bookTrainer = async (req, res) => {
     console.log('in book trainer');
-
     try {
-        req.body.date = moment(req.body.date,'DD-MM-YYYY').toISOString();
-        req.body.time = moment(req.body.time, 'HH:mm').toISOString(); 
+        req.body.date = moment(req.body.date, 'DD-MM-YYYY').toISOString();
+        req.body.time = moment(req.body.time, 'HH:mm').toISOString();
         req.body.status = "pending"
         const newBooking = new bookingModel(req.body)
         await newBooking.save()
@@ -263,3 +262,23 @@ export const bookTrainer = async (req, res) => {
         res.status(500).send({ message: "Error while booking appointment" })
     }
 }
+
+export const checkAvailability = async (req, res) => {
+    console.log('in check availability');
+    try {
+        const trainerId = req.params.id
+        console.log(trainerId);
+        console.log(req.body);
+        const { date, time } = req.body
+        const count = await bookingModel.countDocuments({ trainerId: trainerId, time: time });
+        console.log(count);
+        if (count > 0) {
+            res.json({ error: 'A booking already exists for this trainer and time.' });
+        } else {
+            res.json({ message: 'No booking found for this trainer and time.', id: trainerId, date: date, time: time });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+

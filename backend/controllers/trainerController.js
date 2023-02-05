@@ -87,40 +87,6 @@ export const trainerLogin = async (req, res) => {
 
         const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, process.env.TRAINERJWT_SECRET, { expiresIn: "1h" });
 
-        
-        const startDate = new Date();
-        const endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 1);
-        
-        oldTrainer.availableSlots = generateDates(startDate.getFullYear(), startDate.getMonth());
-        
-        oldTrainer.save(function (error) {
-            if (error) {
-                console.error(error);
-                return res.status(500).json({ message: 'Something went wrong' });
-            }
-        });
-        
-        function generateDates(year, month) {
-            let date = new Date(year, month, 1);
-            let endOfMonth = new Date(year, month + 1, 0);
-            let dateArray = [];
-        
-            while (date <= endOfMonth) {
-                for (let i = 0; i < 48; i++) {
-                    let hour = i % 2 === 0 ? 5 : 6;
-                    let minute = i % 2 === 0 ? 0 : 30;
-                    let time = hour + ":" + minute;
-                    let timePeriod = i < 24 ? "AM" : "PM";
-                    let formattedDate = date.toLocaleDateString() + " " + time + " " + timePeriod;
-                    dateArray.push(formattedDate);
-                }
-        
-                date.setDate(date.getDate() + 1);
-            }
-        
-            return dateArray;
-        }
         res.status(200).json({ token: toke, status: 'Login success', trainer: oldTrainer })
 
     } catch (error) {

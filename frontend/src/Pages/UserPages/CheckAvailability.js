@@ -3,10 +3,9 @@ import Navbar from "../../components/UserComponents/Navbar/Navbar";
 import Footer from "../../components/UserComponents/Footer/Footer";
 import heroImg from '../../assets/trainerdetail1.png'
 import { useParams } from "react-router-dom";
-// import ClientPlanPayment from "../../components/UserComponents/Checkout/Checkout";
-import BookingPage from "../../components/UserComponents/Checkout/Checkout";
+import CheckAvailable from "../../components/UserComponents/CheckAvailability/CheckAvailability";
 
-function BookTrainer() {
+function CheckAvailability() {
 
     const { id } = useParams();
 
@@ -19,7 +18,7 @@ function BookTrainer() {
           title="Booking"
           btnClass="hide"
         />
-        <BookingPage
+        <CheckAvailable
           trainerId={id}
         />
         <Footer />
@@ -27,4 +26,4 @@ function BookTrainer() {
     );
   }
 
-export default BookTrainer
+export default CheckAvailability

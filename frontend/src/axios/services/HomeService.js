@@ -30,7 +30,7 @@ export const verifyOTP = async (values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(`/verifyOTP/${id}`,values, config);
+  const { data } = await axiosClientInstance.post(`/verifyOTP/${id}`, values, config);
   if (data) {
     console.log(data);
     return data;
@@ -47,7 +47,7 @@ export const resendOTP = async (values) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post('/resendOTP',values, config);
+  const { data } = await axiosClientInstance.post('/resendOTP', values, config);
   if (data) {
     console.log(data);
     return data;
@@ -117,7 +117,7 @@ export const getTrainerList = async () => {
   const config = {
     headers: {
       Accept: 'application/json',
-      Authorization:`Bearer `,
+      Authorization: `Bearer `,
       'Content-Type': 'application/json',
     },
   };
@@ -141,7 +141,8 @@ export const getTrainerDetail = async (id) => {
   }
 };
 
-export const CheckAvailability = async (token,values,id) => {
+export const CheckAvailability = async (token, values, id) => {
+  console.log('in check availability');
   const config = {
     headers: {
       Accept: 'application/json',
@@ -149,7 +150,22 @@ export const CheckAvailability = async (token,values,id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/checkAvailability/${id}`, config);
+  const { data } = await axiosClientInstance.post(`/checkAvailability/${id}`, values, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const PayNow = async (token,trainerData, formData, id) => {
+  console.log('in check availability');
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/payment/${id}`,trainerData, formData, config);
   if (data) {
     return data;
   }

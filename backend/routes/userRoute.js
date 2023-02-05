@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { bookTrainer, resendOTP, signin, signup, trainerDetail, trainerList, verifyOTP } from '../controllers/userController.js';
+import { checkAvailability, resendOTP, signin, signup, trainerDetail, trainerList, verifyOTP } from '../controllers/userController.js';
 import { Clientprotect } from '../middleware/authMiddleware.js';
 
 //signup and login
@@ -14,7 +14,7 @@ router.post('/api/clientLogin', signin);
 router.get('/api/trainerList', trainerList);
 router.get('/api/trainerDetail/:id', trainerDetail);
 
-//booking
-router.post('/bookTrainer', Clientprotect, bookTrainer);
-
+//Availabilty & booking
+router.post('/api/checkAvailability/:id', Clientprotect, checkAvailability);
+router.get('/api/payment/:id', Clientprotect, Payment);
 export default router;

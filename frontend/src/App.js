@@ -16,10 +16,11 @@ import AddMoreDetails from "./Pages/TrainerPages/AddDetails";
 import TrainerDetails from "./Pages/UserPages/TrainerDetails";
 import EditDetails from "./Pages/TrainerPages/EditDetails";
 import E404 from "./Pages/E404/E404";
-import BookTrainer from "./Pages/UserPages/BookTrainer";
 import EmailOTP from "./Pages/UserPages/EmailOTP";
 import VerificationDone from "./Pages/UserPages/VerificationDone";
 import ResendOtp from "./Pages/UserPages/ResendOtp";
+import CheckAvailability from "./Pages/UserPages/CheckAvailability";
+import Payment from "./Pages/UserPages/Payment";
 
 export default function App() {
 
@@ -40,7 +41,8 @@ export default function App() {
         <Route path="/resendOtp" element={<ResendOtp />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/trainerDetailedView/:id" element={<TrainerDetails />} />
-        <Route path="/bookTrainer/:id" element={<BookTrainer />} />
+        <Route path="/bookTrainer/:id" element={<CheckAvailability />} />
+        <Route path="/payment/:id" element={<Payment />} />
         {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />

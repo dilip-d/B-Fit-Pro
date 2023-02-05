@@ -23,15 +23,15 @@ export default function TrainerProfile() {
     const navigate = useNavigate()
 
     async function fetchData() {
-        const token =  JSON.parse(localStorage.getItem('trainer')).token;
+        const token = JSON.parse(localStorage.getItem('trainer')).token;
         console.log(token);
-        const result =  JSON.parse(localStorage.getItem('trainer'))
+        const result = JSON.parse(localStorage.getItem('trainer'))
         console.log(result.trainer._id);
-            const id = result.trainer._id
-            const data = await getProfile(token, id);
-            console.log(data);
-            console.log('in front');
-            setDetails(data[0]);
+        const id = result.trainer._id
+        const data = await getProfile(token, id);
+        console.log(data);
+        console.log('in front');
+        setDetails(data[0]);
     }
 
     useEffect(() => {
@@ -58,7 +58,6 @@ export default function TrainerProfile() {
                             </div>
                         </MDBCardBody>
                     </MDBCard>
-
                     <MDBCard className="mb-4 mb-lg-0">
                         <MDBCardBody className="p-0" >
                             <MDBListGroup flush className="rounded-3">
