@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TrainerManagement from "./TrainerManagement";
 import VerifyTrainer from "./VerifyTrainer";
+import BookingManagement from "./BookingManagement";
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const AdminHome = () => {
   height: 100%;
   width: 100%;
   background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  ${'' /* border-radius: 2rem; */}
+  border-radius: 2rem;
   ${'' /* gap: 16px; */}
   grid-template-columns: 11rem auto 2rem;
   overflow-y: scroll;
@@ -58,8 +59,8 @@ const AdminHome = () => {
           {pages === 'dashboard' && <MainDash />}
           {pages === 'users' && <UserManagement />}
           {pages === 'trainers' && <TrainerManagement />}
-          {/* {pages === 'verify' && <AdminTrainerDetailsView />} */}
           {pages === 'verify' && <VerifyTrainer />}
+          {pages === 'bookings' && <BookingManagement />}
         </AppGlass>
       </App>
     </>

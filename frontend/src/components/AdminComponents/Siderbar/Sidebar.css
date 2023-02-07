@@ -10,6 +10,7 @@
   padding-top: 4rem;
   transition: all 300ms ease;
   background: darkgray;
+  border-radius: 20px;
 }
 
 /* logo */
@@ -68,7 +69,7 @@
 }
 
 .menuItem-active {
-  background: lightslategray;
+  background: rgb(48, 54, 59);
   margin-left: 0;
 }
 

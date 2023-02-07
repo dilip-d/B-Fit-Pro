@@ -4,6 +4,7 @@ import Admin from '../models/adminSchema.js'
 import User from '../models/userSchema.js'
 import Trainer from '../models/trainerSchema.js'
 import dotenv from 'dotenv';
+import bookingModel from '../models/bookingSchema.js'
 
 dotenv.config();
 
@@ -155,5 +156,16 @@ export const approveTrainer = async (req, res) => {
         res.json({ status: 'ok', approved: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
+    }
+}
+
+export const bookingInfo = async (req, res) => {
+    console.log('find bookings');
+    try {
+        const bookings = await bookingModel.find();
+        console.log('found');
+        res.json({ booking: bookings, status: 'ok' })
+    } catch (err) {
+        res.status(500).json(err);
     }
 }

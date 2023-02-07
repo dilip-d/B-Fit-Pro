@@ -3,12 +3,20 @@ import jwt from 'jsonwebtoken'
 import User from '../models/userSchema.js'
 import Trainer from '../models/trainerSchema.js'
 import bookingModel from '../models/bookingSchema.js';
-// import { sendEmail } from '../utils/sendEmail.js';
-import nodemailer from 'nodemailer'
+import Razorpay from 'razorpay'
+import crypto from "crypto";
+import moment from 'moment';
+import 'moment-timezone';
+import nodemailer from 'nodemailer';
 import userOTPVerificationSchema from '../models/userOTPVerificationSchema.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+const instance = new Razorpay({
+    key_id: process.env.key_id,
+    key_secret: process.env.key_secret,
+});
 
 export const signup = async (req, res) => {
     console.log('in sign up');
@@ -42,7 +50,6 @@ export const signup = async (req, res) => {
 
             // const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1h' });
             console.log('signup success');
-            // res.json({ status: 'success' });
         }
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })
@@ -205,7 +212,7 @@ export const signin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "1h" });
+        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "3h" });
         console.log('user login success');
 
         res.status(200).json({ token: toke, status: 'Login success', user: oldUser })
@@ -237,32 +244,6 @@ export const trainerDetail = async (req, res) => {
     }
 }
 
-export const bookTrainer = async (req, res) => {
-    console.log('in book trainer');
-    try {
-        req.body.date = moment(req.body.date, 'DD-MM-YYYY').toISOString();
-        req.body.time = moment(req.body.time, 'HH:mm').toISOString();
-        req.body.status = "pending"
-        const newBooking = new bookingModel(req.body)
-        await newBooking.save()
-        const user = await User.findOne({ _id: req.body.userId })
-        user.notification.push({
-            type: 'New-appointment-request',
-            message: `A new appointment Request from ${req.body.userInfo.name}`,
-            onclickPath: '/user/bookings'
-        })
-        await user.save()
-        res.status(200).send({
-            success: true,
-            message: "Booked Successfully"
-        })
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).send({ message: "Error while booking appointment" })
-    }
-}
-
 export const checkAvailability = async (req, res) => {
     console.log('in check availability');
     try {
@@ -270,7 +251,22 @@ export const checkAvailability = async (req, res) => {
         console.log(trainerId);
         console.log(req.body);
         const { date, time } = req.body
-        const count = await bookingModel.countDocuments({ trainerId: trainerId, time: time });
+
+        const startDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").toISOString();
+        const momentEndDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").add(29, "days");
+        const endDate = momentEndDate.toISOString();
+        console.log(startDate);
+        console.log(endDate);
+
+        const count = await bookingModel.countDocuments({
+            trainerId: trainerId,
+            timing: time,
+            $or: [
+              { startDate: { $lte: startDate }, endDate: { $gte: startDate } },
+              { startDate: { $lte: endDate }, endDate: { $gte: endDate } }
+            ]
+          });
+
         console.log(count);
         if (count > 0) {
             res.json({ error: 'A booking already exists for this trainer and time.' });
@@ -282,3 +278,124 @@ export const checkAvailability = async (req, res) => {
     }
 }
 
+export const payment = async (req, res) => {
+    console.log('in payment');
+    try {
+        const userId = req.params.id
+        const { id, date, time } = req.body
+        console.log(id, date, time);
+
+        const user = await User.findById({ _id: userId })
+        const trainer = await Trainer.findById({ _id: id })
+
+        const startDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").toISOString();
+        const momentEndDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").add(29, "days");
+        const endDate = momentEndDate.toISOString();
+        console.log(startDate);
+        console.log(endDate);
+
+        const booked = await bookingModel.create({
+            clientId: user._id,
+            trainerId: trainer._id,
+            clientInfo: `${user.fname} ${user.lname}`,
+            trainerInfo: `${trainer.fname} ${trainer.lname}`,
+            startDate: startDate,
+            endDate: endDate,
+            timing: time,
+            amount: trainer.price
+        })
+
+        const amount = trainer.price;
+        await generateRazorpay(booked._id, amount, res)
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const generateRazorpay = async (id, amount, res) => {
+    console.log('in generate rpay');
+    try {
+        console.log(id);
+        console.log(amount);
+        instance.orders.create(
+            {
+                amount: amount * 100,
+                currency: 'INR',
+                receipt: `${id}`,
+                notes: {
+                    key1: 'value3',
+                    key2: 'value2',
+                },
+            }, (err, order) => {
+                console.log(order);
+                res.json({ status: true, order: order });
+            })
+    }
+    catch (error) {
+        res.json({
+            status: "Failed",
+            message: error.message
+        })
+    }
+}
+
+export const verifyPayment = async (req, res) => {
+    console.log('in verify payment');
+    try {
+        console.log(req.body);
+
+        //creating hmac object
+        let hmac = crypto.createHmac('sha256', process.env.key_secret);
+
+        //Passing the data to be hashed
+        hmac.update(req.body.res.razorpay_order_id + "|" + req.body.res.razorpay_payment_id);
+
+        //creating the hmac in the required format
+        const generated_signature = hmac.digest('hex');
+
+        var response = { signatureIsValid: "false" }
+        if (generated_signature === req.body.res.razorpay_signature) {
+            response = { signatureIsValid: "true" }
+            console.log("signatureIsvalid");
+
+            changePaymentStatus(req.body.order, res)
+            // res.json(response);
+        } else {
+            res.send(response);
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const changePaymentStatus = async (req, res) => {
+    console.log('in change payment status');
+    console.log(req);
+    try {
+        await bookingModel.findOneAndUpdate({ _id: req.receipt }, {
+            $set: {
+                paymentStatus: 'Completed',
+                serviceStatus: 'Active'
+            }
+        })
+        console.log('status changed success');
+        res.json({ status: true, message: 'Payment Successfull !' })
+    }
+    catch (error) {
+        console.log('failed');
+        res.json({ error: 'Payment Failed !' })
+    }
+}
+
+export const getUserProfile = async (req, res) => {
+    console.log('user profile');
+    try {
+        const userId = req.params.id
+        const user = await User.find({ _id: userId })
+        res.json(user)
+    } catch (err) {
+        console.log(err);
+    }
+}

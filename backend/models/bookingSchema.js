@@ -2,11 +2,11 @@ import mongoose from 'mongoose'
 
 const bookingSchema = mongoose.Schema({
     clientId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     trainerId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     clientInfo: {
@@ -17,18 +17,29 @@ const bookingSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
+    startDate: {
         type: String,
         required: true
     },
-    status: {
+    endDate: {
+        type: String,
+        required: true
+    },
+    serviceStatus: {
         type: String,
         required: true,
-        default: 'active'
+        default: 'Inactive'
     },
     timing: {
         type: String,
         required: true
+    },
+    amount:{
+        type:Number,
+    },
+    paymentStatus:{
+        type: String,
+        default:'pending'
     }
 }, { timestamps: true })
 

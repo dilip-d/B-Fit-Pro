@@ -6,9 +6,9 @@ import "./MainDash.css";
 const MainDash = () => {
   return (
     <div className="MainDash row">
-      <h2>Dashboard</h2>
+      <h2 className="mt-5">Dashboard</h2>
       {/* <Cards /> */}
-      <Table />
+      {/* <Table /> */}
     </div>
   );
 };

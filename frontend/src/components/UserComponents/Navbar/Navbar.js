@@ -55,7 +55,7 @@ const Navbar = () => {
             <MDBDropdownToggle > {user.user.fname}</MDBDropdownToggle>
             <MDBDropdownMenu>
               <MDBDropdownItem link><Link to='/login' className="text-black" onClick={() => handleLogout()}>Logout</Link></MDBDropdownItem>
-              <MDBDropdownItem link><Link to='#' className="text-black" onClick={() => handleLogout()}>Profile</Link></MDBDropdownItem>
+              <MDBDropdownItem link><Link to='/userProfile' className="text-black">Profile</Link></MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
         ) : (

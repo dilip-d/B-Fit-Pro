@@ -21,6 +21,8 @@ import VerificationDone from "./Pages/UserPages/VerificationDone";
 import ResendOtp from "./Pages/UserPages/ResendOtp";
 import CheckAvailability from "./Pages/UserPages/CheckAvailability";
 import Payment from "./Pages/UserPages/Payment";
+import PaymentSuccessScreen from "./Pages/UserPages/PaymentSuccessScreen";
+import UserProfilePage from "./Pages/UserPages/UserProfilePage";
 
 export default function App() {
 
@@ -43,6 +45,8 @@ export default function App() {
         <Route path="/trainerDetailedView/:id" element={<TrainerDetails />} />
         <Route path="/bookTrainer/:id" element={<CheckAvailability />} />
         <Route path="/payment/:id" element={<Payment />} />
+        <Route path="/paymentSuccess" element={<PaymentSuccessScreen />} />
+        <Route path="/userProfile" element={<UserProfilePage />} />
         {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />

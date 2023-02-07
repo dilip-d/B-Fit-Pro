@@ -5,16 +5,15 @@ import { CheckAvailability, getTrainerDetail } from "../../../axios/services/Hom
 import { Link, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { showLoading, hideLoading } from "../redux/features/alertSlice";
+const { RangePicker } = DatePicker
 
 const CheckAvailable = (props) => {
 
   const id = props.trainerId;
 
   const [details, setDetails] = useState([]);
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [isAvailable, setIsAvailable] = useState();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isAvailable, setIsAvailable] = useState(null);
   const navigate = useNavigate();
 
   async function fetchData() {
@@ -32,19 +31,20 @@ const CheckAvailable = (props) => {
     fetchData();
   }, []);
 
-  const token = JSON.parse(localStorage.getItem('user')).token;
+  const token = JSON.parse(localStorage.getItem('user'))?.token;
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    const selectedDate = date;
     const selectedTime = event.target.elements.time.value;
 
-    const values = { date: selectedDate, time: selectedTime };
+    const values = { date: selectedDate.format("DD-MM-YYYY"), time: selectedTime };
+    console.log(values);
     const data = await CheckAvailability(token, values, id);
     console.log(data);
     if (data.error) {
       toast.error(data.error)
+      setIsAvailable(null)
     } else {
       toast.success(data.message)
       setIsAvailable(data)
@@ -53,15 +53,6 @@ const CheckAvailable = (props) => {
 
   useEffect(() => {
   }, [isAvailable])
-
-  // async function bookNow() {
-  //   const data = await bookNowAndPay(token, isAvailable, id);
-  //   console.log('unblocking');
-  //   console.log(data);
-  //   if (data.unBlock) {
-  //     fetchData()
-  //   }
-  // }
 
   return (
     <>
@@ -77,9 +68,16 @@ const CheckAvailable = (props) => {
                 required
                 format="DD-MM-YYYY"
                 onChange={(value) =>
-                  setDate(moment(value).format("DD-MM-YYYY"))
+                  setSelectedDate(value)
                 }
               />
+              {/* <RangePicker
+                value={dates || value}
+                disabledDate={disabledDate}
+                onCalendarChange={(val) => setDates(val)}
+                onChange={(val) => setValue(val)}
+                onOpenChange={onOpenChange}
+              /> */}
               {/* <TimePicker
                   format="HH:mm"
                   className="m-2"
@@ -87,7 +85,6 @@ const CheckAvailable = (props) => {
                     setTime(moment(value).format("HH:mm"));
                   }}
                 /> */}
-
               <select className="select d-block mx-5" required style={{ width: '30rem' }} name="time">
                 <option value="" disabled selected>Select an time</option>
                 {details.timing?.map((item, index) => {

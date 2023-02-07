@@ -9,9 +9,10 @@ import {
     MDBRadio,
     MDBRow,
 } from "mdb-react-ui-kit";
-import { getTrainerDetail, PayNow } from "../../../axios/services/HomeService";
+import { getTrainerDetail, orderVerifyPayment, placeBooking } from "../../../axios/services/HomeService";
 import { useCallback } from 'react';
 import useRazorpay from 'react-razorpay';
+import { useNavigate } from "react-router-dom";
 
 function Checkout(props) {
 
@@ -23,7 +24,12 @@ function Checkout(props) {
 
     const [details, setDetails] = useState([]);
     const token = JSON.parse(localStorage.getItem('user')).token;
-    const formData ={details}
+    const userId = JSON.parse(localStorage.getItem('user')).user._id;
+    console.log('userId');
+    console.log(userId);
+    const formData = details
+
+    const navigate = useNavigate()
 
     async function fetchData() {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -40,68 +46,57 @@ function Checkout(props) {
         fetchData();
     }, []);
 
-    async function onSubmit() {
-        const data = await PayNow(token,trainerData,formData, id);
-        console.log(data);
-    }
-
     const Razorpay = useRazorpay();
 
-    const orderPayment = useCallback(async () => {
-      const token = localStorage.getItem('token');
-  
-      const value = {};
-      value.trainerId = selectedTrainerdetails._id;
-      value.planId = planDetails._id;
-      value.amount = planDetails.offerRate;
-      value.validfor = planDetails.validfor;
-      value.userId = clientDetails.userId;
-      const data = await placeOdder(token, value);
-      console.log(data);
-  
-      const options = {
-        key: 'rzp_test_V6c4v4ekLUGUMI',
-        amount: data.order.amount,
-        currency: 'INR',
-        name: 'fitYou',
-        description: 'Test Transaction',
-        image: 'https://example.com/your_logo',
-        order_id: data.order.id,
-        handler: (res) => {
-          verifiyPayment(res, data.order);
-        },
-        prefill: {
-          name: 'Piyush Garg',
-          email: 'youremail@example.com',
-          contact: '9999999999',
-        },
-        notes: {
-          address: 'Razorpay Corporate Office',
-        },
-        theme: {
-          color: '#ED533B',
-        },
-      };
-      const rzpay = new Razorpay(options);
-      rzpay.open();
-      async function verifiyPayment(res, order) {
-        const token = localStorage.getItem('token');
-        const verification = await orderVerifiyPayment(token, res, order);
-        if (verification.status) {
-          navigate('/plan');
-        } else {
-          alert('error Pls try agine...');
+    const payment = useCallback(async () => {
+        
+        const data = await placeBooking(token, trainerData, userId);
+        console.log(data);
+
+        const options = {
+            key: 'rzp_test_fMYGGzYHXWUmyl',
+            amount: data.order.amount,
+            currency: 'INR',
+            name: 'B-FitPro',
+            description: 'Test Transaction',
+            image: 'https://cdn.pixabay.com/photo/2022/07/17/19/15/gym-7328168_960_720.png',
+            order_id: data.order.id,
+            handler: (res) => {
+                verifiyPayment(res, data.order);
+            },
+            prefill: {
+                name: 'Piyush Garg',
+                email: 'youremail@example.com',
+                contact: '9999999999',
+            },
+            notes: {
+                address: 'Razorpay Corporate Office',
+            },
+            theme: {
+                color: '#ED533B',
+            },
+        };
+        const rzpay = new Razorpay(options);
+        rzpay.open();
+        async function verifiyPayment(res, order) {
+            const verification = await orderVerifyPayment(token, res, order);
+            console.log(verification);
+            if (verification.message) {
+                navigate('/paymentSuccess');
+            } else {
+                alert('error Pls try again...');
+            }
         }
-      }
-    }, [
-      selectedTrainerdetails._id,
-      planDetails._id,
-      planDetails.offerRate,
-      planDetails.validfor,
-      clientDetails.userId,
-      Razorpay,
-      navigate,
-    ]);
+    }
+        , [
+            //     selectedTrainerdetails._id,
+            //     planDetails._id,
+            //     planDetails.offerRate,
+            //     planDetails.validfor,
+            //     clientDetails.userId,
+            //     Razorpay,
+            //     navigate,
+        ]);
 
     return (
         <MDBContainer fluid className="p-5" style={{ backgroundColor: "white" }}>
@@ -232,6 +227,10 @@ function Checkout(props) {
                                         <div className="ms-auto">{date}</div>
                                     </div>
                                     <div className="p-2 d-flex">
+                                        <MDBCol size="8">Valid for</MDBCol>
+                                        <div className="ms-auto">1 month</div>
+                                    </div>
+                                    <div className="p-2 d-flex">
                                         <MDBCol size="8">Time</MDBCol>
                                         <div className="ms-auto">{time}</div>
                                     </div>
@@ -279,7 +278,7 @@ function Checkout(props) {
                                     </div>
                                 </div>
                             </MDBCol>
-                            <MDBBtn block size="lg" className="mt-3" onClick={() => onSubmit()}>
+                            <MDBBtn block size="lg" className="mt-3" onClick={payment}>
                                 Proceed to payment
                             </MDBBtn>
                             {/* </div> */}

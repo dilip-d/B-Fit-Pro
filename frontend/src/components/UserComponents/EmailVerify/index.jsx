@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import {  Link, useNavigate } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import success from "../../../assets/success.png";
 import styles from "./styles.module.css";
 

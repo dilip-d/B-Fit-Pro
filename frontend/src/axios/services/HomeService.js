@@ -156,8 +156,9 @@ export const CheckAvailability = async (token, values, id) => {
   }
 };
 
-export const PayNow = async (token,trainerData, formData, id) => {
-  console.log('in check availability');
+export const placeBooking = async (token, trainerData, userId) => {
+  console.log('in booking');
+  console.log(token);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -165,7 +166,43 @@ export const PayNow = async (token,trainerData, formData, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/payment/${id}`,trainerData, formData, config);
+  const { data } = await axiosClientInstance.post(`/payment/${userId}`, trainerData, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const orderVerifyPayment = async (token, res, order) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const value = {};
+  value.res = res;
+  value.order = order;
+  const { data } = await axiosClientInstance.post(
+    '/verifyPayment',
+    value,
+    config
+  );
+  if (data.status) {
+    return data;
+  }
+};
+
+export const getUserProfile = async (token, id) => {
+  console.log('in get user profile')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/getUserProfile/${id}`, config);
   if (data) {
     return data;
   }

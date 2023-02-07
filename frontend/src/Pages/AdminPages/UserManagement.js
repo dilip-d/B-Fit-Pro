@@ -19,7 +19,7 @@ function UserManagement() {
     const data = await getUserInfo(token);
     console.log(data);
     setDetails(data.clientDetails);
-    setFilterDetails(data.clientDetails)
+    setFilterDetails(data.clientDetails);
   }
 
   useEffect(() => {

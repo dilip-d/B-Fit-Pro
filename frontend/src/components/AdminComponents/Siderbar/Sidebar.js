@@ -7,18 +7,16 @@ import { UilBars } from "@iconscout/react-unicons";
 import { motion } from "framer-motion";
 import { setAdminLogout } from "../../../redux/adminSlice";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 const Sidebar = ({ setPage }) => {
+  
   const [selected, setSelected] = useState(0);
   const [expanded, setExpaned] = useState(true)
 
   const handleLogout = () => {
     dispatch(setAdminLogout())
   }
-
-  const dispatch = useDispatch();
-
+  
   const sidebarVariants = {
     true: {
       left: '0'
