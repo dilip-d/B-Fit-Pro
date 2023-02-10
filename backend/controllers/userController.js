@@ -153,6 +153,7 @@ export const verifyOTP = async (req, res) => {
                 }
             }
         }
+        
     } catch (error) {
         console.log(error);
         res.json({
@@ -394,6 +395,18 @@ export const getUserProfile = async (req, res) => {
     try {
         const userId = req.params.id
         const user = await User.find({ _id: userId })
+        res.json(user)
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const getBookings = async (req, res) => {
+    console.log('get bookings');
+    try {
+        const userId = req.params.id
+        const user = await bookingModel.find({clientId: userId })
+        console.log(user);
         res.json(user)
     } catch (err) {
         console.log(err);

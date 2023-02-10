@@ -1,4 +1,3 @@
-import { withSuccess } from 'antd/es/modal/confirm';
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 
@@ -33,6 +32,10 @@ function BookingManagement() {
       }, [search])
 
     const columns = [
+        {
+            name: 'Index',
+            selector: (_, index) => index + 1,
+        },
         {
             name: 'Trainer',
             selector: (row) => row.trainerInfo,
@@ -89,7 +92,7 @@ function BookingManagement() {
 
     return (
         <div className='row justify-content-center'>
-            <div className="container d-flex flex-column align-items-center">
+            <div className="d-flex flex-column align-items-center">
                 <div className="row mt-4">
                     <h1 >Bookings Management</h1>
                 </div>

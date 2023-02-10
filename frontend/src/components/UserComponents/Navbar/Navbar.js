@@ -52,7 +52,7 @@ const Navbar = () => {
         })}
         {user ? (
           <MDBDropdown>
-            <MDBDropdownToggle > {user.user.fname}</MDBDropdownToggle>
+            <MDBDropdownToggle className="btn-sm"> {user.user.fname}</MDBDropdownToggle>
             <MDBDropdownMenu>
               <MDBDropdownItem link><Link to='/login' className="text-black" onClick={() => handleLogout()}>Logout</Link></MDBDropdownItem>
               <MDBDropdownItem link><Link to='/userProfile' className="text-black">Profile</Link></MDBDropdownItem>
@@ -60,7 +60,7 @@ const Navbar = () => {
           </MDBDropdown>
         ) : (
           <li className="nav-links-mobile">
-            <Link to='/signup'><button className="btn">Sign Up</button></Link>
+            <Link to='/signup'><button className="btn-sm">Sign Up</button></Link>
           </li>
         )}
       </ul>

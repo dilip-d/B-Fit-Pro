@@ -9,14 +9,14 @@ import { setAdminLogout } from "../../../redux/adminSlice";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ setPage }) => {
-  
+
   const [selected, setSelected] = useState(0);
   const [expanded, setExpaned] = useState(true)
 
   const handleLogout = () => {
     dispatch(setAdminLogout())
   }
-  
+
   const sidebarVariants = {
     true: {
       left: '0'
@@ -34,14 +34,10 @@ const Sidebar = ({ setPage }) => {
         </div>
         <motion.div className='sidebar'
           variants={sidebarVariants}
-          animate={window.innerWidth <= 768 ? `${expanded}` : ''}
-        >
-          {/* logo */}
+          animate={window.innerWidth <= 768 ? `${expanded}` : ''}>
           <div className="logo">
             <img src={Logo} alt="logo" />
-            <span>
-              B<span>-</span>Fit Pro
-            </span>
+            <span>B<span>-</span>Fit Pro</span>
           </div>
 
           <div className="menu">
@@ -56,16 +52,15 @@ const Sidebar = ({ setPage }) => {
                   }}
                 >
                   <item.icon />
-                  <span>{item.heading}</span>
+                  <span className="text-black">{item.heading}</span>
                 </div>
               );
             })}
-            {/* signoutIcon */}
             <div className="menuItem">
               {/* <UilSignOutAlt /> */}
             </div>
           </div>
-          <Link to='/adminLogin' onClick={() => handleLogout()}><button style={{ margin: '3rem' }}>Logout</button></Link>
+          <Link to='/adminLogin' onClick={() => handleLogout()}><button className="btn-dark" style={{ margin: '3rem' }}>Logout</button></Link>
         </motion.div>
       </div>
     </>

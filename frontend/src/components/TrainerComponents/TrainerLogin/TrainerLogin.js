@@ -30,6 +30,13 @@ function TrainerLogin() {
     dispatch(trainerLogin({ values, navigate, toast }))
   }
 
+  useEffect(()=>{
+    const token =  JSON.parse(localStorage.getItem('trainer'))?.token;
+    if(token){
+      navigate('/trainerHome')
+    }
+  })
+
   return (
     <div>
       <ToastContainer />
@@ -82,7 +89,7 @@ function TrainerLogin() {
                               <div className='two'>
                                 <input
                                   style={{ background: "white" }}
-                                  type={!passShow ? "Password" :"text"}
+                                  type={!passShow ? "Password" : "text"}
                                   value={password}
                                   required
                                   onChange={(e) => {
@@ -113,7 +120,7 @@ function TrainerLogin() {
                       </h6>
                     </Link> */}
                     <h6 className="d-flex justify-content-center pt-2 CreatSingup-textcolour">
-                      Create an account ? 
+                      Create an account ?
                       <Link to="/trainerSignup" className='btnhover'> Sign Up</Link></h6>
                   </div>
                 </div>

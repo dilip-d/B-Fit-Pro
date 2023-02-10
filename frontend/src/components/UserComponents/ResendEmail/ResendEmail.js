@@ -18,7 +18,7 @@ function ResendEmail() {
         const data = await resendOTP(values);
         if (data.message) {
             toast.error(data.message)
-        } else if(data.status === 'pending') {
+        } else if (data.status === 'pending') {
             const id = data.userId
             toast.success(data.send)
             navigate(`/emailVerification/${id}`);

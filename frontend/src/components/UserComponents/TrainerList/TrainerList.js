@@ -31,10 +31,10 @@ function TrainerList() {
     }, []);
 
     return (
-        <MDBRow className='row-cols-1 row-cols-md-4 g-4 m-2'>
+        <MDBRow className='row-cols-1 row-cols-md-4 m-5'>
             {details.map((item, index) => {
                 return (
-                    <MDBCol>
+                    <MDBCol className='m-2' style={{width:'18rem'}}>
                         <MDBCard className='card'>
                             <MDBCardImage
                                 className="small-image"

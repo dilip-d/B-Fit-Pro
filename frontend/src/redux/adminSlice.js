@@ -16,6 +16,7 @@ const adminSlice = createSlice({
         setAdminLogout: (state, action) => {
             localStorage.removeItem("admin");
             state.admin = null;
+            state.error = null;
         },
         // changePage: (state, action) => {
         //     state.currentPage = action.payload;

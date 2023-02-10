@@ -15,7 +15,8 @@ const trainerSlice = createSlice({
     },
     setLogout: (state, action) => {
       localStorage.removeItem('trainer')
-      state.trainer = null
+      state.trainer = null;
+      state.error = null;
     }
   },
   extraReducers: (builder) => {

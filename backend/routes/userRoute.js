@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { checkAvailability, getUserProfile, payment, resendOTP, signin, signup, trainerDetail, trainerList, verifyOTP, verifyPayment } from '../controllers/userController.js';
+import { checkAvailability, getBookings, getUserProfile, payment, resendOTP, signin, signup, trainerDetail, trainerList, verifyOTP, verifyPayment } from '../controllers/userController.js';
 import { Clientprotect } from '../middleware/authMiddleware.js';
 
 //signup and login
@@ -20,6 +20,7 @@ router.post('/api/payment/:id', Clientprotect, payment);
 router.post('/api/verifyPayment', Clientprotect, verifyPayment);
 
 //profile
-router.get('/api/getUserProfile/:id',Clientprotect, getUserProfile );
+router.get('/api/getUserProfile/:id', Clientprotect, getUserProfile);
+router.get('/api/getBookings/:id', Clientprotect, getBookings);
 
 export default router;

@@ -207,3 +207,18 @@ export const getUserProfile = async (token, id) => {
     return data;
   }
 };
+
+export const getBookings = async (token, id) => {
+  console.log('in get bookings')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/getBookings/${id}`, config);
+  if (data) {
+    return data;
+  }
+};

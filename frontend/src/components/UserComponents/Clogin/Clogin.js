@@ -31,6 +31,13 @@ function Clogin() {
     console.log('success in front');
   }
 
+  useEffect(()=>{
+    const token =  JSON.parse(localStorage.getItem('user'))?.token;
+    if(token){
+      navigate('/')
+    }
+  })
+
   return (
     <>
       <ToastContainer />
@@ -46,13 +53,13 @@ function Clogin() {
                 >
                   <div className="card-body p-4 p-md-5 mx-4">
                     <h3 className="mb-3 text-start">Client Login</h3>
-                    {error ? (
+                    {/* {error ? (
                       <p style={{ color: 'red' }} className="red-error">
                         {error}
                       </p>
                     ) : (
                       ' '
-                    )}
+                    )} */}
                     <form onSubmit={onSubmit}>
                       <div className="row">
                         <div className="col-md-12">

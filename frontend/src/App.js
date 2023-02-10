@@ -23,12 +23,14 @@ import CheckAvailability from "./Pages/UserPages/CheckAvailability";
 import Payment from "./Pages/UserPages/Payment";
 import PaymentSuccessScreen from "./Pages/UserPages/PaymentSuccessScreen";
 import UserProfilePage from "./Pages/UserPages/UserProfilePage";
+import ViewBookings from "./Pages/UserPages/ViewBookings";
+import ChatPage from "./Pages/UserPages/ChatPage";
 
 export default function App() {
 
-  const userAuth = JSON.parse(localStorage.getItem("user"));
-  const trainerAuth = JSON.parse(localStorage.getItem("trainer"));
-  const adminAuth = JSON.parse(localStorage.getItem("admin"));
+  const userAuth = JSON.parse(localStorage.getItem("user"))?.token;
+  const trainerAuth = JSON.parse(localStorage.getItem("trainer"))?.token;
+  const adminAuth = JSON.parse(localStorage.getItem("admin"))?.token;
 
   return (
     <div className="App">
@@ -47,6 +49,8 @@ export default function App() {
         <Route path="/payment/:id" element={<Payment />} />
         <Route path="/paymentSuccess" element={<PaymentSuccessScreen />} />
         <Route path="/userProfile" element={<UserProfilePage />} />
+        <Route path="/viewPlan/:id" element={<ViewBookings />} />
+        <Route path="/chat" element={<ChatPage />} />
         {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />

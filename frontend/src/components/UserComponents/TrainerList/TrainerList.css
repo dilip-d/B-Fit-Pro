@@ -1,9 +1,11 @@
 .small-image {
     object-fit: cover;
     object-position: top;
-    height: 350px;
+    height: 300px;
+    width: 264px;
     transition: transform 0.5s; 
 }
+
 .small-image:hover{
     transform: scale(1.05);
 }

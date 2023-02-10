@@ -17,6 +17,7 @@ const userSlice = createSlice({
         setLogout: (state, action) => {
             localStorage.removeItem("user");
             state.user = null;
+            state.error = null;
         },
         getSelectedTrainerDetails: (state, action) => {
             let { selectedTrainerdetails } = state;

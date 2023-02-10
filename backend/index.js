@@ -9,17 +9,18 @@ import adminRouter from './routes/adminRoute.js';
 import trainerRoute from './routes/trainerRoute.js';
 import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload'
+import { Server } from 'socket.io';
 
 dotenv.config();
 
 const app = express();
 
 app.use(morgan('dev'));
-app.use(express.json({extended: true, parameterLimit:1000000, limit:'10000kb'}))
-app.use(express.urlencoded({extended: true, parameterLimit:1000000, limit:'10000kb'}))
+app.use(express.json({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
+app.use(express.urlencoded({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
 
 app.use(fileUpload({
-  useTempFiles:true
+  useTempFiles: true
 }))
 
 const corsOptions = {
@@ -46,3 +47,27 @@ try {
 } catch (err) {
   console.log(err);
 }
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on('connection', (socket) => {
+  socket.emit('me', socket.id);
+  console.log('socket connected');
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('callEnded');
+  })
+
+  socket.on('callUser', ({ userToCall, signalData, from, name }) => {
+    io.to(userToCall).emit('callUser', { signal: signalData, from, name })
+  })
+
+  socket.on('answerCall', (data) => {
+    io.to(data.to).emit('callAccepted', data.signal);
+  })
+})

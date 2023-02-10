@@ -13,7 +13,7 @@ function UserManagement() {
   const [search, setSearch] = useState('')
   const [filterDetails, setFilterDetails] = useState([])
 
-  const token =  JSON.parse(localStorage.getItem('admin')).token;
+  const token = JSON.parse(localStorage.getItem('admin')).token;
 
   async function fetchData() {
     const data = await getUserInfo(token);
@@ -52,6 +52,10 @@ function UserManagement() {
   }
 
   const columns = [
+    {
+      name: 'Index',
+      selector: (_, index) => index + 1,
+    },
     {
       name: 'Name',
       selector: (row) => row.fname,
@@ -101,7 +105,7 @@ function UserManagement() {
 
   return (
     <div className='row justify-content-center'>
-      <div className="container d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center">
         <div className="row mt-4">
           <h1 >User Management</h1>
         </div>

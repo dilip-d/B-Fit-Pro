@@ -54,6 +54,10 @@ function TrainerManagement() {
 
     const columns = [
         {
+            name: 'Index',
+            selector: (_, index) => index + 1,
+        },
+        {
             name: 'Name',
             selector: (row) => row.fname + ' ' + row.lname,
         },
@@ -96,7 +100,7 @@ function TrainerManagement() {
     ];
     return (
         <div className='row justify-content-center'>
-            <div className="container d-flex flex-column align-items-center">
+            <div className="d-flex flex-column align-items-center">
                 <div className="row mt-4">
                     <h1> Trainer Management</h1>
                 </div>

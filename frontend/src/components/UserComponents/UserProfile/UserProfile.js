@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import profileLogo from '../../../assets/profileLogo.png'
 import { getUserProfile } from '../../../axios/services/HomeService';
+import { Link } from 'react-router-dom';
 
 export default function UserProfile() {
 
@@ -9,9 +10,7 @@ export default function UserProfile() {
 
     async function fetchData() {
         const token = JSON.parse(localStorage.getItem('user')).token;
-        console.log(token);
         const result = JSON.parse(localStorage.getItem('user'))
-        console.log(result.user._id);
         const id = result.user._id
         const data = await getUserProfile(token, id);
         console.log('in user profile');
@@ -40,9 +39,9 @@ export default function UserProfile() {
                                 </MDBCol>
                                 <MDBCol md="8">
                                     <MDBCardBody className="p-4">
-                                    <MDBRow className="pt-1">
+                                        <MDBRow className="pt-1">
                                             <MDBCol size="6" className="mb-3 text-start">
-                                            <button className='btn-primary btn-sm' href="#!">View Plan</button>
+                                                <Link to={`/viewPlan/${details._id}`}><button className='btn-dark btn-sm' href="#!">View Plan</button></Link>
                                             </MDBCol>
                                             {/* <MDBCol size="6" className="mb-3">
                                                 <MDBTypography tag="h6">Height</MDBTypography>

@@ -28,6 +28,8 @@ const AdminHome = () => {
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
+  border-radius: 3rem;
+  margin :.5rem;
 `;
 
   const AppGlass = styled.div`
@@ -35,11 +37,10 @@ const AdminHome = () => {
   height: 100%;
   width: 100%;
   background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  border-radius: 2rem;
+  border-radius: 3rem;
   ${'' /* gap: 16px; */}
   grid-template-columns: 11rem auto 2rem;
   overflow-y: scroll;
-
 
  @media screen and (max-width: 1200px) {
     ${'' /* grid-template-columns: 10% 50% auto; */}
