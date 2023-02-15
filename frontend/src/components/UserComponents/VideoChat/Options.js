@@ -45,6 +45,23 @@ const Options = ({ children }) => {
     const classes = useStyles();
     console.log(callUser);
 
+    const [details, setDetails] = useState([]);
+
+    async function fetchData() {
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const result = JSON.parse(localStorage.getItem('user'))
+        const id = result.user._id
+        const data = await getUserProfile(token, id);
+        console.log('in user profile');
+        console.log(data);
+        setDetails(data[0]);
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
     return (
         <Container className={classes.container}>
             <Paper elevation={10} className={classes.paper}>
@@ -62,7 +79,7 @@ const Options = ({ children }) => {
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.padding}>
                             <Typography gutterBottom variant='h6'>Make a call</Typography>
-                            <TextField label='ID to call' value={idToCall} onChange={(e) => setIdToCall(e.target.value)} fullWidth ></TextField>
+                            <TextField label='ID to call' value={details._id} onChange={(e) => setIdToCall(details._id)} fullWidth ></TextField>
                             {callAccepted && !callEnded ? (
                                 <Button
                                     variant='contained'

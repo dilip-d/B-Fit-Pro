@@ -12,3 +12,7 @@ export const axiosAdminInstance = axios.create({
 export const axiosTrainerInstance = axios.create({
   baseURL: 'http://localhost:5000/trainer/api',
 });
+
+export const axiosChatInstance = axios.create({
+  baseURL: 'http://localhost:5000/chat/api',
+})

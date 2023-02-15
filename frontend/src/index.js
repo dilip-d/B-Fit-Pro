@@ -6,8 +6,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import persistStore from 'redux-persist/es/persistStore';
 import App from "./App";
 import { Provider } from "react-redux";
-import {store} from './redux/store';
+import { store } from './redux/store';
 import { ContextProvider } from "./SocketContext";
+import { SocketProvider } from "./providers/Socket";
+import { PeerProvider } from "./providers/Peer";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -15,10 +17,12 @@ const root = createRoot(rootElement);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-  
-    {/* <PersistGate loading={null} persistor={persistStore(store)} /> */}
-      <App />
-
-    </Provider> 
+      <SocketProvider>
+        <PeerProvider>
+          {/* <PersistGate loading={null} persistor={persistStore(store)} /> */}
+          <App />
+        </PeerProvider>
+      </SocketProvider>
+    </Provider>
   </BrowserRouter>
 );

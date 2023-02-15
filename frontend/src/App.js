@@ -25,12 +25,23 @@ import PaymentSuccessScreen from "./Pages/UserPages/PaymentSuccessScreen";
 import UserProfilePage from "./Pages/UserPages/UserProfilePage";
 import ViewBookings from "./Pages/UserPages/ViewBookings";
 import ChatPage from "./Pages/UserPages/ChatPage";
+import { io } from "socket.io-client";
+import HomePage from "./components/UserComponents/HomePage";
+import ChatApp from "./Pages/ChatHome/ChatApp";
+import RoomPage from "./Pages/ChatHome/RoomPage";
+import Room from "./Pages/ChatHome/Room";
 
 export default function App() {
 
   const userAuth = JSON.parse(localStorage.getItem("user"))?.token;
   const trainerAuth = JSON.parse(localStorage.getItem("trainer"))?.token;
   const adminAuth = JSON.parse(localStorage.getItem("admin"))?.token;
+
+  // const [socket, setSocket] = useState(null);
+
+  // useEffect(() => {
+  //   setSocket(io("http://localhost:3000"));
+  // }, []);
 
   return (
     <div className="App">
@@ -50,7 +61,10 @@ export default function App() {
         <Route path="/paymentSuccess" element={<PaymentSuccessScreen />} />
         <Route path="/userProfile" element={<UserProfilePage />} />
         <Route path="/viewPlan/:id" element={<ViewBookings />} />
-        <Route path="/chat" element={<ChatPage />} />
+        {/* <Route path="/chat" element={<ChatPage socket={socket} />} /> */}
+        <Route path="/chat" element={<ChatApp/>} />
+        <Route path="/room/:roomId" element={<Room />} />
+
         {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />

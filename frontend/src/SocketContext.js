@@ -1,6 +1,7 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
+import { getUserProfile } from './axios/services/HomeService';
 
 const SocketContext = createContext();
 
@@ -22,6 +23,23 @@ const ContextProvider = ({ children }) => {
     console.log(stream);
     console.log('own', myVideo);
     console.log('user', userVideo);
+
+    
+    const [details, setDetails] = useState([]);
+
+    async function fetchData() {
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const result = JSON.parse(localStorage.getItem('user'))
+        const id = result.user._id
+        const data = await getUserProfile(token, id);
+        console.log('in user profile');
+        console.log(data);
+        setDetails(data[0]);
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -91,7 +109,7 @@ const ContextProvider = ({ children }) => {
         const peer = new Peer({ initiator: true, trickle: false, stream });
 
         peer.on('signal', (data) => {
-            socket.emit('callUser', { userToCall: id, signalData: data, from: me, name });
+            socket.emit('callUser', { userToCall:id, signalData: data, from: details.email, name:details.fname });
         });
 
         peer.on('stream', (currentStream) => {
