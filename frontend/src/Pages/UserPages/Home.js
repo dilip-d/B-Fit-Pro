@@ -15,7 +15,7 @@ function Home() {
         title="Your Health Our Priority"
         text="Choose Your Personal Trainer"
         buttonText="Join Us"
-        url='/signup'
+        url='/trainerSignup'
         btnClass="show"
       />
       <Trainer />

@@ -58,10 +58,8 @@ export const adminSignin = async (req, res) => {
 
 //user
 export const userInfo = async (req, res) => {
-    console.log('find user');
     try {
         const users = await User.find();
-        console.log('found');
         res.json({ clientDetails: users, status: 'ok' })
     } catch (err) {
         res.status(500).json(err);
@@ -69,7 +67,6 @@ export const userInfo = async (req, res) => {
 }
 
 export const blockUser = async (req, res) => {
-    console.log('block user');
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: true })
@@ -80,7 +77,6 @@ export const blockUser = async (req, res) => {
 }
 
 export const unblockUser = async (req, res) => {
-    console.log('unblock user');
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: false })
@@ -92,10 +88,8 @@ export const unblockUser = async (req, res) => {
 
 //trainer
 export const activeTrainerInfo = async (req, res) => {
-    console.log('find trainers');
     try {
         const trainers = await Trainer.find({ isVerified: true });
-        console.log('found');
         res.json({ activetrainerDetails: trainers, status: 'ok' })
     } catch (err) {
         res.status(500).json(err);
@@ -103,7 +97,6 @@ export const activeTrainerInfo = async (req, res) => {
 }
 
 export const blockTrainer = async (req, res) => {
-    console.log('block trainer');
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: true })
@@ -114,7 +107,6 @@ export const blockTrainer = async (req, res) => {
 }
 
 export const unBlockTrainer = async (req, res) => {
-    console.log('unblock trainer');
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: false })
@@ -125,11 +117,8 @@ export const unBlockTrainer = async (req, res) => {
 }
 
 export const approvalPendingTrainers = async (req, res) => {
-    console.log('find trainers');
     try {
         const trainers = await Trainer.find({ isVerified: false });
-        console.log('found');
-        console.log(trainers);
         res.json({ trainerDetails: trainers, status: 'ok' })
     } catch (err) {
         res.status(500).json(err);
@@ -137,7 +126,6 @@ export const approvalPendingTrainers = async (req, res) => {
 }
 
 export const rejectTrainer = async (req, res) => {
-    console.log('reject trainer');
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isVerified: true })
@@ -148,10 +136,8 @@ export const rejectTrainer = async (req, res) => {
 }
 
 export const approveTrainer = async (req, res) => {
-    console.log('approve trainer');
     try {
-        const trainerId = req.params.id
-        console.log(trainerId);
+        const trainerId = req.params.id;
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isVerified: true })
         res.json({ status: 'ok', approved: true, trainerDetails: trainer })
     } catch (err) {
@@ -160,10 +146,8 @@ export const approveTrainer = async (req, res) => {
 }
 
 export const bookingInfo = async (req, res) => {
-    console.log('find bookings');
     try {
         const bookings = await bookingModel.find();
-        console.log('found');
         res.json({ booking: bookings, status: 'ok' })
     } catch (err) {
         res.status(500).json(err);

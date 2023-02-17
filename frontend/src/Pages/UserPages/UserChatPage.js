@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
 import { ToastContainer } from 'react-toastify';
-import CsignUp from '../../components/UserComponents/CsignUp/CsignUp';
+import ChatPage from '../../components/UserComponents/ChatPage/ChatPage';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
 
-function Register() {
+function UserChatPage() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function Register() {
         setTimeout(() => {
             setLoading(false)
         }, 500)
-    }, [])
+    }, []);
 
     return (
         <>
@@ -31,7 +31,7 @@ function Register() {
                 <>
                     <Navbar />
                     <ToastContainer />
-                    <CsignUp />
+                    <ChatPage/>
                     <Footer />
                 </>
             )}
@@ -39,4 +39,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default UserChatPage;

@@ -30,6 +30,10 @@ import HomePage from "./components/UserComponents/HomePage";
 import ChatApp from "./Pages/ChatHome/ChatApp";
 import RoomPage from "./Pages/ChatHome/RoomPage";
 import Room from "./Pages/ChatHome/Room";
+import UserChatPage from "./Pages/UserPages/UserChatPage";
+import Bookings from "./Pages/TrainerPages/Bookings";
+import TrainerChat from "./Pages/TrainerPages/TrainerChat";
+import EditProfile from "./Pages/UserPages/EditProfile";
 
 export default function App() {
 
@@ -60,10 +64,12 @@ export default function App() {
         <Route path="/payment/:id" element={<Payment />} />
         <Route path="/paymentSuccess" element={<PaymentSuccessScreen />} />
         <Route path="/userProfile" element={<UserProfilePage />} />
+        <Route path="/editUserProfile/:id" element={<EditProfile />}/>
         <Route path="/viewPlan/:id" element={<ViewBookings />} />
         {/* <Route path="/chat" element={<ChatPage socket={socket} />} /> */}
         <Route path="/chat" element={<ChatApp/>} />
         <Route path="/room/:roomId" element={<Room />} />
+        <Route path='/textChat' element={<UserChatPage/>} />
 
         {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
@@ -74,6 +80,8 @@ export default function App() {
         <Route path="/trainerHome" element={<TrainerHome />} />
         <Route path="/addDetails" element={<AddMoreDetails />} />
         <Route path="/editDetails/:id" element={<EditDetails />} />
+        <Route path="/viewTrainerPlan/:id" element={<Bookings />} />
+        <Route path='/trainerMessages' element={<TrainerChat/>} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

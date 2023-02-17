@@ -19,15 +19,12 @@ const instance = new Razorpay({
 });
 
 export const signup = async (req, res) => {
-    console.log('in sign up');
     const { fname, lname, dob, gender, email, phone, password, weight, height } = req.body
-    console.log(req.body);
     try {
         const oldUser = await User.findOne({ email });
         const extphone = await User.findOne({ phone });
 
         if (oldUser !== null && extphone !== null) {
-            console.log('duplicate');
             return res.json({ status: 'error', error: "User already exists" })
         } else {
             const hashedPassword = await bcrypt.hash(password, 12);
@@ -45,21 +42,14 @@ export const signup = async (req, res) => {
             })
 
             await sendOTPVerificationEmail(result, res)
-
-            // res.status(201).json({ status :  'success', message: "An Email sent to your account please verify" });
-
-            // const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1h' });
-            console.log('signup success');
         }
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })
-        console.log('went wrong');
         console.log(error);
     }
 };
 
 const sendOTPVerificationEmail = async (result, res) => {
-    console.log('in send otp');
     try {
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
 
@@ -93,7 +83,6 @@ const sendOTPVerificationEmail = async (result, res) => {
             subject: "B-Fit Pro Email Verification",
             html: `<p>Enter ${otp} in the app to verify your email address and complete the sign up</p><p>This OTP <b>expires in 1 hour</b>.</p>`
         });
-        console.log("Email sent successfully");
 
         res.json({
             status: "pending",
@@ -113,7 +102,6 @@ const sendOTPVerificationEmail = async (result, res) => {
 }
 
 export const verifyOTP = async (req, res) => {
-    console.log('in verify otp');
     try {
         const userId = req.params.id;
         let { otp } = req.body
@@ -153,7 +141,7 @@ export const verifyOTP = async (req, res) => {
                 }
             }
         }
-        
+
     } catch (error) {
         console.log(error);
         res.json({
@@ -164,7 +152,6 @@ export const verifyOTP = async (req, res) => {
 }
 
 export const resendOTP = async (req, res) => {
-    console.log('in resend otp');
     try {
         const email = req.body.email
 
@@ -194,7 +181,6 @@ export const resendOTP = async (req, res) => {
 }
 
 export const signin = async (req, res) => {
-    console.log('in user login');
     try {
         const { email, password } = req.body;
         const oldUser = await User.findOne({ email });
@@ -214,7 +200,6 @@ export const signin = async (req, res) => {
             return res.status(400).json({ message: "Invalid Credentials" })
 
         const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "3h" });
-        console.log('user login success');
 
         res.status(200).json({ token: toke, status: 'Login success', user: oldUser })
 
@@ -225,7 +210,6 @@ export const signin = async (req, res) => {
 }
 
 export const trainerList = async (req, res) => {
-    console.log('trainer list');
     try {
         const trainer = await Trainer.find({ isVerified: true })
         res.json(trainer)
@@ -235,7 +219,6 @@ export const trainerList = async (req, res) => {
 }
 
 export const trainerDetail = async (req, res) => {
-    console.log('trainer Detail');
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.find({ _id: trainerId })
@@ -246,7 +229,6 @@ export const trainerDetail = async (req, res) => {
 }
 
 export const checkAvailability = async (req, res) => {
-    console.log('in check availability');
     try {
         const trainerId = req.params.id
         console.log(trainerId);
@@ -256,19 +238,16 @@ export const checkAvailability = async (req, res) => {
         const startDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").toISOString();
         const momentEndDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").add(29, "days");
         const endDate = momentEndDate.toISOString();
-        console.log(startDate);
-        console.log(endDate);
 
         const count = await bookingModel.countDocuments({
             trainerId: trainerId,
             timing: time,
             $or: [
-              { startDate: { $lte: startDate }, endDate: { $gte: startDate } },
-              { startDate: { $lte: endDate }, endDate: { $gte: endDate } }
+                { startDate: { $lte: startDate }, endDate: { $gte: startDate } },
+                { startDate: { $lte: endDate }, endDate: { $gte: endDate } }
             ]
-          });
+        });
 
-        console.log(count);
         if (count > 0) {
             res.json({ error: 'A booking already exists for this trainer and time.' });
         } else {
@@ -280,11 +259,9 @@ export const checkAvailability = async (req, res) => {
 }
 
 export const payment = async (req, res) => {
-    console.log('in payment');
     try {
         const userId = req.params.id
         const { id, date, time } = req.body
-        console.log(id, date, time);
 
         const user = await User.findById({ _id: userId })
         const trainer = await Trainer.findById({ _id: id })
@@ -292,8 +269,6 @@ export const payment = async (req, res) => {
         const startDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").toISOString();
         const momentEndDate = moment.tz(date + " 00:00:00", "DD-MM-YYYY HH:mm:ss", "UTC").add(29, "days");
         const endDate = momentEndDate.toISOString();
-        console.log(startDate);
-        console.log(endDate);
 
         const booked = await bookingModel.create({
             clientId: user._id,
@@ -315,10 +290,7 @@ export const payment = async (req, res) => {
 }
 
 export const generateRazorpay = async (id, amount, res) => {
-    console.log('in generate rpay');
     try {
-        console.log(id);
-        console.log(amount);
         instance.orders.create(
             {
                 amount: amount * 100,
@@ -329,7 +301,6 @@ export const generateRazorpay = async (id, amount, res) => {
                     key2: 'value2',
                 },
             }, (err, order) => {
-                console.log(order);
                 res.json({ status: true, order: order });
             })
     }
@@ -342,10 +313,7 @@ export const generateRazorpay = async (id, amount, res) => {
 }
 
 export const verifyPayment = async (req, res) => {
-    console.log('in verify payment');
     try {
-        console.log(req.body);
-
         //creating hmac object
         let hmac = crypto.createHmac('sha256', process.env.key_secret);
 
@@ -361,19 +329,15 @@ export const verifyPayment = async (req, res) => {
             console.log("signatureIsvalid");
 
             changePaymentStatus(req.body.order, res)
-            // res.json(response);
         } else {
             res.send(response);
         }
-
     } catch (err) {
         console.log(err);
     }
 }
 
 export const changePaymentStatus = async (req, res) => {
-    console.log('in change payment status');
-    console.log(req);
     try {
         await bookingModel.findOneAndUpdate({ _id: req.receipt }, {
             $set: {
@@ -381,17 +345,15 @@ export const changePaymentStatus = async (req, res) => {
                 serviceStatus: 'Active'
             }
         })
-        console.log('status changed success');
         res.json({ status: true, message: 'Payment Successfull !' })
     }
     catch (error) {
-        console.log('failed');
+        console.log(error);
         res.json({ error: 'Payment Failed !' })
     }
 }
 
 export const getUserProfile = async (req, res) => {
-    console.log('user profile');
     try {
         const userId = req.params.id
         const user = await User.find({ _id: userId })
@@ -401,13 +363,50 @@ export const getUserProfile = async (req, res) => {
     }
 }
 
+export const editUserProfile = async (req, res) => {
+
+    console.log('edit user profile');
+    try {
+        const userId = req.params.id
+
+        await User.updateOne({ _id: userId }, {
+            $set: {
+                fname: req.body.firstName,
+                lname: req.body.lastName,
+                email: req.body.email,
+                phone: req.body.phone,
+                gender: req.body.gender,
+                dob: req.body.dob,
+                height: req.body.height,
+                weight: req.body.weight,
+            }
+        });
+        res.json({ status: true })
+    } catch (err) {
+        console.log(err);
+        res.json({ error: "Internal server error !" })
+    }
+}
+
 export const getBookings = async (req, res) => {
     console.log('get bookings');
     try {
         const userId = req.params.id
-        const user = await bookingModel.find({clientId: userId })
+        const user = await bookingModel.find({ clientId: userId })
         console.log(user);
         res.json(user)
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const cancelPlan = async (req, res) => {
+    console.log('cancel plan');
+    try {
+        const userId = req.params.id
+        console.log(userId);
+        const user = await bookingModel.findOneAndUpdate({ clientId: userId }, { serviceStatus: 'Cancelled' })
+        res.json({ status: true })
     } catch (err) {
         console.log(err);
     }

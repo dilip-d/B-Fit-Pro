@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { userSchema } from '../../../validation/homeValidation';
@@ -27,6 +27,13 @@ function CsignUp() {
       navigate(`/emailVerification/${id}`);
     }
   };
+
+  useEffect(()=>{
+    const token =  JSON.parse(localStorage.getItem('user'))?.token;
+    if(token){
+      navigate('/')
+    }
+  })
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({

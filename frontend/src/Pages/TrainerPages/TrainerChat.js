@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import { ToastContainer } from 'react-toastify';
-import CsignUp from '../../components/UserComponents/CsignUp/CsignUp';
-import Footer from '../../components/UserComponents/Footer/Footer';
-import Navbar from '../../components/UserComponents/Navbar/Navbar';
+import Chat from '../../components/TrainerComponents/Chat/Chat';
+import TrainerNavbar from '../../components/TrainerComponents/TrainerNavbar/TrainerNavbar';
 
-function Register() {
+function TrainerChat() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -29,14 +27,13 @@ function Register() {
                 />
             ) : (
                 <>
-                    <Navbar />
-                    <ToastContainer />
-                    <CsignUp />
-                    <Footer />
+                    <TrainerNavbar />
+                    <Chat />
+
                 </>
             )}
         </>
     );
 }
 
-export default Register;
+export default TrainerChat;

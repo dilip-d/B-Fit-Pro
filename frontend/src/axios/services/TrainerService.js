@@ -4,18 +4,12 @@ import { axiosTrainerInstance } from '../axios'
 export const login = (formData) => axiosTrainerInstance.post('/trainerLogin', formData)
 
 export const trainerLogin = createAsyncThunk('trainer/trainerLogin', async ({ values, navigate, toast }, { rejectWithValue }) => {
-  console.log('in api call');
-
   try {
     const response = await login(values)
-    console.log('in frontend');
-    console.log(response.data)
     toast.success('Login Successful')
     navigate('/trainerHome')
     return response.data
-
   } catch (error) {
-    console.log('in catch');
     return rejectWithValue(error.response.data)
   }
 })
@@ -101,7 +95,7 @@ export const addPrice = async (token, values, id) => {
 };
 
 export const editProfile = async (token, values, id) => {
-  console.log('in add price')
+  console.log('in edit profile')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -111,7 +105,21 @@ export const editProfile = async (token, values, id) => {
   };
   const { data } = await axiosTrainerInstance.post(`/editProfile/${id}`, values, config);
   if (data) {
-    console.log(data);
+    return data;
+  }
+};
+
+export const getTrainerBookings = async (token, id) => {
+  console.log('in add price')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.get(`/getTrainerBookings/${id}`, config);
+  if (data) {
     return data;
   }
 };

@@ -1,70 +1,4 @@
-import express from 'express';
-import http from 'http';
-import cors from 'cors';
-import morgan from 'morgan';
-import mongoDB from './Database/connection.js';
-import userRouter from './routes/userRoute.js';
-import adminRouter from './routes/adminRoute.js';
-import trainerRoute from './routes/trainerRoute.js';
-import conversationRouter from './routes/conversation.js';
-import messageRouter from './routes/messages.js';
-import dotenv from 'dotenv';
-import fileUpload from 'express-fileupload';
-import { Server } from 'socket.io';
-import { sockets } from './sockets/socket.js'; 
-
-dotenv.config();
-
-const app = express();
-
-app.use(morgan('dev'));
-app.use(express.json({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
-app.use(express.urlencoded({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
-
-app.use(fileUpload({
-  useTempFiles: true
-}))
-
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true, // access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
-
-// app.use(express.static(path.join(__dirname, '../client/build')));
-
-app.use('/', userRouter);
-app.use('/admin', adminRouter)
-app.use('/trainer', trainerRoute)
-app.use('/conversations', conversationRouter);
-app.use('/messages', messageRouter);
-// app.use('/chat', chatRouter); 
-
-const port = 5000
-const server = http.createServer(app);
-try {
-  mongoDB().then(() => {
-    server.listen(port, () => {
-      console.log(`Server successfully connected to ${port}`);
-    });
-  });
-} catch (err) {
-  console.log(err);
-}
-
-const io = new Server(server, {
-  pingTimeout: 60000,
-  cors: {
-    origin: ["http://localhost:3000"],
-    cors: true,
-    // methods: ["GET", "POST"]
-  }
-});
-
-// io.on('connection', sockets);
-
-// to create socketId according t email incoming
+//to create socketId according t email incoming
 const emailToSocketMapping = new Map();
 const socketToEmailMapping = new Map();
 
@@ -84,8 +18,7 @@ const removeUser = (socketId) => {
   users = users.filter((user => user.socketId !== socketId))
 }
 
-
-io.on("connection", (socket) => {
+export const sockets = (socket) => {
   console.log("New Connection");
 
   // take userid and socketid from the user
@@ -134,7 +67,7 @@ io.on("connection", (socket) => {
     socket.to(socketId).emit("call-accepted", { ans })
   });
 
-});
+}
 
 //connecting with an event & event listener
 // io.on('connection', (socket) => {

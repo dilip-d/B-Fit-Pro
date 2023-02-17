@@ -11,11 +11,7 @@ export const clientRegister = async (value) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(
-    '/clientRegister',
-    value,
-    config
-  );
+  const { data } = await axiosClientInstance.post('/clientRegister', value, config);
   if (data.status) {
     return data;
   }
@@ -32,7 +28,6 @@ export const verifyOTP = async (values, id) => {
   };
   const { data } = await axiosClientInstance.post(`/verifyOTP/${id}`, values, config);
   if (data) {
-    console.log(data);
     return data;
   }
 };
@@ -49,50 +44,36 @@ export const resendOTP = async (values) => {
   };
   const { data } = await axiosClientInstance.post('/resendOTP', values, config);
   if (data) {
-    console.log(data);
     return data;
   }
 };
 
-
-// Client Login action
-
 export const login = (formData) => axiosClientInstance.post('/clientLogin', formData)
 
 export const userLogin = createAsyncThunk('user/userLogin', async ({ values, navigate, toast }, { rejectWithValue }) => {
-  console.log('in api call');
 
   try {
     const response = await login(values)
-    console.log('in frontend');
-    console.log(response.data)
     toast.success('Login Successful')
     navigate('/')
     return response.data
 
   } catch (error) {
-    console.log('in catch');
     return rejectWithValue(error.response.data)
   }
 })
 
-// admin Login action
-
 export const adminSignin = (formData) => axiosAdminInstance.post('/adminLogin', formData)
 
 export const adminLogin = createAsyncThunk('admin/adminLogin', async ({ values, navigate, toast }, { rejectWithValue }) => {
-  console.log('in api call');
 
   try {
     const response = await adminSignin(values)
-    console.log('in frontend');
-    console.log(response.data)
     toast.success('Login Successful')
     navigate('/admin')
     return response.data
 
   } catch (error) {
-    console.log('in catch');
     return rejectWithValue(error.response.data)
   }
 })
@@ -103,11 +84,7 @@ export const trainerRegister = async (value) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(
-    '/trainerRegister',
-    value,
-    config
-  );
+  const { data } = await axiosTrainerInstance.post('/trainerRegister', value, config);
   if (data.status) {
     return data;
   }
@@ -158,7 +135,6 @@ export const CheckAvailability = async (token, values, id) => {
 
 export const placeBooking = async (token, trainerData, userId) => {
   console.log('in booking');
-  console.log(token);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -183,11 +159,7 @@ export const orderVerifyPayment = async (token, res, order) => {
   const value = {};
   value.res = res;
   value.order = order;
-  const { data } = await axiosClientInstance.post(
-    '/verifyPayment',
-    value,
-    config
-  );
+  const { data } = await axiosClientInstance.post('/verifyPayment', value, config);
   if (data.status) {
     return data;
   }
@@ -208,6 +180,20 @@ export const getUserProfile = async (token, id) => {
   }
 };
 
+export const editUserProfile = async (token, values, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.post(`/editProfile/${id}`, values, config);
+  if (data) {
+    return data;
+  }
+};
+
 export const getBookings = async (token, id) => {
   console.log('in get bookings')
   const config = {
@@ -218,6 +204,21 @@ export const getBookings = async (token, id) => {
     },
   };
   const { data } = await axiosClientInstance.get(`/getBookings/${id}`, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const cancelPlan = async (token, id) => {
+  console.log('in cancel plan')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/cancelPlan/${id}`, config);
   if (data) {
     return data;
   }

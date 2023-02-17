@@ -24,7 +24,6 @@ const ContextProvider = ({ children }) => {
     console.log('own', myVideo);
     console.log('user', userVideo);
 
-    
     const [details, setDetails] = useState([]);
 
     async function fetchData() {

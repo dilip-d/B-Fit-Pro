@@ -25,24 +25,56 @@ export const PeerProvider = (props) => {
 
     const createOffer = async () => {
         console.log('Create Offer');
-        const offer = await peer.createOffer();
-        //setting it inorder the offer to stay / it's like keeping state
-        await peer.setLocalDescription(offer);
-        return offer;
+        try {
+            const offer = await peer.createOffer();
+            await peer.setLocalDescription(offer);
+            return offer;
+        } catch (error) {
+            console.error("Failed to create offer:", error);
+            throw error;
+        }
     };
 
     const createAnswer = async (offer) => {
         //remembering opposite user offer
         console.log('Create Ans');
-        await peer.setRemoteDescription(offer);
-        const answer = await peer.createAnswer();
-        await peer.setLocalDescription(answer);
-        return answer;
+        try {
+            await peer.setRemoteDescription(offer);
+            const answer = await peer.createAnswer();
+            await peer.setLocalDescription(answer);
+            return answer;
+        } catch (error) {
+            console.error("Failed to create answer:", error);
+            throw error;
+        }
     };
 
     const setRemoteAns = async (ans) => {
         await peer.setRemoteDescription(ans);
     };
+
+    // const sendStream = async (stream) => {
+    //     if (!stream) return;
+    //     peer.addStream(stream);
+    // };
+
+    // useEffect(() => {
+    //     const handleTrackEvent = (event) => {
+    //         console.log('hi', event)
+    //         const {streams} = event.streams;
+    //         console.log(streams);
+    //         if (streams.length) {
+    //             setRemoteStream(streams[0]);
+    //             console.log(streams[0]);
+    //         }
+    //     };
+
+    //     peer.addEventListener('track', handleTrackEvent);
+
+    //     return () => {
+    //         peer.removeEventListener('track', handleTrackEvent);
+    //     };
+    // }, [peer]);
 
     const sendStream = async (stream) => {
         if (!stream) return;
@@ -55,7 +87,10 @@ export const PeerProvider = (props) => {
     };
 
     const handleTrackEvent = useCallback((ev) => {
-        const streams = ev.streams;
+        // console.log(ev);
+        const {streams} = ev;
+
+        console.log(streams);
         if (streams.length) {
             setRemoteStream(streams[0]);
             console.log(streams[0]);

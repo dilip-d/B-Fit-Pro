@@ -66,7 +66,12 @@ function TrainerNavbar() {
                             </MDBNavbarItem>
                             <MDBNavbarItem>
                                 <MDBNavbarLink>
-                                    <StyledButton>Bookings</StyledButton>
+                                <Link to={`/viewTrainerPlan/${trainer.trainer._id}`}><StyledButton>Bookings</StyledButton></Link>
+                                </MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink>
+                                <Link to='/trainerMessages'><StyledButton>Messages</StyledButton></Link>
                                 </MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>

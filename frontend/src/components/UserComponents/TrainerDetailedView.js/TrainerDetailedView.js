@@ -8,6 +8,7 @@ import moment from "moment";
 import { CheckAvailability, getTrainerDetail } from "../../../axios/services/HomeService";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { postConversation } from '../../../axios/services/ConversationServices';
 
 function TrainerDetailedView(props) {
 
@@ -57,6 +58,11 @@ function TrainerDetailedView(props) {
     useEffect(() => {
     }, [isAvailable])
 
+    async function postConversatn() {
+        const userId = user?.user?._id;
+        const trainerId = details?._id
+        const data = await postConversation(userId, trainerId);
+    }
 
     return (
         <>
@@ -77,6 +83,7 @@ function TrainerDetailedView(props) {
                                         <p></p>
                                     </div>
                                 </div>
+
                                 {/* <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                                     <div className="d-flex justify-content-end text-center py-1">
                             
@@ -98,6 +105,7 @@ function TrainerDetailedView(props) {
                                 <div className="card-body p-4 mt-3 text-black">
                                     {user ? (
                                         <>
+                                        <Link to="/textChat" onClick={postConversatn}><button className='float-start btn-sm btn-dark' style={{marginLeft:"1rem", marginTop:"4rem"}}>Message Me</button></Link>
                                             <div className="d-flex flex-row-end justify-content-end ">
                                                 <form onSubmit={onSubmit} className="w-50 mb-5 mb-md-0">
                                                     <h4 className='text-center'>Please check the availability first !</h4>
@@ -128,7 +136,7 @@ function TrainerDetailedView(props) {
                                             {isAvailable ?
                                                 <div className="d-flex justify-content-end">
                                                     <div className="row">
-                                                        <h4 className='mr-auto mt-2' style={{color:'lightgreen'}}>Available ! Proceed with book now</h4>
+                                                        <h4 className='mr-auto mt-2' style={{ color: 'lightgreen' }}>Available ! Proceed with book now</h4>
                                                         <Link to={`/payment/${encodeURIComponent(JSON.stringify(isAvailable))}`}>
                                                             <button className="btn btn-dark text-center" >
                                                                 Book Now

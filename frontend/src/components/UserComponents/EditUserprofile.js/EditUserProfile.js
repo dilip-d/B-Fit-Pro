@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { editProfile, getProfile } from '../../../axios/services/TrainerService';
-import { toast, ToastContainer } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { editUserProfile, getUserProfile } from '../../../axios/services/HomeService';
 
-function EditProfile(props) {
+function EditUserProfile(props) {
 
-    const id = props.trainerId;
+    const id = props.userId;
 
     const [user, setUser] = useState(null);
 
-    const token = JSON.parse(localStorage.getItem('trainer'))?.token;
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
 
     async function fetchData() {
-        const data = await getProfile(token, id);
+        const data = await getUserProfile(token, id);
         setUser(data[0]);
     }
     useEffect(() => {
@@ -27,6 +26,7 @@ function EditProfile(props) {
     }
 
     const handleSubmit = async (values, { setSubmitting }) => {
+        console.log('submitting');
         const data = {
             firstName: values.firstName,
             lastName: values.lastName,
@@ -34,12 +34,13 @@ function EditProfile(props) {
             phone: values.phone,
             gender: values.gender,
             dob: values.dob,
-            image: values.image
+            height: values.height,
+            weight: values.weight
         };
-        const result = await editProfile(token, data, id);
+        const result = await editUserProfile(token, data, id);
         if (result.status) {
             setSubmitting(false);
-            navigate('/trainerHome')
+            navigate('/userProfile')
         }
     };
 
@@ -49,7 +50,7 @@ function EditProfile(props) {
 
     return (
         <Formik
-            initialValues={{ firstName: user.fname, lastName: user.lname, email: user.email, phone: user.phone, gender: user.gender, dob: user.dob, image: user.profileImage }}
+            initialValues={{ firstName: user.fname, lastName: user.lname, email: user.email, phone: user.phone, gender: user.gender, dob: user.dob, height: user.height, weight: user.weight }}
             validate={values => {
                 const errors = {};
                 if (!values.firstName) {
@@ -72,18 +73,21 @@ function EditProfile(props) {
                 if (!values.dob) {
                     errors.dob = 'DOB is required';
                 }
-                if (!values.image) {
-                    errors.image = 'Image is required';
+                if (!values.height) {
+                    errors.height = 'Height is required';
+                }
+                if (!values.weight) {
+                    errors.weight = 'Weight is required';
                 }
                 return errors;
             }}
             onSubmit={handleSubmit}
         >
-            {({ isSubmitting, setFieldValue, values }) => (
+            {({ isSubmitting }) => (
                 <>
                     <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
-                    <div className="mt-3" style={{ minHeight: "600px" }}>
-                        <div className="row justify-content-center" >
+                    <div className="mt-3" style={{ minHeight: '500px' }}>
+                        <div className="row justify-content-center">
                             <div className="col-lg-6">
                                 <div className="card p-4">
                                     <Form>
@@ -130,22 +134,17 @@ function EditProfile(props) {
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="image" className="col-sm-4 col-form-label text-white">Image:</label>
+                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Height:</label>
                                             <div className="col-sm-8">
-                                                {user.profileImage && <img src={values.image || user.profileImage} alt="Profile Image" className='float-start mb-2' style={{ width: '100px', height: '110px' }} />}
-                                                <input type="file" className="form-control" id="image" name="image" onChange={(event) => {
-                                                    const file = event.currentTarget.files[0];
-                                                    const reader = new FileReader();
-                                                    reader.readAsDataURL(file);
-                                                    reader.onloadend = () => {
-                                                        setFieldValue("image", reader.result);
-                                                        const img = document.getElementById('image-preview');
-                                                        if (img) {
-                                                            img.src = reader.result;
-                                                        }
-                                                    }
-                                                }} />
-                                                <ErrorMessage name="image" component="div" className="" style={{ color: 'red' }} />
+                                                <Field type="text" className="form-control" id="height" name="height" />
+                                                <ErrorMessage name="height" component="div" className="" style={{ color: 'red' }} />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Weight:</label>
+                                            <div className="col-sm-8">
+                                                <Field type="text" className="form-control" id="weight" name="weight" />
+                                                <ErrorMessage name="weight" component="div" className="" style={{ color: 'red' }} />
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -166,4 +165,4 @@ function EditProfile(props) {
     );
 }
 
-export default EditProfile
+export default EditUserProfile

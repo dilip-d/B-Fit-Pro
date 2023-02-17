@@ -1,8 +1,6 @@
 import { axiosAdminInstance } from '../axios';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const getUserInfo = async (token) => {
-  console.log(token);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -11,9 +9,7 @@ export const getUserInfo = async (token) => {
     },
   };
   const { data } = await axiosAdminInstance.get('/userInfo', config);
-
   if (data.status) {
-    // console.log(data.status);
     return data;
   }
 };
@@ -26,10 +22,7 @@ export const unBlockuserinfo = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(
-    `/unBlockuserinfo/${id}`,
-    config
-  );
+  const { data } = await axiosAdminInstance.get(`/unBlockuserinfo/${id}`, config);
   if (data.status) {
     return data;
   }
@@ -49,7 +42,6 @@ export const blockunsrinfo = async (token, id) => {
   }
 };
 
-//trainer
 export const getActiveTrainerInfo = async (token) => {
   const config = {
     headers: {
@@ -86,10 +78,7 @@ export const unBlockTrainer = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(
-    `/unBlockTrainer/${id}`,
-    config
-  );
+  const { data } = await axiosAdminInstance.get(`/unBlockTrainer/${id}`, config);
   if (data.status) {
     return data;
   }
@@ -131,17 +120,13 @@ export const trainerApproval = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(
-    `/trainerApproval/${id}`,
-    config
-  );
+  const { data } = await axiosAdminInstance.get(`/trainerApproval/${id}`, config);
   if (data.status) {
     return data;
   }
 };
 
 export const getBookingInfo = async (token) => {
-  console.log(token);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -150,7 +135,6 @@ export const getBookingInfo = async (token) => {
     },
   };
   const { data } = await axiosAdminInstance.get('/bookingInfo', config);
-
   if (data.status) {
     return data;
   }

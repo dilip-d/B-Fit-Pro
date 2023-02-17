@@ -15,11 +15,9 @@ export const adminprotect = AsyncHandler(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      console.log('in admin protect');
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.ADMINJWT_SECRET);
-      console.log(decoded);
 
       await Admin.findById(decoded.id);
 
@@ -32,7 +30,7 @@ export const adminprotect = AsyncHandler(async (req, res, next) => {
 
   if (!token) {
     res.status(401);
-    throw new Error('Not Autherized');
+    throw new Error('Not Authorized');
   }
 });
 
@@ -47,13 +45,11 @@ export const Clientprotect = AsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.CLIENTJWT_SECRET);
-      console.log(decoded);
 
       await User.findById(decoded.id);
 
       next();
     } catch (error) {
-      console.log('failed token');
       res.status(401);
       throw new Error('Not authorized, token fail');
     }
@@ -61,7 +57,7 @@ export const Clientprotect = AsyncHandler(async (req, res, next) => {
 
   if (!token) {
     res.status(401);
-    throw new Error('Not Autherized');
+    throw new Error('Not Authorized');
   }
 });
 
@@ -73,7 +69,6 @@ export const Trainerprotect = AsyncHandler(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      console.log('in trainer protect');
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.TRAINERJWT_SECRET);
@@ -89,6 +84,6 @@ export const Trainerprotect = AsyncHandler(async (req, res, next) => {
 
   if (!token) {
     res.status(401);
-    throw new Error('Not Autherized');
+    throw new Error('Not Authorized');
   }
 });

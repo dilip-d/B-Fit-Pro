@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import Model from '../../images/trainer.png';
 import { useFormik } from 'formik';
@@ -56,6 +56,12 @@ function TrainerSignup() {
     }
   }
 
+  useEffect(()=>{
+    const token =  JSON.parse(localStorage.getItem('trainer'))?.token;
+    if(token){
+      navigate('/trainerHome')
+    }
+  })
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -256,7 +262,6 @@ function TrainerSignup() {
                                   : 'form-control form-control-sm'
                               }
                             />
-
                             {errors.phone && touched.phone && (
                               <p className="red-error">{errors.phone}</p>
                             )}

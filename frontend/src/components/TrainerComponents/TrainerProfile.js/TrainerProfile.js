@@ -47,7 +47,7 @@ export default function TrainerProfile() {
                             <MDBCardImage
                                 src={details.profileImage}
                                 alt="avatar"
-                                className="rounded-circle"
+                                className="rounded-pill"
                                 style={{ width: '150px' }}
                                 fluid />
                             <p className="text-muted mb-1 fw-bold">{details.fname} {details.lname}</p>

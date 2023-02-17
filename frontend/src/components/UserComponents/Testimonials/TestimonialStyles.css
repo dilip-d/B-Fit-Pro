@@ -1,6 +1,7 @@
 .trip {
     margin: 4rem 6rem;
     color: #2a2a2a;
+    min-height: 800px;
 }
 
 .trip h1 {
@@ -34,6 +35,11 @@
     transition: 0.3s ease-in-out;
     border-radius: 7px;
 }
+
+/* .t-image p{
+    height: 100%;
+    display: block;
+} */
 
 .t-image:hover img {
     transform: scale(1.3);

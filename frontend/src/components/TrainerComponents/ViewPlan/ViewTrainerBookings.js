@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import { cancelPlan, getBookings } from '../../../axios/services/HomeService';
+import { getTrainerBookings } from '../../../axios/services/TrainerService';
 
-function ViewPlan(props) {
+function ViewTrainerBookings(props) {
 
-    const id = props.userId
+    const id = props.trainerId
 
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
 
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    const token = JSON.parse(localStorage.getItem('trainer')).token;
 
     async function fetchData() {
-        const data = await getBookings(token, id);
+        const data = await getTrainerBookings(token, id);
         console.log('in viewPlan');
         setDetails(data);
         // setFilterDetails(data)
@@ -43,8 +44,8 @@ function ViewPlan(props) {
             selector: (_, index) => index + 1,
         },
         {
-            name: 'Trainer',
-            selector: (row) => row.trainerInfo,
+            name: 'Client',
+            selector: (row) => row.clientInfo,
         },
         {
             name: 'Start Date',
@@ -70,26 +71,26 @@ function ViewPlan(props) {
             name: 'Payment Status',
             selector: (row) => row.paymentStatus,
         },
-        {
-            name: 'Action',
-            selector: (row) => {
-                return (
-                    <div>
-                        {row.serviceStatus === 'Active' ? (
-                            <button
-                                key={row._id}
-                                className="btn-danger px-3"
-                                onClick={() => cancel(row.clientId)}
-                            >
-                                Cancel
-                            </button>
-                        ) : (
-                            <p className='text-danger'>Cancelled</p>
-                        )}
-                    </div>
-                );
-            },
-        }
+        // {
+        //     name: 'Action',
+        //     selector: (row) => {
+        //         return (
+        //             <div>
+        //                 {row.serviceStatus === 'Active' ? (
+        //                     <button
+        //                         key={row._id}
+        //                         className="btn-danger px-3"
+        //                         onClick={() => cancel(row.clientId)}
+        //                     >
+        //                         Cancel
+        //                     </button>
+        //                 ) : (
+        //                     <p className='text-danger'>Cancelled</p>
+        //                 )}
+        //             </div>
+        //         );
+        //     },
+        // }
     ];
     return (
         <div className='row justify-content-center m-5'>
@@ -121,4 +122,4 @@ function ViewPlan(props) {
     );
 }
 
-export default ViewPlan;
+export default ViewTrainerBookings;
