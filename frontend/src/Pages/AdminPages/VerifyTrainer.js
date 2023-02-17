@@ -14,8 +14,6 @@ function VerifyTrainer() {
 
     async function fetchData() {
         const data = await getTrainerdetails(token);
-        console.log('in front');
-        console.log(data);
         setDetails(data.trainerDetails);
     }
 
@@ -96,7 +94,6 @@ function VerifyTrainer() {
                     })}
                 </div>
             )}
-
         </>
     )
 }

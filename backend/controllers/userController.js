@@ -94,10 +94,7 @@ const sendOTPVerificationEmail = async (result, res) => {
         })
     }
     catch (error) {
-        res.json({
-            status: "FAILED",
-            message: error.message,
-        })
+        res.json({ status: "FAILED", message: error.message, })
     }
 }
 
@@ -144,10 +141,7 @@ export const verifyOTP = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.json({
-            status: 'Failed',
-            message: 'Unable to verify'
-        })
+        res.json({ status: 'Failed', message: 'Unable to verify' })
     }
 }
 
@@ -173,10 +167,7 @@ export const resendOTP = async (req, res) => {
         sendOTPVerificationEmail(oldUser, res)
     }
     catch (error) {
-        res.json({
-            status: "Failed",
-            message: error.message
-        })
+        res.json({ status: "Failed", message: error.message })
     }
 }
 
@@ -214,6 +205,7 @@ export const trainerList = async (req, res) => {
         const trainer = await Trainer.find({ isVerified: true })
         res.json(trainer)
     } catch (err) {
+        res.json({error: 'Internal server error'})
         console.log(err);
     }
 }
@@ -373,8 +365,6 @@ export const editUserProfile = async (req, res) => {
             $set: {
                 fname: req.body.firstName,
                 lname: req.body.lastName,
-                email: req.body.email,
-                phone: req.body.phone,
                 gender: req.body.gender,
                 dob: req.body.dob,
                 height: req.body.height,

@@ -8,9 +8,8 @@ import Checkout from "../../components/UserComponents/Checkout/Checkout";
 function Payment() {
 
     const { id } = useParams();
-    console.log('in payment');
+
     const isAvailable = JSON.parse(decodeURIComponent(id));
-    console.log(isAvailable);
     
     return (
         <>

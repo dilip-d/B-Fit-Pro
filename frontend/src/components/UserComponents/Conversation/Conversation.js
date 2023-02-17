@@ -7,12 +7,11 @@ function Conversation({conversation, currentUser}) {
   const [user, setUser] = useState(null)
   
   const trainerId = conversation.members.find((m) => m !== currentUser)
-  console.log('in convooo',trainerId);
+  
   useEffect(() => {
     const getTrainer = async () => {
       try {
         const response = await trainerDetails(trainerId)
-        console.log(response);
         setUser(response)
 
       } catch (err) {

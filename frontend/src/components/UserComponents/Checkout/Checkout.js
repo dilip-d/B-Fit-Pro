@@ -5,8 +5,6 @@ import {
     MDBCardBody,
     MDBCol,
     MDBContainer,
-    MDBIcon,
-    MDBRadio,
     MDBRow,
 } from "mdb-react-ui-kit";
 import { getTrainerDetail, orderVerifyPayment, placeBooking } from "../../../axios/services/HomeService";
@@ -25,8 +23,6 @@ function Checkout(props) {
     const [details, setDetails] = useState([]);
     const token = JSON.parse(localStorage.getItem('user')).token;
     const userId = JSON.parse(localStorage.getItem('user')).user._id;
-    console.log('userId');
-    console.log(userId);
     const formData = details
 
     const navigate = useNavigate()
@@ -34,7 +30,6 @@ function Checkout(props) {
     async function fetchData() {
         const user = JSON.parse(localStorage.getItem('user'));
         const data = await getTrainerDetail(id);
-        console.log(data);
         if (!user) {
             navigate('/login')
         } else {
@@ -49,9 +44,8 @@ function Checkout(props) {
     const Razorpay = useRazorpay();
 
     const payment = useCallback(async () => {
-        
+
         const data = await placeBooking(token, trainerData, userId);
-        console.log(data);
 
         const options = {
             key: 'rzp_test_fMYGGzYHXWUmyl',
@@ -80,23 +74,13 @@ function Checkout(props) {
         rzpay.open();
         async function verifiyPayment(res, order) {
             const verification = await orderVerifyPayment(token, res, order);
-            console.log(verification);
             if (verification.message) {
                 navigate('/paymentSuccess');
             } else {
                 alert('error Pls try again...');
             }
         }
-    }
-        , [
-            //     selectedTrainerdetails._id,
-            //     planDetails._id,
-            //     planDetails.offerRate,
-            //     planDetails.validfor,
-            //     clientDetails.userId,
-            //     Razorpay,
-            //     navigate,
-        ]);
+    }, []);
 
     return (
         <MDBContainer fluid className="p-5" style={{ backgroundColor: "white" }}>
@@ -116,100 +100,6 @@ function Checkout(props) {
                                     </h6>
                                 </div>
                             </div>
-                            {/* <h4 className="text-success">$85.00</h4>
-                            <h4>Diabetes Pump &amp; Supplies</h4>
-                            <div className="d-flex pt-2">
-                                <div>
-                                    <p>
-                                        <b>
-                                            Insurance Responsibility{" "}
-                                            <span className="text-success">$71.76</span>
-                                        </b>
-                                    </p>
-                                </div>
-                                <div className="ms-auto">
-                                    <p className="text-primary">
-                                        <MDBIcon
-                                            fas
-                                            icon="plus-circle"
-                                            className="text-primary pe-1"
-                                        />
-                                        Add insurance card
-                                    </p>
-                                </div>
-                            </div>
-                            <p>
-                                Insurance claims and all necessary dependencies will be
-                                submitted to your insurer for the coverred portion of this order
-                            </p>
-                            <div
-                                className="rounded d-flex"
-                                style={{ backgroundColor: "#f8f9fa" }}
-                            >
-                                <div className="p-2">Aetna-Open Access</div>
-                                <div className="ms-auto p-2">OAP</div>
-                            </div>
-                            <hr />
-                            <div className="pt-2">
-                                <div className="d-flex pb-2">
-                                    <div>
-                                        <p>
-                                            <b>
-                                                Patient Balance{" "}
-                                                <span className="text-success">$13.24</span>
-                                            </b>
-                                        </p>
-                                    </div>
-                                    <div className="ms-auto">
-                                        <p className="text-primary">
-                                            <MDBIcon
-                                                fas
-                                                icon="plus-circle"
-                                                className="text-primary pe-1"
-                                            />
-                                            Add payment card
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>
-                                    This is an estimate for the portion of your order (not covered
-                                    by insurance) due today . once insurance finalizes their
-                                    review refunds and/or balances will reconcile automatically.
-                                </p>
-                                <div className="d-flex flex-row pb-3">
-                                    <div className="d-flex align-items-center pe-2">
-                                        <MDBRadio name="radioNoLabel" id="radioNoLabel1" checked />
-                                    </div>
-                                    <div className="rounded border d-flex w-100 p-3 align-items-center">
-                                        <p className="mb-0">
-                                            <MDBIcon
-                                                fab
-                                                icon="cc-visa"
-                                                size="lg"
-                                                className="text-primary pe-2"
-                                            />{" "}
-                                            Visa Debit Card
-                                        </p>
-                                        <div className="ms-auto">************3456</div>
-                                    </div>
-                                </div>
-                                <div className="d-flex flex-row pb-3">
-                                    <div className="d-flex align-items-center pe-2">
-                                        <MDBRadio name="radioNoLabel" id="radioNoLabel1" checked />
-                                    </div>
-                                    <div className="rounded border d-flex w-100 p-3 align-items-center">
-                                        <p className="mb-0">
-                                            <MDBIcon
-                                                fab
-                                                icon="cc-mastercard"
-                                                size="lg"
-                                                className="text-dark pe-2"
-                                            />{" "}
-                                            Mastercard Office
-                                        </p>
-                                        <div className="ms-auto">************1038</div>
-                                    </div>
-                                </div> */}
                             <MDBCol md="5" xl="12" offsetXl="1">
                                 {" "}
                                 <div
@@ -239,35 +129,6 @@ function Checkout(props) {
                                         <div className="ms-auto">₹ {details.price}</div>
                                     </div>
                                     <div className="border-top px-2 mx-2"></div>
-                                    {/* <div className="p-2 d-flex pt-3">
-                                        <MDBCol size="8">
-                                            Total Deductible, Coinsurance, and Copay
-                                        </MDBCol>
-                                        <div className="ms-auto">$40.00</div>
-                                    </div>
-                                    <div className="p-2 d-flex">
-                                        <MDBCol size="8">
-                                            Maximum out-of-pocket on Insurance Policy (not reached)
-                                        </MDBCol>
-                                        <div className="ms-auto">$6500.00</div>
-                                    </div>
-                                    <div className="border-top px-2 mx-2"></div>
-                                    <div className="p-2 d-flex pt-3">
-                                        <MDBCol size="8">Insurance Responsibility</MDBCol>
-                                        <div className="ms-auto">
-                                            <b>$71.76</b>
-                                        </div>
-                                    </div>
-                                    <div className="p-2 d-flex">
-                                        <MDBCol size="8">
-                                            Patient Balance{" "}
-                                            <span className="fa fa-question-circle text-dark"></span>
-                                        </MDBCol>
-                                        <div className="ms-auto">
-                                            <b>$71.76</b>
-                                        </div>
-                                    </div>
-                                    <div className="border-top px-2 mx-2"></div> */}
                                     <div className="p-2 d-flex pt-3">
                                         <MDBCol size="8">
                                             <b>Total</b>
@@ -281,9 +142,7 @@ function Checkout(props) {
                             <MDBBtn block size="lg" className="mt-3" onClick={payment}>
                                 Proceed to payment
                             </MDBBtn>
-                            {/* </div> */}
                         </MDBCol>
-
                     </MDBRow>
                 </MDBCardBody>
             </MDBCard>

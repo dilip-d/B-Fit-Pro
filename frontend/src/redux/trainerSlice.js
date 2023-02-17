@@ -25,14 +25,12 @@ const trainerSlice = createSlice({
         state.pending = true
       })
       .addCase(trainerLogin.fulfilled, (state, action) => {
-        console.log('hii')
         state.pending = false
         localStorage.setItem("trainer", JSON.stringify({ ...action.payload }))
         state.trainer = action.payload
         state.success = action.payload
       })
       .addCase(trainerLogin.rejected, (state, action) => {
-        console.log('in slice error');
         state.pending = false
         state.error = action.payload.message
       })

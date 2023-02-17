@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { userLogin } from '../../../axios/services/HomeService';
-import '../../../components/UserComponents/Clogin/Clogin.css';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import './ClientLogin.css';
+import { toast } from 'react-toastify';
 
-function Clogin() {
+function ClientLogin() {
 
   const [passShow, setPassShow] = useState(false)
 
@@ -17,7 +16,6 @@ function Clogin() {
   const dispatch = useDispatch();
 
   const { error } = useSelector(state => state.auth)
-  console.log(error);
 
   useEffect(() => {
     error && toast.error(error)
@@ -28,38 +26,25 @@ function Clogin() {
 
     const values = { email: email, password: password };
     dispatch(userLogin({ values, navigate, toast }));
-    console.log('success in front');
   }
 
-  useEffect(()=>{
-    const token =  JSON.parse(localStorage.getItem('user'))?.token;
-    if(token){
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
+    if (token) {
       navigate('/')
     }
   })
 
   return (
     <>
-      <ToastContainer />
       <div className="row Clogin-Main justify-content-center align-items-center mt-5 pt-1">
-        {/* <img src={ModelWoman} className="Clogin-img1" alt="modelimage" /> */}
         <section className="gradient-custom">
           <div className="container py-5 h-100 justify-content-center align-items-center">
             <div className="row justify-content-center align-items-center h-100">
               <div className="col-12 col-lg-12 col-xl-12" style={{ maxWidth: '480px' }}>
-                <div
-                  className="card shadow-2-strong card-registration"
-                  style={{ borderRadius: '15px' }}
-                >
+                <div className="card shadow-2-strong card-registration" style={{ borderRadius: '15px' }}>
                   <div className="card-body p-4 p-md-5 mx-4">
                     <h3 className="mb-3 text-start">Client Login</h3>
-                    {/* {error ? (
-                      <p style={{ color: 'red' }} className="red-error">
-                        {error}
-                      </p>
-                    ) : (
-                      ' '
-                    )} */}
                     <form onSubmit={onSubmit}>
                       <div className="row">
                         <div className="col-md-12">
@@ -102,13 +87,8 @@ function Clogin() {
                           </div>
                         </div>
                       </div>
-
                       <div className="">
-                        <input
-                          className="btn btn-md"
-                          type="submit"
-                          value="Submit"
-                        />
+                        <input className="btn btn-md" type="submit" value="Submit"/>
                       </div>
                     </form>
                     <Link to="/resendOtp">
@@ -128,4 +108,4 @@ function Clogin() {
   );
 }
 
-export default Clogin;
+export default ClientLogin;

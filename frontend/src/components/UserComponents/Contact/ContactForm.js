@@ -19,10 +19,10 @@ function ContactForm() {
     <div className="form-container">
       <h1>Send a message to us!</h1>
       <form ref={form} onSubmit={sendEmail}>
-        <input type="text" name='user_name' placeholder="Name" />
-        <input type="email" name='user_email' placeholder="Email" />
-        <input type="text" name='user_subject' placeholder="Subject" />
-        <textarea type="text" name='user_message' placeholder="Message" rows='4'></textarea>
+        <input type="text" name='user_name' placeholder="Name" required/>
+        <input type="email" name='user_email' placeholder="Email" required/>
+        <input type="text" name='user_subject' placeholder="Subject" required/>
+        <textarea type="text" name='user_message' placeholder="Message" rows='4' required></textarea>
         <button>Send Message</button>
       </form>
     </div>

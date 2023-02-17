@@ -34,6 +34,8 @@ import UserChatPage from "./Pages/UserPages/UserChatPage";
 import Bookings from "./Pages/TrainerPages/Bookings";
 import TrainerChat from "./Pages/TrainerPages/TrainerChat";
 import EditProfile from "./Pages/UserPages/EditProfile";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
 
@@ -49,6 +51,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -64,24 +67,23 @@ export default function App() {
         <Route path="/payment/:id" element={<Payment />} />
         <Route path="/paymentSuccess" element={<PaymentSuccessScreen />} />
         <Route path="/userProfile" element={<UserProfilePage />} />
-        <Route path="/editUserProfile/:id" element={<EditProfile />}/>
+        <Route path="/editUserProfile/:id" element={<EditProfile />} />
         <Route path="/viewPlan/:id" element={<ViewBookings />} />
         {/* <Route path="/chat" element={<ChatPage socket={socket} />} /> */}
-        <Route path="/chat" element={<ChatApp/>} />
+        <Route path="/chat" element={<ChatApp />} />
         <Route path="/room/:roomId" element={<Room />} />
-        <Route path='/textChat' element={<UserChatPage/>} />
+        <Route path='/textChat' element={<UserChatPage />} />
 
-        {/* admin */}
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminSignIn />} />
-        {/* trainer */}
+
         <Route path="/trainerSignup" element={<TrainerRegister />} />
         <Route path="/trainerLogin" element={<TrainerSignIn />} />
         <Route path="/trainerHome" element={<TrainerHome />} />
         <Route path="/addDetails" element={<AddMoreDetails />} />
         <Route path="/editDetails/:id" element={<EditDetails />} />
         <Route path="/viewTrainerPlan/:id" element={<Bookings />} />
-        <Route path='/trainerMessages' element={<TrainerChat/>} />
+        <Route path='/trainerMessages' element={<TrainerChat />} />
         <Route path="/*" element={<E404 />} />
       </Routes>
     </div>

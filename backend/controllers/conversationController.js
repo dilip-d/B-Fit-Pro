@@ -1,4 +1,4 @@
-import Conversation from '../models/conversation.js'
+import Conversation from '../models/conversationSchema.js'
 import Trainer from '../models/trainerSchema.js'
 import User from '../models/userSchema.js'
 

@@ -1,4 +1,4 @@
-import message from "../models/message.js"
+import message from "../models/messageSchema.js"
 
 export const postMessage = async (req, res) => {
     const newMessage = new message(req.body)

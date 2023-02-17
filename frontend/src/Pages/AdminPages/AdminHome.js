@@ -11,7 +11,7 @@ import BookingManagement from "./BookingManagement";
 const AdminHome = () => {
   const navigate = useNavigate();
   const [pages, setPage] = useState('dashboard')
-  console.log('pages', pages);
+  
   useEffect(() => {
     const token = localStorage.getItem('admin');
     if (!token) {

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { trainerLogin } from '../../../axios/services/TrainerService';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-// import Modelman from '../../images/LoginTrainer.png';
+import { toast} from 'react-toastify';
 import './TrainerLogin.css';
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -39,9 +37,7 @@ function TrainerLogin() {
 
   return (
     <div>
-      <ToastContainer />
       <div className="row trainerlogin-Main justify-content-center align-items-center mt-5 pt-1">
-        {/* <img src={Modelman} className="trainerlogin-img1" alt="modelimage" /> */}
         <section className=" gradient-custom">
           <div className="container py-5 h-100 justify-content-center align-items-center">
             <div className="row justify-content-center align-items-center h-100">
@@ -99,9 +95,9 @@ function TrainerLogin() {
                                 />
                                 <div className='showpass' onClick={() => setPassShow(!passShow)}>Show</div>
                               </div>
-                              <label className="d-flex justify-content-end">
+                              {/* <label className="d-flex justify-content-end">
                                 Forgot Password ?
-                              </label>
+                              </label> */}
                             </div>
                           </div>
                         </div>
@@ -114,11 +110,6 @@ function TrainerLogin() {
                         </div>
                       </div>
                     </form>
-                    {/* <Link to="/login/trainerOTP">
-                      <h6 className="btnhover d-flex justify-content-center pt-4  OTP-textcolour">
-                        Login With OTP ?
-                      </h6>
-                    </Link> */}
                     <h6 className="d-flex justify-content-center pt-2 CreatSingup-textcolour">
                       Create an account ?
                       <Link to="/trainerSignup" className='btnhover'> Sign Up</Link></h6>

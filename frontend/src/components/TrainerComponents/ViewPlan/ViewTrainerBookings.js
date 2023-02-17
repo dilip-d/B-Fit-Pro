@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import { cancelPlan, getBookings } from '../../../axios/services/HomeService';
+import { cancelPlan } from '../../../axios/services/HomeService';
 import { getTrainerBookings } from '../../../axios/services/TrainerService';
 
 function ViewTrainerBookings(props) {

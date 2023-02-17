@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import GridLoader from 'react-spinners/GridLoader';
 import { ToastContainer } from 'react-toastify';
 import Footer from '../../components/UserComponents/Footer/Footer';
@@ -27,7 +26,6 @@ function ResendOtp() {
                     size={25}
                     aria-label="Loading Spinner"
                     data-testid="loader"
-
                 />
             ) : (
                 <>

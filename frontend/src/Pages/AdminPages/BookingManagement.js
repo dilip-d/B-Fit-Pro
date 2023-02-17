@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-
-import {
-    getBookingInfo,
-} from '../../axios/services/AdminService';
+import { getBookingInfo, } from '../../axios/services/AdminService';
 
 function BookingManagement() {
 
@@ -15,7 +12,6 @@ function BookingManagement() {
 
     async function fetchData() {
         const data = await getBookingInfo(token);
-        console.log(data);
         setDetails(data.booking);
         setFilterDetails(data.booking)
     }
@@ -24,12 +20,12 @@ function BookingManagement() {
         fetchData();
     }, []);
 
-      useEffect(() => {
+    useEffect(() => {
         const result = details.filter(detail => {
-          return detail.clientInfo.toLowerCase().match(search.toLowerCase())
+            return detail.clientInfo.toLowerCase().match(search.toLowerCase())
         })
         setFilterDetails(result)
-      }, [search])
+    }, [search])
 
     const columns = [
         {
@@ -60,7 +56,7 @@ function BookingManagement() {
             name: 'Status',
             style: {
                 color: "green",
-              },
+            },
             selector: (row) => row.serviceStatus,
         },
         // {

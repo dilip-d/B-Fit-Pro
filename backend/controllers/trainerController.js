@@ -189,8 +189,6 @@ export const editProfile = async (req, res) => {
             $set: {
                 fname: req.body.firstName,
                 lname: req.body.lastName,
-                email: req.body.email,
-                phone: req.body.phone,
                 gender: req.body.gender,
                 dob: req.body.dob,
                 profileImage: file1.url

@@ -30,8 +30,6 @@ function EditProfile(props) {
         const data = {
             firstName: values.firstName,
             lastName: values.lastName,
-            email: values.email,
-            phone: values.phone,
             gender: values.gender,
             dob: values.dob,
             image: values.image
@@ -49,22 +47,18 @@ function EditProfile(props) {
 
     return (
         <Formik
-            initialValues={{ firstName: user.fname, lastName: user.lname, email: user.email, phone: user.phone, gender: user.gender, dob: user.dob, image: user.profileImage }}
+            initialValues={{ firstName: user.fname, lastName: user.lname, gender: user.gender, dob: user.dob, image: user.profileImage }}
             validate={values => {
                 const errors = {};
                 if (!values.firstName) {
                     errors.firstName = 'First name is required';
+                } else if (!/^[A-Za-z]{2,}$/i.test(values.firstName)) {
+                    errors.firstName = 'First name should contain only alphabets and must be at least 2 characters long';
                 }
                 if (!values.lastName) {
                     errors.lastName = 'Last name is required';
-                }
-                if (!values.email) {
-                    errors.email = 'Email is required';
-                } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                    errors.email = 'Invalid email address';
-                }
-                if (!values.phone) {
-                    errors.phone = 'Phone number is required';
+                } else if (!/^[A-Za-z]{1,}$/i.test(values.lastName)) {
+                    errors.lastName = 'Last name should contain only alphabets and must be at least 1 characters long';
                 }
                 if (!values.gender) {
                     errors.gender = 'Gender is required';
@@ -102,28 +96,18 @@ function EditProfile(props) {
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="email" className="col-sm-4 col-form-label text-white">Email:</label>
+                                            <label htmlFor="gender" className="col-sm-4 col-form-label text-white">Gender:</label>
                                             <div className="col-sm-8">
-                                                <Field type="email" className="form-control" id="email" name="email" />
-                                                <ErrorMessage name="email" component="div" className="" style={{ color: 'red' }} />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Phone:</label>
-                                            <div className="col-sm-8">
-                                                <Field type="tel" className="form-control" id="phone" name="phone" />
-                                                <ErrorMessage name="phone" component="div" className="" style={{ color: 'red' }} />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Gender:</label>
-                                            <div className="col-sm-8">
-                                                <Field type="text" className="form-control" id="gender" name="gender" />
+                                                <Field as="select" className="form-control" id="gender" name="gender">
+                                                    <option value="Male" selected={values.gender === "Male"}>Male</option>
+                                                    <option value="Female" selected={values.gender === "Female"}>Female</option>
+                                                    <option value="Other" selected={values.gender === "Other"}>Other</option>
+                                                </Field>
                                                 <ErrorMessage name="gender" component="div" className="" style={{ color: 'red' }} />
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Date Of Birth:</label>
+                                            <label htmlFor="dob" className="col-sm-4 col-form-label text-white">Date Of Birth:</label>
                                             <div className="col-sm-8">
                                                 <Field type="date" className="form-control" id="dob" name="dob" />
                                                 <ErrorMessage name="dob" component="div" className="" style={{ color: 'red' }} />

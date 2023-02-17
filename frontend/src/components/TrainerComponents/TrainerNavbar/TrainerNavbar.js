@@ -1,5 +1,5 @@
 import { MDBBtn, MDBCollapse, MDBContainer, MDBIcon, MDBInputGroup, MDBNavbar, MDBNavbarBrand, MDBNavbarItem, MDBNavbarLink, MDBNavbarNav, MDBNavbarToggler } from 'mdb-react-ui-kit'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,12 +8,7 @@ import logo from '../../../../src/assets/logo7.png'
 
 function TrainerNavbar() {
 
-    // const [trainer, setTrainer] = useState(null);
     const trainer = JSON.parse(localStorage.getItem('trainer'));
-
-    // useEffect(() => {
-    //     setTrainer(JSON.parse(localStorage.getItem('trainer')));
-    // }, [trainer]);
 
     const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
     const dispatch = useDispatch();
@@ -56,22 +51,17 @@ function TrainerNavbar() {
                     </MDBNavbarToggler>
                     <MDBCollapse navbar show={showNavNoTogglerSecond}>
                         <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-                            {/* <MDBNavbarItem>
-                                <MDBNavbarLink  href='#'>
-                                <StyledButton>Home</StyledButton>
-                                </MDBNavbarLink>
-                            </MDBNavbarItem> */}
                             <MDBNavbarItem>
                                 <Link to='/trainerHome'><MDBNavbarLink ><StyledButton>Profile</StyledButton></MDBNavbarLink></Link>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
                                 <MDBNavbarLink>
-                                <Link to={`/viewTrainerPlan/${trainer.trainer._id}`}><StyledButton>Bookings</StyledButton></Link>
+                                    <Link to={`/viewTrainerPlan/${trainer.trainer._id}`}><StyledButton>Bookings</StyledButton></Link>
                                 </MDBNavbarLink>
                             </MDBNavbarItem>
                             <MDBNavbarItem>
                                 <MDBNavbarLink>
-                                <Link to='/trainerMessages'><StyledButton>Messages</StyledButton></Link>
+                                    <Link to='/trainerMessages'><StyledButton>Messages</StyledButton></Link>
                                 </MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>

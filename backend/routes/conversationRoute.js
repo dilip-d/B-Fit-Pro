@@ -1,5 +1,5 @@
 import express from 'express';
-import { getConversation, getDetails, getUserDetails, postConversation } from '../controllers/conversation.js';
+import { getConversation, getDetails, getUserDetails, postConversation } from '../controllers/conversationController.js';
 const router = express.Router();
 
 router.post('/api', postConversation);

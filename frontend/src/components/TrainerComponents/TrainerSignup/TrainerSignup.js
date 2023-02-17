@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import Model from '../../images/trainer.png';
 import { useFormik } from 'formik';
 import { trainerRegister } from '../../../axios/services/HomeService';
 import { trainerSchema } from '../../../validation/homeValidation';
@@ -14,11 +13,8 @@ function TrainerSignup() {
   const [fileb, setFileb] = useState([]);
 
   const [error, setError] = useState('');
-  console.log('in trainer signup');
 
   const onSubmit = async (values) => {
-    console.log('in frontend');
-    // console.log(values);
     const status = await trainerRegister({ values, file1: filef, file2: fileb });
     if (status.status === 'error') {
       setError('Trainer already existed');
@@ -31,7 +27,6 @@ function TrainerSignup() {
   const handleImage1 = (e) => {
     const file = e.target.files[0];
     setFileToBase(file);
-    console.log(file);
   }
 
   const setFileToBase = (file) => {
@@ -45,7 +40,6 @@ function TrainerSignup() {
   const handleImage2 = (e) => {
     const file = e.target.files[0];
     setFileToBase2(file);
-    console.log(file);
   }
 
   const setFileToBase2 = (file) => {
@@ -84,11 +78,6 @@ function TrainerSignup() {
 
   return (
     <div className="row TrainerSignup-Main pt-5 mt-1 justify-content-center align-items-center">
-      {/* <img
-          className="TrainerSignup-Main-image"
-          src={Model}
-          alt="modelimage"
-        /> */}
       <section className="gradient-custom">
         <div className="container h-100 justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center h-100">

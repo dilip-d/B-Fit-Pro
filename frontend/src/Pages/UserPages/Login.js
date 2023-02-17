@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
 import { ToastContainer } from 'react-toastify';
-import Clogin from '../../components/UserComponents/Clogin/Clogin';
+import ClientLogin from '../../components/UserComponents/ClientLogin/ClientLogin';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
 
-function signIn() {
+function SignIn() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function signIn() {
       setLoading(false)
     }, 500)
   }, [])
-  
+
   return (
     <>
       {loading ? (
@@ -25,13 +25,12 @@ function signIn() {
           size={25}
           aria-label="Loading Spinner"
           data-testid="loader"
- 
         />
       ) : (
         <>
           <Navbar />
           <ToastContainer />
-          <Clogin />
+          <ClientLogin />
           <Footer />
         </>
       )}
@@ -39,4 +38,4 @@ function signIn() {
   );
 }
 
-export default signIn;
+export default SignIn;

@@ -17,7 +17,6 @@ function ChatPage() {
     const [arrivalMessage, setArrivalMessage] = useState(null)
     const socket = useRef();
     const scrollRef = useRef();
-    console.log(socket);
 
     useEffect(() => {
         setLoading(true)

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { DatePicker, message, TimePicker } from "antd";
-import moment from "moment";
+import { DatePicker } from "antd";
 import { CheckAvailability, getTrainerDetail } from "../../../axios/services/HomeService";
 import { Link, useNavigate } from "react-router-dom"
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const { RangePicker } = DatePicker
+import { toast } from 'react-toastify';
 
 const CheckAvailable = (props) => {
 
@@ -19,7 +16,6 @@ const CheckAvailable = (props) => {
   async function fetchData() {
     const user = JSON.parse(localStorage.getItem('user'));
     const data = await getTrainerDetail(id);
-    console.log(data);
     if (!user) {
       navigate('/login')
     } else {
@@ -39,9 +35,7 @@ const CheckAvailable = (props) => {
     const selectedTime = event.target.elements.time.value;
 
     const values = { date: selectedDate.format("DD-MM-YYYY"), time: selectedTime };
-    console.log(values);
     const data = await CheckAvailability(token, values, id);
-    console.log(data);
     if (data.error) {
       toast.error(data.error)
       setIsAvailable(null)
@@ -56,7 +50,6 @@ const CheckAvailable = (props) => {
 
   return (
     <>
-      <ToastContainer />
       <div className="row align-items-center justify-content-center" style={{ background: "white" }}>
         <div className="container d-flex align-items-center justify-content-center" style={{ minHeight: "300px" }}>
           <div className="d-flex flex-column">
@@ -71,20 +64,6 @@ const CheckAvailable = (props) => {
                   setSelectedDate(value)
                 }
               />
-              {/* <RangePicker
-                value={dates || value}
-                disabledDate={disabledDate}
-                onCalendarChange={(val) => setDates(val)}
-                onChange={(val) => setValue(val)}
-                onOpenChange={onOpenChange}
-              /> */}
-              {/* <TimePicker
-                  format="HH:mm"
-                  className="m-2"
-                  onChange={(value) => {
-                    setTime(moment(value).format("HH:mm"));
-                  }}
-                /> */}
               <select className="select d-block mx-5" required style={{ width: '30rem' }} name="time">
                 <option value="" disabled selected>Select an time</option>
                 {details.timing?.map((item, index) => {
@@ -104,7 +83,6 @@ const CheckAvailable = (props) => {
             </> : null}
           </div>
         </div>
-        {/* )} */}
       </div>
     </>
   );

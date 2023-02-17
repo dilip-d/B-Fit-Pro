@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
 import { ToastContainer } from 'react-toastify';
-import CsignUp from '../../components/UserComponents/CsignUp/CsignUp';
+import ClientSignUp from '../../components/UserComponents/ClientSignUp/ClientSignUp';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
 
@@ -25,13 +25,12 @@ function Register() {
                     size={25}
                     aria-label="Loading Spinner"
                     data-testid="loader"
-
                 />
             ) : (
                 <>
                     <Navbar />
                     <ToastContainer />
-                    <CsignUp />
+                    <ClientSignUp />
                     <Footer />
                 </>
             )}

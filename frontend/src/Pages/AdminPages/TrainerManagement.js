@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-// import jwt from 'jwt-decode';
 import {
     getActiveTrainerInfo,
     unBlockTrainer,
@@ -17,8 +16,6 @@ function TrainerManagement() {
 
     async function fetchData() {
         const data = await getActiveTrainerInfo(token);
-        console.log('in frontend');
-        console.log(data);
         setDetails(data.activetrainerDetails);
         setFilterDetails(data.activetrainerDetails)
     }
@@ -35,9 +32,7 @@ function TrainerManagement() {
     }, [search, details])
 
     async function unBlock(id) {
-        const data = await unBlockTrainer(token, id);
-        console.log('unblockingg');
-        console.log(data);
+        const data = await unBlockTrainer(token, id);;
         if (data.unBlock) {
             fetchData()
         }
@@ -45,8 +40,6 @@ function TrainerManagement() {
 
     async function Block(id) {
         const data = await blockTrainer(token, id);
-        console.log('blockingg');
-        console.log(data);
         if (data.block) {
             fetchData()
         }

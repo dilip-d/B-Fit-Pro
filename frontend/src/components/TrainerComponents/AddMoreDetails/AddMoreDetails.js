@@ -1,8 +1,7 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { addDescription, addPrice, addService, addTips } from '../../../axios/services/TrainerService';
 import { trainerSchema } from '../../../validation/homeValidation';
 
@@ -98,7 +97,6 @@ function AddMoreDetails() {
     <>
        <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
       <div className="row">
-        <ToastContainer />
         <div className="col-sm-6 py-3 px-5">
           <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
             <div className="card-body bg-white">

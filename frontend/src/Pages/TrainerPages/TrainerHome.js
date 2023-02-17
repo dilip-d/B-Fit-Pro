@@ -3,11 +3,11 @@ import TrainerNavbar from '../../components/TrainerComponents/TrainerNavbar/Trai
 import TrainerProfile from '../../components/TrainerComponents/TrainerProfile.js/TrainerProfile'
 
 function TrainerHome() {
-    return (  
-        <> 
-        <TrainerNavbar /> 
-       <TrainerProfile /> 
-       </>      
+    return (
+        <>
+            <TrainerNavbar />
+            <TrainerProfile />
+        </>
     )
 }
 

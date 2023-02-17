@@ -10,17 +10,11 @@ const adminSlice = createSlice({
         pending: false
     },
     reducers: {
-        // setAdmin: (state, action) => {
-        //     state.admin = action.payload;
-        // },
         setAdminLogout: (state, action) => {
             localStorage.removeItem("admin");
             state.admin = null;
             state.error = null;
         },
-        // changePage: (state, action) => {
-        //     state.currentPage = action.payload;
-        // },
     },
     extraReducers: (builder) => {
         builder
@@ -28,14 +22,12 @@ const adminSlice = createSlice({
                 state.pending = true
             })
             .addCase(adminLogin.fulfilled, (state, action) => {
-                console.log('hii')
                 state.pending = false
                 localStorage.setItem("admin", JSON.stringify({ ...action.payload }))
                 state.admin = action.payload
                 state.success = action.payload
             })
             .addCase(adminLogin.rejected, (state, action) => {
-                console.log('in slice error');
                 state.pending = false
                 state.error = action.payload.message
             })

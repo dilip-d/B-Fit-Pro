@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-
 import {
   blockunsrinfo,
   getUserInfo,
@@ -17,7 +16,6 @@ function UserManagement() {
 
   async function fetchData() {
     const data = await getUserInfo(token);
-    console.log(data);
     setDetails(data.clientDetails);
     setFilterDetails(data.clientDetails);
   }
@@ -35,8 +33,6 @@ function UserManagement() {
 
   async function unBlock(id) {
     const data = await unBlockuserinfo(token, id);
-    console.log('unblockingg');
-    console.log(data);
     if (data.unBlock) {
       fetchData()
     }
@@ -44,8 +40,6 @@ function UserManagement() {
 
   async function Block(id) {
     const data = await blockunsrinfo(token, id);
-    console.log('blockingggg');
-    console.log(data);
     if (data.block) {
       fetchData()
     }

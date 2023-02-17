@@ -30,8 +30,6 @@ function EditUserProfile(props) {
         const data = {
             firstName: values.firstName,
             lastName: values.lastName,
-            email: values.email,
-            phone: values.phone,
             gender: values.gender,
             dob: values.dob,
             height: values.height,
@@ -50,22 +48,18 @@ function EditUserProfile(props) {
 
     return (
         <Formik
-            initialValues={{ firstName: user.fname, lastName: user.lname, email: user.email, phone: user.phone, gender: user.gender, dob: user.dob, height: user.height, weight: user.weight }}
+            initialValues={{ firstName: user.fname, lastName: user.lname, gender: user.gender, dob: user.dob, height: user.height, weight: user.weight }}
             validate={values => {
                 const errors = {};
                 if (!values.firstName) {
                     errors.firstName = 'First name is required';
+                } else if (!/^[A-Za-z]{2,}$/i.test(values.firstName)) {
+                    errors.firstName = 'First name should contain only alphabets and must be at least 2 characters long';
                 }
                 if (!values.lastName) {
                     errors.lastName = 'Last name is required';
-                }
-                if (!values.email) {
-                    errors.email = 'Email is required';
-                } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                    errors.email = 'Invalid email address';
-                }
-                if (!values.phone) {
-                    errors.phone = 'Phone number is required';
+                } else if (!/^[A-Za-z]{1,}$/i.test(values.lastName)) {
+                    errors.lastName = 'Last name should contain only alphabets and must be at least 1 characters long';
                 }
                 if (!values.gender) {
                     errors.gender = 'Gender is required';
@@ -75,15 +69,19 @@ function EditUserProfile(props) {
                 }
                 if (!values.height) {
                     errors.height = 'Height is required';
+                } else if (!/^\d{1,3}(\.\d{1,2})?$/.test(values.height)) {
+                    errors.height = 'Height should be a number with up to 3 digits';
                 }
                 if (!values.weight) {
                     errors.weight = 'Weight is required';
+                } else if (!/^\d{1,3}(\.\d{1,2})?$/.test(values.weight)) {
+                    errors.weight = 'Weight should be maximum of 3 digits';
                 }
                 return errors;
             }}
             onSubmit={handleSubmit}
         >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, values }) => (
                 <>
                     <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
                     <div className="mt-3" style={{ minHeight: '500px' }}>
@@ -106,23 +104,13 @@ function EditUserProfile(props) {
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="email" className="col-sm-4 col-form-label text-white">Email:</label>
+                                            <label htmlFor="gender" className="col-sm-4 col-form-label text-white">Gender:</label>
                                             <div className="col-sm-8">
-                                                <Field type="email" className="form-control" id="email" name="email" />
-                                                <ErrorMessage name="email" component="div" className="" style={{ color: 'red' }} />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Phone:</label>
-                                            <div className="col-sm-8">
-                                                <Field type="tel" className="form-control" id="phone" name="phone" />
-                                                <ErrorMessage name="phone" component="div" className="" style={{ color: 'red' }} />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Gender:</label>
-                                            <div className="col-sm-8">
-                                                <Field type="text" className="form-control" id="gender" name="gender" />
+                                                <Field as="select" className="form-control" id="gender" name="gender">
+                                                    <option value="Male" selected={values.gender === "Male"}>Male</option>
+                                                    <option value="Female" selected={values.gender === "Female"}>Female</option>
+                                                    <option value="Other" selected={values.gender === "Other"}>Other</option>
+                                                </Field>
                                                 <ErrorMessage name="gender" component="div" className="" style={{ color: 'red' }} />
                                             </div>
                                         </div>
@@ -134,14 +122,14 @@ function EditUserProfile(props) {
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Height:</label>
+                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Height (cm):</label>
                                             <div className="col-sm-8">
                                                 <Field type="text" className="form-control" id="height" name="height" />
                                                 <ErrorMessage name="height" component="div" className="" style={{ color: 'red' }} />
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Weight:</label>
+                                            <label htmlFor="phone" className="col-sm-4 col-form-label text-white">Weight (kg):</label>
                                             <div className="col-sm-8">
                                                 <Field type="text" className="form-control" id="weight" name="weight" />
                                                 <ErrorMessage name="weight" component="div" className="" style={{ color: 'red' }} />

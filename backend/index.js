@@ -2,12 +2,12 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import morgan from 'morgan';
-import mongoDB from './Database/connection.js';
+import mongoDB from './database/connection.js';
 import userRouter from './routes/userRoute.js';
 import adminRouter from './routes/adminRoute.js';
-import trainerRoute from './routes/trainerRoute.js';
-import conversationRouter from './routes/conversation.js';
-import messageRouter from './routes/messages.js';
+import trainerRouter from './routes/trainerRoute.js';
+import conversationRouter from './routes/conversationRoute.js';
+import messageRouter from './routes/messagesRoute.js';
 import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
 import { Server } from 'socket.io';
@@ -27,7 +27,7 @@ app.use(fileUpload({
 
 const corsOptions = {
   origin: 'http://localhost:3000',
-  credentials: true, // access-control-allow-credentials:true
+  credentials: true,
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -36,10 +36,9 @@ app.use(cors(corsOptions));
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter)
-app.use('/trainer', trainerRoute)
+app.use('/trainer', trainerRouter)
 app.use('/conversations', conversationRouter);
 app.use('/messages', messageRouter);
-// app.use('/chat', chatRouter); 
 
 const port = 5000
 const server = http.createServer(app);
