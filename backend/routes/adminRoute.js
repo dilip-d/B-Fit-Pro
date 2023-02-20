@@ -15,26 +15,26 @@ import {
     unblockUser,
     userInfo
 } from '../controllers/adminController.js';
-import { adminprotect } from '../middleware/authMiddleware.js';
+import { adminProtect } from '../middleware/authMiddleware.js';
 
 //admin login & signup
 router.post('/adminSignup', adminSignup);
 router.post('/api/adminLogin', adminSignin);
 
 //user management
-router.get('/api/userInfo', adminprotect, userInfo);
-router.get('/api/blockUserinfo/:id', adminprotect, blockUser);
-router.get('/api/unBlockuserinfo/:id', adminprotect, unblockUser);
+router.get('/api/userInfo', adminProtect, userInfo);
+router.get('/api/blockUserinfo/:id', adminProtect, blockUser);
+router.get('/api/unBlockuserinfo/:id', adminProtect, unblockUser);
 
 //trainer management
-router.get('/api/activeTrainerInfo', adminprotect, activeTrainerInfo);
-router.get('/api/blockTrainer/:id', adminprotect, blockTrainer);
-router.get('/api/unBlockTrainer/:id', adminprotect, unBlockTrainer);
-router.get('/api/getTrainerDetails', adminprotect, approvalPendingTrainers);
-router.get('/api/trainerReject/:id', adminprotect, rejectTrainer);
-router.get('/api/trainerApproval/:id', adminprotect, approveTrainer);
+router.get('/api/activeTrainerInfo', adminProtect, activeTrainerInfo);
+router.get('/api/blockTrainer/:id', adminProtect, blockTrainer);
+router.get('/api/unBlockTrainer/:id', adminProtect, unBlockTrainer);
+router.get('/api/getTrainerDetails', adminProtect, approvalPendingTrainers);
+router.get('/api/trainerReject/:id', adminProtect, rejectTrainer);
+router.get('/api/trainerApproval/:id', adminProtect, approveTrainer);
 
 //booking management
-router.get('/api/bookingInfo', adminprotect, bookingInfo);
+router.get('/api/bookingInfo', adminProtect, bookingInfo);
 
 export default router;

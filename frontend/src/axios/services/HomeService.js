@@ -118,6 +118,21 @@ export const getTrainerDetail = async (id) => {
   }
 };
 
+
+export const getTrainerToCheckAvailable = async (token, id) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/trainerCheckAvailable/${id}`, config);
+  if (data) {
+    return data;
+  }
+};
+
 export const CheckAvailability = async (token, values, id) => {
   console.log('in check availability');
   const config = {
@@ -174,9 +189,13 @@ export const getUserProfile = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/getUserProfile/${id}`, config);
-  if (data) {
-    return data;
+  try {
+    const { data } = await axiosClientInstance.get(`/getUserProfile/${id}`, config);
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 

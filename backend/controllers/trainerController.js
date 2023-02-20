@@ -52,7 +52,7 @@ export const trainerSignup = async (req, res) => {
                 certificateImage: file2.url,
                 link: values.link
             })
-            const token = jwt.sign({ email: result.email, id: result._id }, process.env.TRAINERJWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ email: result.email, id: result._id }, process.env.TRAINERJWT_SECRET, { expiresIn: "1d" });
             res.json({ status: 'success' });
         }
     } catch (error) {
@@ -78,7 +78,7 @@ export const trainerLogin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, process.env.TRAINERJWT_SECRET, { expiresIn: "1h" });
+        const toke = jwt.sign({ name: oldTrainer.fname, email: oldTrainer.email, id: oldTrainer._id }, process.env.TRAINERJWT_SECRET, { expiresIn: "1d" });
 
         res.status(200).json({ token: toke, status: 'Login success', trainer: oldTrainer })
 
@@ -95,6 +95,7 @@ export const getProfile = async (req, res) => {
         res.json(trainer)
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -111,6 +112,7 @@ export const addService = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -127,6 +129,7 @@ export const addTips = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -143,6 +146,7 @@ export const addDescription = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -159,6 +163,7 @@ export const addPrice = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -199,6 +204,7 @@ export const editProfile = async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -209,5 +215,28 @@ export const getTrainerBookings = async (req, res) => {
         res.json(trainer)
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
+    }
+}
+
+export const deleteService = async (req, res) => {
+    try {
+        const Id = req.params.id;
+        await Trainer.updateOne({ _id: Id }, { $pull: { service: req.body.item } });
+        res.json({status: true});
+    } catch (err) {
+        console.log(err);
+        res.json({ error: 'Internal Server Error !' });
+    }
+}
+
+export const deleteTips = async (req, res) => {
+    try {
+        const Id = req.params.id;
+        await Trainer.updateOne({ _id: Id }, { $pull: { tips: req.body.item } });
+        res.json({status: true});
+    } catch (err) {
+        console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }

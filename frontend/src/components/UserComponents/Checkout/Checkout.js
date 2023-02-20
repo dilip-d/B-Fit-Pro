@@ -59,7 +59,7 @@ function Checkout(props) {
                 verifiyPayment(res, data.order);
             },
             prefill: {
-                name: 'Piyush Garg',
+                name: 'name',
                 email: 'youremail@example.com',
                 contact: '9999999999',
             },

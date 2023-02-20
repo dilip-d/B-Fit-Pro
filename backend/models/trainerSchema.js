@@ -105,6 +105,10 @@ const TrainerSchema = mongoose.Schema({
             "08:00pm-09:00pm"
         ]
     },
+    wallet: {
+        type: Number,
+        trim: true
+    },
     rating: {
         type: Number,
         min: 0,

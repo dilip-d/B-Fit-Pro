@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const adminprotect = AsyncHandler(async (req, res, next) => {
+export const adminProtect = AsyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -23,18 +23,19 @@ export const adminprotect = AsyncHandler(async (req, res, next) => {
 
       next();
     } catch (error) {
-      res.status(401);
+      res.json({ expired: 'Session expired do logout & then login again !' });
+      console.log(error);
       throw new Error('Not authorized, token fail');
     }
   }
 
   if (!token) {
-    res.status(401);
+    res.json({ expired: 'Session expired do logout & then login again !' });
     throw new Error('Not Authorized');
   }
 });
 
-export const Clientprotect = AsyncHandler(async (req, res, next) => {
+export const clientProtect = AsyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -50,18 +51,18 @@ export const Clientprotect = AsyncHandler(async (req, res, next) => {
 
       next();
     } catch (error) {
-      res.status(401);
+      res.json({ expired: 'Session expired do logout & then login again !' });
       throw new Error('Not authorized, token fail');
     }
   }
 
   if (!token) {
-    res.status(401);
+    res.json({ expired: 'Session expired do logout & then login again !' });
     throw new Error('Not Authorized');
   }
 });
 
-export const Trainerprotect = AsyncHandler(async (req, res, next) => {
+export const trainerProtect = AsyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -72,18 +73,18 @@ export const Trainerprotect = AsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.TRAINERJWT_SECRET);
-      
+
       await Trainer.findById(decoded.id);
 
       next();
     } catch (error) {
-      res.status(401);
+      res.json({ expired: 'Session expired do logout & then login again !' });
       throw new Error('Not authorized, token fail');
     }
   }
 
   if (!token) {
-    res.status(401);
+    res.json({ expired: 'Session expired do logout & then login again !' });
     throw new Error('Not Authorized');
   }
 });

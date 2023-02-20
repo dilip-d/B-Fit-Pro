@@ -13,26 +13,26 @@ const UserSchema = mongoose.Schema({
         required: [true, 'Please enter last name '],
         minLength: 1
     },
-    dob:{
-        type:String,
-        required:true,
+    dob: {
+        type: String,
+        required: true,
     },
-    gender:{
-        type:String,
+    gender: {
+        type: String,
         trim: true,
-        required:true
+        required: true
     },
-    weight:{
-        type:Number,
-        trim:true,
-        required:true,
-        minLength:2
+    weight: {
+        type: Number,
+        trim: true,
+        required: true,
+        minLength: 2
     },
-    height:{
-        type:Number,
-        trim:true,
-        required:true,
-        minLength:2
+    height: {
+        type: Number,
+        trim: true,
+        required: true,
+        minLength: 2
     },
     email: {
         type: String,
@@ -80,11 +80,15 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    wallet: {
+        type: Number,
+        trim: true
+    },
     bookedSlots: [{
         type: Date,
         required: true
-      }]
+    }]
 }, { timestamps: true })
 
-const userSchema =  mongoose.model('User', UserSchema)
+const userSchema = mongoose.model('User', UserSchema)
 export default userSchema;

@@ -46,13 +46,11 @@ const userSlice = createSlice({
         //     state.pending = true
         // })
         // .addCase(userRegister.fulfilled, (state, action) => {
-        //     console.log('hii')
         //     state.pending = false
         //     state.user = action.payload
         //     state.success = action.payload
         // })
         // .addCase(userRegister.rejected, (state, action) => {
-        //     console.log('in slice error');
         //     state.pending = false
         //     state.error = action.payload.message
         // })

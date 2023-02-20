@@ -24,8 +24,6 @@ export const adminSignup = async (req, res) => {
             email,
             password: hashedPassword,
         })
-
-        const token = jwt.sign({ email: result.email, id: result._id }, process.env.ADMINJWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ result, token });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' })
@@ -47,7 +45,7 @@ export const adminSignin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, process.env.ADMINJWT_SECRET , { expiresIn: "10h" });
+        const toke = jwt.sign({ email: oldAdmin.email, id: oldAdmin._id }, process.env.ADMINJWT_SECRET , { expiresIn: "1d" });
 
         res.status(200).json({ token: toke, status: 'Login success', admin: oldAdmin })
     } catch (error) {
@@ -62,7 +60,8 @@ export const userInfo = async (req, res) => {
         const users = await User.find();
         res.json({ clientDetails: users, status: 'ok' })
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -72,6 +71,7 @@ export const blockUser = async (req, res) => {
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: true })
         res.json({ status: 'ok', block: true, clientDetails: user })
     } catch (err) {
+        res.json({ error: 'Internal Server Error !' });
         console.log(err);
     }
 }
@@ -82,6 +82,7 @@ export const unblockUser = async (req, res) => {
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: false })
         res.json({ status: 'ok', unBlock: true, clientDetails: user })
     } catch (err) {
+        res.json({ error: 'Internal Server Error !' });
         console.log(err);
     }
 }
@@ -92,7 +93,8 @@ export const activeTrainerInfo = async (req, res) => {
         const trainers = await Trainer.find({ isVerified: true });
         res.json({ activetrainerDetails: trainers, status: 'ok' })
     } catch (err) {
-        res.status(500).json(err);
+        res.json({ error: 'Internal Server Error !' });
+        console.log(err);
     }
 }
 
@@ -102,6 +104,7 @@ export const blockTrainer = async (req, res) => {
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: true })
         res.json({ status: 'ok', block: true, trainerDetails: trainer })
     } catch (err) {
+        res.json({ error: 'Internal Server Error !' });
         console.log(err);
     }
 }
@@ -113,6 +116,7 @@ export const unBlockTrainer = async (req, res) => {
         res.json({ status: 'ok', unBlock: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -121,7 +125,8 @@ export const approvalPendingTrainers = async (req, res) => {
         const trainers = await Trainer.find({ isVerified: false });
         res.json({ trainerDetails: trainers, status: 'ok' })
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -132,6 +137,7 @@ export const rejectTrainer = async (req, res) => {
         res.json({ status: 'ok', rejected: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -142,6 +148,7 @@ export const approveTrainer = async (req, res) => {
         res.json({ status: 'ok', approved: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -150,6 +157,7 @@ export const bookingInfo = async (req, res) => {
         const bookings = await bookingModel.find();
         res.json({ booking: bookings, status: 'ok' })
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }

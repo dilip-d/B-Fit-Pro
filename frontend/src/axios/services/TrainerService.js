@@ -109,6 +109,36 @@ export const editProfile = async (token, values, id) => {
   }
 };
 
+export const deleteService = async (token, value, id) => {
+  console.log('i axios',value);
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(`/deleteService/${id}`, value, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const deleteTips = async (token, value, id) => {
+  console.log('i axios',value);
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosTrainerInstance.post(`/deleteTip/${id}`, value, config);
+  if (data) {
+    return data;
+  }
+};
+
 export const getTrainerBookings = async (token, id) => {
   console.log('in add price')
   const config = {

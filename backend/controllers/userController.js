@@ -190,7 +190,7 @@ export const signin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "3h" });
+        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "1d" });
 
         res.status(200).json({ token: toke, status: 'Login success', user: oldUser })
 
@@ -205,18 +205,36 @@ export const trainerList = async (req, res) => {
         const trainer = await Trainer.find({ isVerified: true })
         res.json(trainer)
     } catch (err) {
-        res.json({error: 'Internal server error'})
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
 export const trainerDetail = async (req, res) => {
     try {
         const trainerId = req.params.id
-        const trainer = await Trainer.find({ _id: trainerId })
-        res.json(trainer)
+        const trainer = await Trainer.findOne({ _id: trainerId })
+        const bookedTimings = await bookingModel.find({ trainerId: trainerId }).distinct('timing');
+
+        const availableTimings = trainer.timing.filter((timing) => !bookedTimings.includes(timing));
+        res.json({ trainer, availableTimings })
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
+    }
+}
+
+export const getAvailability = async (req, res) => {
+    try {
+        const trainerId = req.params.id
+        const trainer = await Trainer.findOne({ _id: trainerId })
+        const bookedTimings = await bookingModel.find({ trainerId: trainerId }).distinct('timing');
+
+        const availableTimings = trainer.timing.filter((timing) => !bookedTimings.includes(timing));
+        res.json({ trainer, availableTimings });
+    } catch (err) {
+        console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -247,6 +265,7 @@ export const checkAvailability = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -278,6 +297,7 @@ export const payment = async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -326,6 +346,7 @@ export const verifyPayment = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -352,12 +373,11 @@ export const getUserProfile = async (req, res) => {
         res.json(user)
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
 export const editUserProfile = async (req, res) => {
-
-    console.log('edit user profile');
     try {
         const userId = req.params.id
 
@@ -374,30 +394,29 @@ export const editUserProfile = async (req, res) => {
         res.json({ status: true })
     } catch (err) {
         console.log(err);
-        res.json({ error: "Internal server error !" })
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
 export const getBookings = async (req, res) => {
-    console.log('get bookings');
     try {
         const userId = req.params.id
         const user = await bookingModel.find({ clientId: userId })
-        console.log(user);
         res.json(user)
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }
 
 export const cancelPlan = async (req, res) => {
-    console.log('cancel plan');
     try {
-        const userId = req.params.id
-        console.log(userId);
-        const user = await bookingModel.findOneAndUpdate({ clientId: userId }, { serviceStatus: 'Cancelled' })
+        const userId = req.params.id;
+        const booking = await bookingModel.findOneAndUpdate({ clientId: userId }, { serviceStatus: 'Cancelled' })
+        await User.findByIdAndUpdate(userId, { $inc: { wallet: booking.amount } })
         res.json({ status: true })
     } catch (err) {
         console.log(err);
+        res.json({ error: 'Internal Server Error !' });
     }
 }

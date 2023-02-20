@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import { useNavigate } from 'react-router-dom';
 import { cancelPlan, getBookings } from '../../../axios/services/HomeService';
 
 function ViewPlan(props) {
@@ -9,6 +10,8 @@ function ViewPlan(props) {
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
+    
+    const navigate = useNavigate()
 
     const token = JSON.parse(localStorage.getItem('user')).token;
 
@@ -35,6 +38,10 @@ function ViewPlan(props) {
         if (data.status) {
             fetchData()
         }
+    }
+
+    function handleBackButtonClick() {
+        navigate(-1);
     }
 
     const columns = [
@@ -92,32 +99,35 @@ function ViewPlan(props) {
         }
     ];
     return (
-        <div className='row justify-content-center m-5'>
-            <div className="d-flex flex-column align-items-center" style={{ minHeight: '600px' }}>
-                <div className='table bg-dark'>
-                    <DataTable
-                        columns={columns}
-                        data={details}
-                        fixedHeader
-                        fixedHeaderScrollHeight="500px"
-                        // selectableRows
-                        selectableRowsHighlight
-                        highlightOnHover
-                        pagination
-                        subHeader
-                    // subHeaderComponent={
-                    //     <input
-                    //         type='text'
-                    //         placeholder='Search here'
-                    //         className='w-25 form-control'
-                    //         value={search}
-                    //         onChange={(e) => setSearch(e.target.value)}
-                    //     />
-                    // }
-                    />
+        <>
+            <button className='btn-sm btn-dark mt-4' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
+            <div className='row justify-content-center m-2'>
+                <div className="d-flex flex-column align-items-center" style={{ minHeight: '600px' }}>
+                    <div className='table bg-dark'>
+                        <DataTable
+                            columns={columns}
+                            data={details}
+                            fixedHeader
+                            fixedHeaderScrollHeight="500px"
+                            // selectableRows
+                            selectableRowsHighlight
+                            highlightOnHover
+                            pagination
+                            subHeader
+                        // subHeaderComponent={
+                        //     <input
+                        //         type='text'
+                        //         placeholder='Search here'
+                        //         className='w-25 form-control'
+                        //         value={search}
+                        //         onChange={(e) => setSearch(e.target.value)}
+                        //     />
+                        // }
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

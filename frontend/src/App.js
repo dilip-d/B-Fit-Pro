@@ -36,6 +36,7 @@ import TrainerChat from "./Pages/TrainerPages/TrainerChat";
 import EditProfile from "./Pages/UserPages/EditProfile";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Wallets from "./Pages/UserPages/Wallets";
 
 export default function App() {
 
@@ -69,6 +70,7 @@ export default function App() {
         <Route path="/userProfile" element={<UserProfilePage />} />
         <Route path="/editUserProfile/:id" element={<EditProfile />} />
         <Route path="/viewPlan/:id" element={<ViewBookings />} />
+        <Route path="/userWallet/:id" element={<Wallets />} />
         {/* <Route path="/chat" element={<ChatPage socket={socket} />} /> */}
         <Route path="/chat" element={<ChatApp />} />
         <Route path="/room/:roomId" element={<Room />} />
