@@ -5,6 +5,7 @@ import Conversation from '../../../components/TrainerComponents/Conversation/Con
 import Message from '../../../components/UserComponents/Message/Message'
 import './Chat.css'
 import { io } from "socket.io-client"
+import Picker from 'emoji-picker-react';
 
 function Chat() {
     const [conversations, setConversations] = useState([])
@@ -12,13 +13,20 @@ function Chat() {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("")
     const [arrivalMessage, setArrivalMessage] = useState(null)
+    const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
     const socket = useRef();
     const scrollRef = useRef()
-    console.log(socket);
 
     useEffect(() => {
         socket.current = io("ws://localhost:5000");
     }, [])
+
+    const handleEmojiPickerToggle = () => {
+        setIsEmojiPickerVisible(!isEmojiPickerVisible);
+    }
+    const handleEmojiClick = (emojiObject) => {
+        setNewMessage((prevMessage) => prevMessage + emojiObject.emoji);
+    };
 
     useEffect(() => {
         if (socket.current) {
@@ -121,20 +129,18 @@ function Chat() {
                                             ))}
                                         </div>
                                         <div className="chatBoxBottom">
-                                           
-                                                <textarea
-                                                    className='chatMessageInput'
-                                                    placeholder='Write message ...'
-                                                    onChange={(e) => setNewMessage(e.target.value)}
-                                                    value={newMessage}
-                                                ></textarea>
-                                                <button className='chatSubmitButton' onClick={handleSubmit}>Send</button>
-                                        
-                                            {/* <div>
-                                                <button className='chatSubmitButton' onClick={handleSubmit}>Send</button>
-                                            </div> */}
+                                            <button onClick={handleEmojiPickerToggle}  className='bg-dark'>😀</button>
+                                            {isEmojiPickerVisible && (
+                                                <Picker className='emojiPicker' onEmojiClick={handleEmojiClick} />
+                                            )}
+                                            <textarea
+                                                className='chatMessageInput'
+                                                placeholder='Write message ...'
+                                                onChange={(e) => setNewMessage(e.target.value)}
+                                                value={newMessage}
+                                            ></textarea>
+                                            <button className='chatSubmitButton' onClick={handleSubmit}>Send</button>
                                         </div>
-
                                     </>
                                 ) : (
                                     <span className='noConversationText'>Open a conversation to start chat</span>

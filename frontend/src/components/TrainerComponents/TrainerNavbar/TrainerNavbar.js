@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { setLogout } from '../../../redux/trainerSlice';
-import logo from '../../../../src/assets/logo7.png'
 
 function TrainerNavbar() {
 
@@ -37,8 +36,8 @@ function TrainerNavbar() {
         <>
             <MDBNavbar expand='lg' light style={{ background: "#336699" }}>
                 <MDBContainer fluid>
-                    {/* <img src={logo} style={{height:'30px', width:"30px"}}></img> */}
-                    <MDBNavbarBrand href='#' className='text-lg px-3' style={{ fontSize: "2rem" }}>B-Fit Pro</MDBNavbarBrand>
+                    <MDBIcon fas icon="dumbbell pe-1" style={{ fontSize: '39px', color: 'black' }} />
+                    <MDBNavbarBrand href='#' className='text-lg px-3' style={{ fontSize: "2rem", fontWeight: 'bold' }}>B-Fit Pro</MDBNavbarBrand>
                     <MDBNavbarToggler
                         type='button'
                         data-target='#navbarTogglerDemo02'

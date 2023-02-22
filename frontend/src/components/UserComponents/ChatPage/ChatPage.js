@@ -24,9 +24,8 @@ function ChatPage() {
         setIsEmojiPickerVisible(!isEmojiPickerVisible);
     }
     const handleEmojiClick = (emojiObject) => {
-        const unicode = emojiObject.unicode;
-        setNewMessage(newMessage + unicode);
-    }
+        setNewMessage((prevMessage) => prevMessage + emojiObject.emoji);
+    };
 
     useEffect(() => {
         setLoading(true)
@@ -148,6 +147,10 @@ function ChatPage() {
                                                         ))}
                                                     </div>
                                                     <div className="chatBoxBottom">
+                                                        <button onClick={handleEmojiPickerToggle} className='bg-dark'>😀</button>
+                                                        {isEmojiPickerVisible && (
+                                                            <Picker className='emojiPicker' onEmojiClick={handleEmojiClick} />
+                                                        )}
                                                         <textarea
                                                             className='chatMessageInput'
                                                             placeholder='Write message ...'
@@ -155,10 +158,6 @@ function ChatPage() {
                                                             value={newMessage}
                                                         ></textarea>
                                                         <button className='chatSubmitButton' onClick={handleSubmit}>Send</button>
-                                                        <button onClick={handleEmojiPickerToggle}>😀</button>
-                                                        {isEmojiPickerVisible && (
-                                                            <Picker onEmojiClick={handleEmojiClick} />
-                                                        )}
                                                     </div>
                                                 </>
                                             ) : (

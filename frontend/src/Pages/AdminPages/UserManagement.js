@@ -100,8 +100,8 @@ function UserManagement() {
   return (
     <div className='row justify-content-center'>
       <div className="d-flex flex-column align-items-center">
-        <div className="row mt-4">
-          <h1 >User Management</h1>
+        <div className="row mt-4 pt-4">
+          <h2>USER MANAGEMENT</h2>
         </div>
         <div className='table'>
           <DataTable

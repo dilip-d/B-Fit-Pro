@@ -49,7 +49,7 @@ function VerifyTrainer() {
                 <h1 className='text-danger text-center mt-5' >No pending trainer verification.</h1>
             ) : (
                 <div>
-                    <h2 className='p-2'>Verify Trainers</h2>
+                    <h2 className='pt-5'>VERIFY TRAINERS</h2>
                     {details.map((item, index) => {
                         return (
                             <div className='row px-4 py-1 d-flex align-items-start'

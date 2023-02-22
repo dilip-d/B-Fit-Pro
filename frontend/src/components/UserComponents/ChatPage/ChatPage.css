@@ -1,41 +1,43 @@
-.messenger{
+.messenger {
     height: calc(100vh - 100px);
     display: flex;
 }
 
-.chatMenu{
-    flex:3
+.chatMenu {
+    flex: 3
 }
 
-.chatBox{
-    flex:7
+.chatBox {
+    flex: 7
 }
-.chatBoxWrapper{
-    display:flex;
+
+.chatBoxWrapper {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
 }
 
-.chatBoxTop{
+.chatBoxTop {
     height: 100%;
     overflow-y: scroll;
     padding-right: 10px;
 }
 
-.chatBoxBottom{
+.chatBoxBottom {
     margin-top: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.chatMessageInput{
+.chatMessageInput {
     width: 90%;
     height: 90px;
     padding: 10px;
 }
-.chatSubmitButton{
+
+.chatSubmitButton {
     width: 70px;
     height: 40px;
     border: none;
@@ -44,20 +46,50 @@
     background-color: black;
     color: white;
 }
-.chatMenuInput{
-width: 50%;
-padding: 10px 0;
-border: none;
-border-bottom:1px solid gray ;
+
+.chatMenuInput {
+    width: 50%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid gray;
 }
-.chatMenuWrapper,.chatBoxWrapper{
-padding: 10px;
-height: 100%;
+
+.chatMenuWrapper,
+.chatBoxWrapper {
+    padding: 10px;
+    height: 100%;
 }
-.noConversationText{
+
+.noConversationText {
     position: absolute;
     top: 30%;
     font-size: 30px;
     text-align: center;
     cursor: default;
 }
+
+.chatBoxBottom {
+    position: relative;
+  }
+  
+  .chatMessageInputContainer {
+    position: relative;
+  }
+  
+  .chatMessageInput {
+    height: 40px;
+    width: calc(100% - 100px);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+  }
+  
+  .emojiPicker {
+    position: absolute;
+    bottom: 40px;
+    right: 0;
+    z-index: 99;
+    transform: translateY(-100%);
+  }

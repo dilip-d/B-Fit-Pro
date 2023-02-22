@@ -66,9 +66,9 @@ export default function TrainerProfile() {
                 <h2 className='text-center my-auto'>{error}</h2>
             </div> :
                 <>
-                    <MDBRow className='px-5 py-3 bg-dark'>
+                    <MDBRow className='px-5 py-3 bg-black'>
                         <MDBCol lg="4">
-                            <MDBCard className="mb-4" >
+                            <MDBCard className="mb-4" style={{boxShadow:'none'}} >
                                 <MDBCardBody className="text-center" style={{ backgroundColor: "white" }}>
                                     <MDBCardImage
                                         src={details.profileImage}
@@ -84,7 +84,7 @@ export default function TrainerProfile() {
                                     </div>
                                 </MDBCardBody>
                             </MDBCard>
-                            <MDBCard className="mb-4 mb-lg-0">
+                            <MDBCard className="mb-4 mb-lg-0" style={{boxShadow:'none'}}>
                                 <MDBCardBody className="p-0" >
                                     <MDBListGroup flush className="rounded-3">
                                         <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
@@ -96,7 +96,7 @@ export default function TrainerProfile() {
                             </MDBCard>
                         </MDBCol>
                         <MDBCol lg="8">
-                            <MDBCard className="mb-4">
+                            <MDBCard className="mb-4" style={{boxShadow:'none'}}>
                                 <MDBCardBody style={{ backgroundColor: "white" }}>
                                     <MDBRow>
                                         <MDBCol sm="3">
