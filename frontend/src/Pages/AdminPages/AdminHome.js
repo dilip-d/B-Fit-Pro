@@ -1,4 +1,3 @@
-import MainDash from "../../components/AdminComponents/MainDash/MainDash";
 import Sidebar from "../../components/AdminComponents/Siderbar/Sidebar";
 import styled from 'styled-components';
 import UserManagement from "./UserManagement";
@@ -7,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import TrainerManagement from "./TrainerManagement";
 import VerifyTrainer from "./VerifyTrainer";
 import BookingManagement from "./BookingManagement";
+import MainDash from "../../components/AdminComponents/MainDash/MainDash";
 
 const AdminHome = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DataTable from 'react-data-table-component';
-import { getBookingInfo, } from '../../axios/services/AdminService';
+import { getBookingInfo } from '../../axios/services/AdminService';
 
 function BookingManagement() {
 
@@ -8,7 +8,7 @@ function BookingManagement() {
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
 
-    const token = JSON.parse(localStorage.getItem('admin')).token;
+    const token = JSON.parse(localStorage.getItem('admin'))?.token;
 
     async function fetchData() {
         const data = await getBookingInfo(token);
@@ -59,31 +59,6 @@ function BookingManagement() {
             },
             selector: (row) => row.serviceStatus,
         },
-        // {
-        //   name: 'Block/Unblock',
-        //   selector: (row) => {
-        //     return (
-        //       <div>
-        //         {row.isBlocked ? (
-        //           <button
-        //             key={row._id}
-        //             className="btn-dark px-3"
-        //             onClick={() => unBlock(row._id)}
-        //           >
-        //             Unblock
-        //           </button>
-        //         ) : (
-        //           <button
-        //             key={row._id}
-        //             className="btn-danger px-4"
-        //             onClick={() => Block(row._id)}>
-        //             Block
-        //           </button>
-        //         )}
-        //       </div>
-        //     );
-        //   },
-        // },
     ];
 
     return (
@@ -92,8 +67,9 @@ function BookingManagement() {
                 <div className="row mt-4">
                     <h1 >Bookings Management</h1>
                 </div>
-                <div className='table'>
+                <div className='table' >
                     <DataTable
+                        id='data-table'
                         columns={columns}
                         data={filterDetails}
                         fixedHeader

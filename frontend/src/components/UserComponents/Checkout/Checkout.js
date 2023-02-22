@@ -21,19 +21,20 @@ function Checkout(props) {
     const trainerData = { id, date, time };
 
     const [details, setDetails] = useState([]);
-    const token = JSON.parse(localStorage.getItem('user')).token;
-    const userId = JSON.parse(localStorage.getItem('user')).user._id;
-    const formData = details
+    console.log(details);
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
+    const userId = JSON.parse(localStorage.getItem('user'))?.user._id;
 
     const navigate = useNavigate()
 
     async function fetchData() {
         const user = JSON.parse(localStorage.getItem('user'));
         const data = await getTrainerDetail(id);
+        console.log(data);
         if (!user) {
             navigate('/login')
         } else {
-            setDetails(data[0]);
+            setDetails(data);
         }
     }
 
@@ -67,7 +68,7 @@ function Checkout(props) {
                 address: 'Razorpay Corporate Office',
             },
             theme: {
-                color: '#ED533B',
+                color: '#000000',
             },
         };
         const rzpay = new Razorpay(options);
@@ -110,7 +111,7 @@ function Checkout(props) {
                                     </div>
                                     <div className="p-2 d-flex">
                                         <MDBCol size="8" >Trainer</MDBCol>
-                                        <div className="ms-auto">{details.fname} {details.lname}</div>
+                                        <div className="ms-auto">{details?.trainer?.fname} {details?.trainer?.lname}</div>
                                     </div>
                                     <div className="p-2 d-flex">
                                         <MDBCol size="8">Date</MDBCol>
@@ -126,7 +127,7 @@ function Checkout(props) {
                                     </div>
                                     <div className="p-2 d-flex">
                                         <MDBCol size="8">Subtotal</MDBCol>
-                                        <div className="ms-auto">₹ {details.price}</div>
+                                        <div className="ms-auto">₹ {details?.trainer?.price}</div>
                                     </div>
                                     <div className="border-top px-2 mx-2"></div>
                                     <div className="p-2 d-flex pt-3">
@@ -134,7 +135,7 @@ function Checkout(props) {
                                             <b>Total</b>
                                         </MDBCol>
                                         <div className="ms-auto">
-                                            <b className="text-success">₹ {details.price}</b>
+                                            <b className="text-success">₹ {details?.trainer?.price}</b>
                                         </div>
                                     </div>
                                 </div>

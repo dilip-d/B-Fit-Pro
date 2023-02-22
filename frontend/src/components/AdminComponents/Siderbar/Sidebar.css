@@ -96,7 +96,7 @@
 @media screen and (max-width: 768px) {
   .sidebar {
     position: absolute;
-    z-index: 9;
+    /* z-index: 9; */
     background: rgb(49, 175, 248);
     width: 55%;
     padding-right: 1rem;

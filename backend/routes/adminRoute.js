@@ -10,6 +10,7 @@ import {
     blockTrainer,
     blockUser,
     bookingInfo,
+    getAllDetails,
     rejectTrainer,
     unBlockTrainer,
     unblockUser,
@@ -36,5 +37,5 @@ router.get('/api/trainerApproval/:id', adminProtect, approveTrainer);
 
 //booking management
 router.get('/api/bookingInfo', adminProtect, bookingInfo);
-
+router.get('/api/getAllDetails', adminProtect, getAllDetails);
 export default router;

@@ -139,3 +139,18 @@ export const getBookingInfo = async (token) => {
     return data;
   }
 };
+
+export const getAllDetails = async (token) => {
+
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosAdminInstance.get('/getAllDetails', config);
+  if (data) {
+    return data;
+  }
+}
