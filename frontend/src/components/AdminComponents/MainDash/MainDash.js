@@ -66,6 +66,7 @@ const MainDash = () => {
       selector: (row) => row?.amount
     },
   ]
+
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.text("Booking Details", 80, 10);
@@ -122,7 +123,7 @@ const MainDash = () => {
       </div>
       <div className="d-flex flex-row justify-content-between" style={{ marginRight: "50px", gap: "20px" }}>
         <Card data={`Total Users : ${details?.numUsers}`} />
-        <Card data={`Total Guides : ${details?.numTrainers}`} />
+        <Card data={`Total Trainers : ${details?.numTrainers}`} />
         <Card data={`Total Bookings : ${details?.numBookings}`} />
         <Card data={`Total Revenue : Rs. ${details?.bookingTotal}`} />
       </div>
@@ -139,7 +140,9 @@ const MainDash = () => {
           highlightOnHover
           ref={tableRef}
           actions={<button className="btn" onClick={generatePDF}>Export</button>}
-          footer={<DataTableFooter />}
+          subHeader
+          persistTableHead
+          subHeaderComponent={<div className='text-danger'>Total Amount: ₹ {grandTotal}</div>}
         />
       </div>
     </div>

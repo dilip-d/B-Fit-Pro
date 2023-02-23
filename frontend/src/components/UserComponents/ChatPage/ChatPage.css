@@ -67,29 +67,3 @@
     text-align: center;
     cursor: default;
 }
-
-.chatBoxBottom {
-    position: relative;
-  }
-  
-  .chatMessageInputContainer {
-    position: relative;
-  }
-  
-  .chatMessageInput {
-    height: 40px;
-    width: calc(100% - 100px);
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-  }
-  
-  .emojiPicker {
-    position: absolute;
-    bottom: 40px;
-    right: 0;
-    z-index: 99;
-    transform: translateY(-100%);
-  }

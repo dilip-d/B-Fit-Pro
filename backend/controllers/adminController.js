@@ -206,7 +206,6 @@ export const getAllDetails = async (req, res) => {
             createdAtDates = result.map(item => item.createdAt);
             res.json({ numUsers, numTrainers, numBookings, bookingTotal, totalAmounts, createdAtDates, bookingDetails });
         });
-
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });

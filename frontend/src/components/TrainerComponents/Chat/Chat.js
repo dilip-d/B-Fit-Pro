@@ -18,6 +18,7 @@ function Chat() {
     const scrollRef = useRef()
 
     useEffect(() => {
+        //    socket.current = io("https://bfitprobackend.onrender.com");
         socket.current = io("ws://localhost:5000");
     }, [])
 
@@ -74,27 +75,31 @@ function Chat() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const message = {
-            sender: userid,
-            text: newMessage,
-            conversationId: currentChat._id
-        };
 
-        const receiverId = currentChat.members.find(member => member !== userid)
+        const trimmedMessage = newMessage.trim();
+        if (trimmedMessage !== '') {
+            const message = {
+                sender: userid,
+                text: newMessage,
+                conversationId: currentChat._id
+            };
 
-        socket.current.emit("sendMessage", {
-            senderId: userid,
-            receiverId,
-            text: newMessage,
-        })
+            const receiverId = currentChat.members.find(member => member !== userid)
 
-        try {
-            const response = await postMessages(message)
-            setMessages([...messages, response])
-            setNewMessage("")
+            socket.current.emit("sendMessage", {
+                senderId: userid,
+                receiverId,
+                text: newMessage,
+            })
 
-        } catch (err) {
-            console.log(err);
+            try {
+                const response = await postMessages(message)
+                setMessages([...messages, response])
+                setNewMessage("")
+
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 
@@ -128,11 +133,13 @@ function Chat() {
                                                 </div>
                                             ))}
                                         </div>
+                                        {isEmojiPickerVisible && (
+                                            <div style={{ zIndex: 99 }}>
+                                                <Picker style={{ height: '300px', width: '300px' }} className='emojiPicker' onEmojiClick={handleEmojiClick} />
+                                            </div>
+                                        )}
                                         <div className="chatBoxBottom">
-                                            <button onClick={handleEmojiPickerToggle}  className='bg-dark'>😀</button>
-                                            {isEmojiPickerVisible && (
-                                                <Picker className='emojiPicker' onEmojiClick={handleEmojiClick} />
-                                            )}
+                                            <button onClick={handleEmojiPickerToggle} className='bg-dark'>😀</button>
                                             <textarea
                                                 className='chatMessageInput'
                                                 placeholder='Write message ...'

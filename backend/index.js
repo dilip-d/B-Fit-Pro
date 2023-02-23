@@ -35,8 +35,8 @@ app.use(cors(corsOptions));
 // app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/', userRouter);
-app.use('/admin', adminRouter)
-app.use('/trainer', trainerRouter)
+app.use('/admin', adminRouter);
+app.use('/trainer', trainerRouter);
 app.use('/conversations', conversationRouter);
 app.use('/messages', messageRouter);
 

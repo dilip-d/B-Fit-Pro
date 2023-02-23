@@ -77,7 +77,7 @@ export default function App() {
         <Route path="/editDetails/:id" element={<EditDetails />} />
         <Route path="/viewTrainerPlan/:id" element={<Bookings />} />
         <Route path='/trainerMessages' element={<TrainerChat />} />
-        <Route path="/*" element={<E404 />} />
+        <Route path="*" element={<E404 />} />
       </Routes>
     </div>
   );

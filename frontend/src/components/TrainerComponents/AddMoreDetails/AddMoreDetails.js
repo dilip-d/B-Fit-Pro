@@ -15,7 +15,7 @@ function AddMoreDetails() {
 
   const result = JSON.parse(localStorage.getItem('trainer'));
   const id = result.trainer._id
-  const token =  JSON.parse(localStorage.getItem('trainer')).token;
+  const token = JSON.parse(localStorage.getItem('trainer')).token;
 
   const navigate = useNavigate()
 
@@ -26,53 +26,65 @@ function AddMoreDetails() {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    const values = { service: service };
-    const data = await addService(token,values, id);
-    if (data.message) {
-      toast.success(data.message)
-    } else {
-      toast.error(data.error)
+    const trimmedService = service.trim();
+    if (trimmedService !== '') {
+      const values = { service: service };
+      const data = await addService(token, values, id);
+      if (data.message) {
+        toast.success(data.message)
+      } else {
+        toast.error(data.error)
+      }
+      formRef.current.reset();
     }
-    formRef.current.reset();
   }
 
   const addTip = async (event) => {
     event.preventDefault();
 
-    const values = { tips: tips };
-    const data = await addTips(token,values, id);
-    if (data.message) {
-      toast.success(data.message)
-    } else {
-      toast.error(data.error)
+    const trimmedTips = tips.trim();
+    if (trimmedTips !== '') {
+      const values = { tips: tips };
+      const data = await addTips(token, values, id);
+      if (data.message) {
+        toast.success(data.message)
+      } else {
+        toast.error(data.error)
+      }
+      formRef.current.reset();
     }
-    formRef.current.reset();
   }
 
   const addDescriptn = async (event) => {
     event.preventDefault();
 
-    const values = { description: description };
-    const data = await addDescription(token,values, id);
-    if (data.message) {
-      toast.success(data.message)
-    } else {
-      toast.error(data.error)
+    const trimmedDescription = description.trim();
+    if (trimmedDescription !== '') {
+      const values = { description: description };
+      const data = await addDescription(token, values, id);
+      if (data.message) {
+        toast.success(data.message)
+      } else {
+        toast.error(data.error)
+      }
+      formRef.current.reset();
     }
-    formRef.current.reset();
   }
 
   const addPricePerHour = async (event) => {
     event.preventDefault();
 
-    const values = { price: price };
-    const data = await addPrice(token,values, id);
-    if (data.message) {
-      toast.success(data.message)
-    } else {
-      toast.error(data.error)
+    const trimmedPrice = price.trim();
+    if (trimmedPrice !== '') {
+      const values = { price: price };
+      const data = await addPrice(token, values, id);
+      if (data.message) {
+        toast.success(data.message)
+      } else {
+        toast.error(data.error)
+      }
+      formRef.current.reset();
     }
-    formRef.current.reset();
   }
 
   useEffect(() => {
@@ -82,20 +94,20 @@ function AddMoreDetails() {
   }, [service])
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-  useFormik({
-    initialValues: {
-      description:'',
-      tips:'',
-      service:'',
-      price:''
-    },
-    validationSchema: trainerSchema,
-    onSubmit,addDescriptn,addTip,addPricePerHour
-  });
+    useFormik({
+      initialValues: {
+        description: '',
+        tips: '',
+        service: '',
+        price: ''
+      },
+      validationSchema: trainerSchema,
+      onSubmit, addDescriptn, addTip, addPricePerHour
+    });
 
   return (
     <>
-       <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
+      <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
       <div className="row">
         <div className="col-sm-6 py-3 px-5">
           <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>
@@ -108,8 +120,8 @@ function AddMoreDetails() {
                   value={service}
                   required
                   onChange={(e) => {
-                      setService(e.target.value);
-                    }}
+                    setService(e.target.value);
+                  }}
                   className="form-control" placeholder="Enter service here" />
                 <div>
                   <button className="btn btn-primary mx-auto my-2">Add</button>
@@ -129,8 +141,8 @@ function AddMoreDetails() {
                   value={tips}
                   required
                   onChange={(e) => {
-                      setTips(e.target.value);
-                    }}
+                    setTips(e.target.value);
+                  }}
                   className="form-control" placeholder="Enter tips here" aria-label="default input example" />
                 <button className="btn btn-primary mx-auto my-2">Add</button>
               </form>
