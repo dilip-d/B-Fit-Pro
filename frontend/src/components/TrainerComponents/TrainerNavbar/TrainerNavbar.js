@@ -31,7 +31,6 @@ function TrainerNavbar() {
     background-color: black;
   }
 `;
-
     return (
         <>
             <MDBNavbar expand='lg' light style={{ background: "#336699" }}>

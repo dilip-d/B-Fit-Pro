@@ -32,6 +32,36 @@ export const verifyOTP = async (values, id) => {
   }
 };
 
+export const getUserValid = async (token, id) => {
+  console.log('in user valid')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.get(`/forgotPassword/${id}/${token}`, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const setNewPassword = async (token, id, values) => {
+  console.log('in set password')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.post(`/changePassword/${id}/${token}`, values, config);
+  if (data) {
+    return data;
+  }
+};
+
 
 export const resendOTP = async (values) => {
   console.log('in resend otp')
@@ -43,6 +73,21 @@ export const resendOTP = async (values) => {
     },
   };
   const { data } = await axiosClientInstance.post('/resendOTP', values, config);
+  if (data) {
+    return data;
+  }
+};
+
+export const sendResetLink = async (values) => {
+  console.log('send reset link')
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  const { data } = await axiosClientInstance.post('/resetLink', values, config);
   if (data) {
     return data;
   }

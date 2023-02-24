@@ -11,25 +11,24 @@ function ViewTrainerBookings(props) {
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
 
-    const token = JSON.parse(localStorage.getItem('trainer')).token;
+    const token = JSON.parse(localStorage.getItem('trainer'))?.token;
 
     async function fetchData() {
         const data = await getTrainerBookings(token, id);
-        console.log('in viewPlan');
         setDetails(data);
-        // setFilterDetails(data)
+        setFilterDetails(data)
     }
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-    //     const result = details.filter(detail => {
-    //         return detail.fname.toLowerCase().match(search.toLowerCase())
-    //     })
-    //     setFilterDetails(result)
-    // }, [search, details])
+    useEffect(() => {
+        const result = details.filter(detail => {
+            return detail.clientInfo.toLowerCase().match(search.toLowerCase())
+        })
+        setFilterDetails(result)
+    }, [search, details])
 
     async function cancel(clientId) {
         const data = await cancelPlan(token, clientId);
@@ -92,6 +91,9 @@ function ViewTrainerBookings(props) {
         //     },
         // }
     ];
+
+    const grandTotal = details.reduce((total, row) => total + row.amount, 0);
+
     return (
         <div className='row justify-content-center m-5'>
             <div className="d-flex flex-column align-items-center" style={{ minHeight: '600px' }}>
@@ -106,15 +108,29 @@ function ViewTrainerBookings(props) {
                         highlightOnHover
                         pagination
                         subHeader
-                    // subHeaderComponent={
-                    //     <input
-                    //         type='text'
-                    //         placeholder='Search here'
-                    //         className='w-25 form-control'
-                    //         value={search}
-                    //         onChange={(e) => setSearch(e.target.value)}
-                    //     />
-                    // }
+                        persistTableHead
+                        // subHeaderComponent={<div className='text-danger'>Total Amount: ₹ {grandTotal}</div>}
+                        // subHeaderComponent={
+                        //     <input
+                        //         type='text'
+                        //         placeholder='Search here'
+                        //         className='w-25 form-control'
+                        //         value={search}
+                        //         onChange={(e) => setSearch(e.target.value)}
+                        //     />
+                        // }
+                        subHeaderComponent={
+                            <div className="d-flex ">
+                                {/* <input
+                                    type='text'
+                                    placeholder='Search here'
+                                    className='w-50 form-control'
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                /> */}
+                                <div className='text-danger'>Total Amount: ₹ {grandTotal}</div>
+                            </div>
+                        }
                     />
                 </div>
             </div>

@@ -32,8 +32,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// app.use(express.static(path.join(__dirname, '../client/build')));
-
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 app.use('/trainer', trainerRouter);
@@ -57,13 +55,12 @@ const io = new Server(server, {
   cors: {
     origin: ["http://localhost:3000"],
     cors: true,
-    // methods: ["GET", "POST"]
   }
 });
 
 // io.on('connection', sockets);
 
-// to create socketId according t email incoming
+// to create socketId according to email incoming
 const emailToSocketMapping = new Map();
 const socketToEmailMapping = new Map();
 
@@ -110,14 +107,14 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join-room", (data) => {
-    const { roomId, emailId } = data;
-    console.log("User", emailId, "Joined Room", roomId);
-    emailToSocketMapping.set(emailId, socket.id);
-    socketToEmailMapping.set(socket.id, emailId);
-    socket.join(roomId);
-    socket.emit("joined-room", { roomId });
+    const { userid } = data;
+    console.log("User", userid, "Joined Room");
+    emailToSocketMapping.set(userid, socket.id);
+    socketToEmailMapping.set(socket.id, userid);
+    socket.join(userid);
+    socket.emit("joined-room", { userid });
     console.log('joineddddd');
-    socket.broadcast.to(roomId).emit("user-joined", { emailId });
+    socket.broadcast.to(userid).emit("user-joined", { userid });
   });
 
   socket.on("call-user", (data) => {

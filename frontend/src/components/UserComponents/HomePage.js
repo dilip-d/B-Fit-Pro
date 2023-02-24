@@ -28,7 +28,6 @@ const HomePage = () => {
   }
 
   return (
-
     <div className='homepage-container'>
       <div className='input-container'>
         <input value={email} onChange={e => setEmail(e.target.value)} type='email' placeholder='Enter your email here' />
@@ -36,7 +35,6 @@ const HomePage = () => {
         <button onClick={handleJoinRoom}>Enter Room</button>
       </div>
     </div>
-
   )
 }
 

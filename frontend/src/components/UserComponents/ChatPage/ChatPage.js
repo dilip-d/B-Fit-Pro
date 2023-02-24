@@ -7,6 +7,7 @@ import Message from '../../../components/UserComponents/Message/Message'
 import './ChatPage.css'
 import { io } from "socket.io-client"
 import Picker from 'emoji-picker-react';
+import { Link } from 'react-router-dom';
 
 function ChatPage() {
 
@@ -158,13 +159,14 @@ function ChatPage() {
                                                     )}
                                                     <div className="chatBoxBottom">
                                                         <button onClick={handleEmojiPickerToggle} className='bg-dark'>😀</button>
-                                                        <textarea
+                                                        <input
                                                             className='chatMessageInput'
                                                             placeholder='Write message ...'
                                                             onChange={(e) => setNewMessage(e.target.value)}
                                                             value={newMessage}
-                                                        ></textarea>
+                                                        ></input>
                                                         <button className='chatSubmitButton' onClick={handleSubmit}>Send</button>
+                                                        <Link to='/videoChat'><button><i className="fas fa-video"></i></button></Link>
                                                     </div>
                                                 </>
                                             ) : (

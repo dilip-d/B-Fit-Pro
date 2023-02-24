@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import { ToastContainer } from 'react-toastify';
 import ClientLogin from '../../components/UserComponents/ClientLogin/ClientLogin';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
@@ -29,7 +28,6 @@ function SignIn() {
       ) : (
         <>
           <Navbar />
-          <ToastContainer />
           <ClientLogin />
           <Footer />
         </>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import GridLoader from 'react-spinners/GridLoader';
-import { ToastContainer } from 'react-toastify';
 import EmailVerification from '../../components/UserComponents/EmailVerify/EmailVerification';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
@@ -34,7 +33,6 @@ function EmailOTP() {
             ) : (
                 <>
                     <Navbar />
-                    <ToastContainer />
                     <EmailVerification 
                           userId={id}
                     />

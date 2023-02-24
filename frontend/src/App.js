@@ -34,12 +34,10 @@ import EditProfile from "./Pages/UserPages/EditProfile";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Wallets from "./Pages/UserPages/Wallets";
+import ForgotPass from "./Pages/UserPages/ForgotPass";
+import NewPass from "./Pages/UserPages/NewPass";
 
 export default function App() {
-
-  const userAuth = JSON.parse(localStorage.getItem("user"))?.token;
-  const trainerAuth = JSON.parse(localStorage.getItem("trainer"))?.token;
-  const adminAuth = JSON.parse(localStorage.getItem("admin"))?.token;
 
   return (
     <div className="App">
@@ -53,6 +51,8 @@ export default function App() {
         <Route path="/emailVerification/:id" element={<EmailOTP />} />
         <Route path="/verificationSuccess" element={<VerificationDone />} />
         <Route path="/resendOtp" element={<ResendOtp />} />
+        <Route path="/forgotPassword" element={<ForgotPass />} />
+        <Route path="/enterPassword/:id/:token" element={<NewPass />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/trainerDetailedView/:id" element={<TrainerDetails />} />
         <Route path="/bookTrainer/:id" element={<CheckAvailability />} />
@@ -62,7 +62,8 @@ export default function App() {
         <Route path="/editUserProfile/:id" element={<EditProfile />} />
         <Route path="/viewPlan/:id" element={<ViewBookings />} />
         <Route path="/userWallet/:id" element={<Wallets />} />
-        {/* <Route path="/chat" element={<ChatPage socket={socket} />} /> */}
+        <Route path="/videoChat" element={<RoomPage />} />
+
         <Route path="/chat" element={<ChatApp />} />
         <Route path="/room/:roomId" element={<Room />} />
         <Route path='/textChat' element={<UserChatPage />} />

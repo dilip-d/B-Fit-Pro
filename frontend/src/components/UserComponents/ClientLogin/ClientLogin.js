@@ -81,14 +81,14 @@ function ClientLogin() {
                               />
                               <div className='showpass' onClick={() => setPassShow(!passShow)}>Show</div>
                             </div>
-                            <label className="d-flex pt-2 justify-content-end">
-                              Forgot Password ?
-                            </label>
+                            <Link to='/forgotPassword' className="d-flex py-2 justify-content-end">
+                              <p className='text-warning'>Forgot Password ?</p>
+                            </Link>
                           </div>
                         </div>
                       </div>
                       <div className="">
-                        <input className="btn btn-md" type="submit" value="Submit"/>
+                        <input className="btn btn-md" type="submit" value="Submit" />
                       </div>
                     </form>
                     <Link to="/resendOtp">

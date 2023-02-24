@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import { ToastContainer } from 'react-toastify';
 import ClientSignUp from '../../components/UserComponents/ClientSignUp/ClientSignUp';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
@@ -29,7 +28,6 @@ function Register() {
             ) : (
                 <>
                     <Navbar />
-                    <ToastContainer />
                     <ClientSignUp />
                     <Footer />
                 </>

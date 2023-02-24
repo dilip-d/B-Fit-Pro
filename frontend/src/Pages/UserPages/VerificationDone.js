@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import { ToastContainer } from 'react-toastify';
 import VerificationSuccess from '../../components/UserComponents/EmailVerify';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
@@ -31,7 +30,6 @@ function VerificationDone() {
             ) : (
                 <>
                     <Navbar />
-                    <ToastContainer />
                     <VerificationSuccess />
                     <Footer />
                 </>

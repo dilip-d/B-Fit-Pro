@@ -87,7 +87,20 @@ const UserSchema = mongoose.Schema({
     bookedSlots: [{
         type: Date,
         required: true
-    }]
+    }],
+    token: [
+        {
+            token: {
+                type: String,
+                required: true
+            }
+        }
+
+    ],
+    verifyToken: {
+        type: String
+    }
+
 }, { timestamps: true })
 
 const userSchema = mongoose.model('User', UserSchema)

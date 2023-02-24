@@ -4,7 +4,6 @@ import BarChart from "../../AdminComponents/BarChart/BarChart";
 import Card from "../Card/Card";
 import DataTable from 'react-data-table-component';
 import jsPDF from 'jspdf';
-// import html2canvas from 'html2canvas';
 import 'jspdf-autotable';
 import "./MainDash.css";
 import { groupBy } from 'lodash';
@@ -62,7 +61,7 @@ const MainDash = () => {
       selector: (row) => row?.number
     },
     {
-      name: "Amount",
+      name: "Amount in Rs.",
       selector: (row) => row?.amount
     },
   ]
@@ -89,8 +88,8 @@ const MainDash = () => {
       foot: [
         [
           "",
-          "Grand Total",
           "",
+          "Grand Total",
           trainerDetails.reduce(
             (total, row) => total + row.amount,
             0

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useSocket } from '../../providers/Socket';
 import { usePeer } from '../../providers/Peer';
 import ReactPlayer from 'react-player';
+import { useNavigate } from 'react-router-dom';
 
 const RoomPage = () => {
 
@@ -11,10 +12,31 @@ const RoomPage = () => {
   const [myStream, setMyStream] = useState(null);
   const [remoteEmailId, setRemoteEmailId] = useState();
 
-  const handleNewUserJoined = useCallback(async ({ emailId }) => {
-    console.log('New user joined room', emailId);
+  const user = JSON.parse(localStorage.getItem("user"))
+  const userid = user?.user?._id;
+
+    const navigate = useNavigate()
+  
+    const handleRoomJoined = useCallback(({ roomId }) => {
+      navigate(`/room/${roomId}`)
+    }, [navigate]);
+  
+    useEffect(() => {
+      socket.on('joined-room', handleRoomJoined)
+      return () => {
+        socket.off('joined-room', handleRoomJoined)
+      }
+    }, [handleRoomJoined, socket]);
+  
+   useEffect(()=>{
+    socket.emit('join-room', { userid: userid });
+   }) 
+      
+  const handleNewUserJoined = useCallback(async ({userid}) => {
+    console.log('New user joined room', userid);
     const offer = await createOffer();
-    socket.emit('call-user', { emailId, offer });
+    console.log(offer);
+    socket.emit('call-user', { userid, offer });
     setRemoteEmailId(emailId)
   },
     [createOffer, socket]
@@ -72,10 +94,15 @@ const RoomPage = () => {
     getUserMediaStream();
   }, [])
 
+  function handleBackButtonClick() {
+    navigate(-1);
+  }
+
   return (
-    <div className='room-page-container'>
-      <h1>Room page</h1>
-      <h4>You are connected to {remoteEmailId}</h4>
+    <div className='room-page-container bg-dark'>
+      <h1 className='text-white'>ROOM</h1>
+      <button className='btn-sm btn-white mt-2 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
+      <h4 className='text-white'>You are connected to {remoteEmailId}</h4>
       <button onClick={(e) => sendStream(myStream)}>Send My Video</button>
       <ReactPlayer url={myStream} playing muted />
       <ReactPlayer url={remoteStream} playing />
