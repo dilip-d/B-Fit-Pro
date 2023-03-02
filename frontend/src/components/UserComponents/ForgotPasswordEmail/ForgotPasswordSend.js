@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { toast } from 'react-toastify';
 import { sendResetLink } from '../../../axios/services/HomeService';
 import '../../UserComponents/ClientLogin/ClientLogin.css'
@@ -6,6 +6,8 @@ import '../../UserComponents/ClientLogin/ClientLogin.css'
 function ForgotPasswordSend() {
 
     const [email, setEmail] = useState('');
+
+    const formRef = useRef(null);
 
     const onSubmit = async (event) => {
         event.preventDefault();

@@ -5,7 +5,6 @@ import User from '../models/userSchema.js'
 export const postConversation = async (req, res) => {
     const userId = req.body.userid;
     const trainerId = req.body.trainerId;
-    console.log('post conv', trainerId);
 
     try {
         // Check if a conversation already exists between the two members
@@ -21,6 +20,7 @@ export const postConversation = async (req, res) => {
                 members: [userId, trainerId]
             });
             const savedConversation = await newConversation.save();
+
             res.status(200).json(savedConversation);
         }
     } catch (error) {
@@ -33,6 +33,7 @@ export const getConversation = async (req, res) => {
         const conversation = await Conversation.find({
             members: { $in: [req.params.userid] }
         });
+        console.log('in get conversion', conversation);
         res.status(200).json(conversation)
     } catch (error) {
         res.status(500).json({ error })
@@ -58,6 +59,14 @@ export const getUserDetails = async (req, res) => {
 }
 
 
-
-
-
+export const videoConversation = async (req, res) => {
+    try {
+        const conversation = await Conversation.find({
+            members: { $all: [req.params.userId, req.params.id] }
+        });
+        console.log('in get conversion', conversation);
+        res.status(200).json(conversation)
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+}

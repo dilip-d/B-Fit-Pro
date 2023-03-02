@@ -24,14 +24,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const VideoPlayer = () => {
+const VideoPlayer = ({receiverId}) => {
 
     const { call, callAccepted, myVideo, userVideo, stream, name, callEnded } = useContext(SocketContext);
     console.log('inside video component');
 
     const classes = useStyles();
-    console.log(myVideo);
-    console.log(userVideo);
 
     return (
         

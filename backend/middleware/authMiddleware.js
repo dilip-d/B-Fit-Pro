@@ -46,8 +46,6 @@ export const clientProtect = AsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.CLIENTJWT_SECRET);
-      console.log('decoded',decoded);
-      console.log(decoded.id);
 
       await User.findById(decoded.id);
 

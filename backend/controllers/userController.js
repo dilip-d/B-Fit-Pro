@@ -239,7 +239,7 @@ export const sendPassResetLink = async (req, res) => {
         }
     }
     catch (error) {
-        res.json({ error: error.message, })
+        res.json({ error: 'User does not exist', })
     }
 }
 
@@ -291,7 +291,7 @@ export const changePassword = async (req, res) => {
 
 export const trainerList = async (req, res) => {
     try {
-        const trainer = await Trainer.find({ isVerified: true })
+        const trainer = await Trainer.find({ isVerified: true, price: { $ne: null } });
         res.json(trainer)
     } catch (err) {
         console.log(err);

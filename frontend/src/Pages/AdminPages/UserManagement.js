@@ -12,7 +12,7 @@ function UserManagement() {
   const [search, setSearch] = useState('')
   const [filterDetails, setFilterDetails] = useState([])
 
-  const token = JSON.parse(localStorage.getItem('admin')).token;
+  const token = JSON.parse(localStorage.getItem('admin'))?.token;
 
   async function fetchData() {
     const data = await getUserInfo(token);

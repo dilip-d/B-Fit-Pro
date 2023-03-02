@@ -10,16 +10,20 @@ function ViewPlan(props) {
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
-    
+
     const navigate = useNavigate()
 
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
 
     async function fetchData() {
         const data = await getBookings(token, id);
-        console.log('in viewPlan');
-        setDetails(data);
-        // setFilterDetails(data)
+        if (data.error) {
+            // setError(data.error)
+            navigate('*')
+        } else {
+            setDetails(data);
+            // setFilterDetails(data)
+        }
     }
 
     useEffect(() => {

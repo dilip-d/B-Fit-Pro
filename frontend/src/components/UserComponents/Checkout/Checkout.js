@@ -33,6 +33,8 @@ function Checkout(props) {
         console.log(data);
         if (!user) {
             navigate('/login')
+        } else if (data.error) {
+            navigate('*')
         } else {
             setDetails(data);
         }

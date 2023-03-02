@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { resendOTP } from '../../../axios/services/HomeService';
@@ -7,6 +7,8 @@ import '../../UserComponents/ClientLogin/ClientLogin.css'
 function ResendEmail() {
 
     const [email, setEmail] = useState('');
+
+    const formRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ function ResendEmail() {
                                 >
                                     <div className="card-body p-4 p-md-5 mx-4">
                                         <h3 className="mb-3 text-start">Enter your email</h3>
-                                        <form onSubmit={onSubmit}>
+                                        <form onSubmit={onSubmit} ref={formRef}>
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-outline">

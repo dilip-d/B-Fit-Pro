@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import './HomePage.css'
 import { useNavigate } from 'react-router-dom'
-
 import { useSocket } from "../../providers/Socket";
 
 const HomePage = () => {

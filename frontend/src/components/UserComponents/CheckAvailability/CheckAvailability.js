@@ -21,11 +21,12 @@ const CheckAvailable = (props) => {
     if (!user) {
       navigate('/login');
     } else {
-      const data = await getTrainerToCheckAvailable(token,id);
+      const data = await getTrainerToCheckAvailable(token, id);
       if (data.expired) {
         setError(data.expired)
       } else if (data.error) {
-        setError(data.error);
+        // setError(data.error);
+        navigate('*')
       } else {
         setDetails(data.trainer);
         setTiming(data.availableTimings);

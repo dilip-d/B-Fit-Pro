@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core'
 import React, { useContext } from 'react'
 import { SocketContext } from '../../../SocketContext'
 
-const Notifications = () => {
+const Notifications = ({receiverId}) => {
 
   const { answerCall, call, callAccepted } = useContext(SocketContext)
   console.log('in notification');

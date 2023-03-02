@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import { useNavigate } from 'react-router-dom';
 import { cancelPlan } from '../../../axios/services/HomeService';
 import { getTrainerBookings } from '../../../axios/services/TrainerService';
 
@@ -11,12 +12,18 @@ function ViewTrainerBookings(props) {
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
 
+    const navigate = useNavigate();
+
     const token = JSON.parse(localStorage.getItem('trainer'))?.token;
 
     async function fetchData() {
         const data = await getTrainerBookings(token, id);
-        setDetails(data);
-        setFilterDetails(data)
+        if (data.error) {
+            navigate('*')
+        } else {
+            setDetails(data);
+            setFilterDetails(data)
+        }
     }
 
     useEffect(() => {

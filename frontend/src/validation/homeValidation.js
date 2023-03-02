@@ -63,21 +63,6 @@ export const userUpdateSchema = yup.object().shape({
     .required('Required'),
 });
 
-const imageSchema = yup.mixed().test(
-  'fileType',
-  'Unsupported file format',
-  value => value && value.name && imageExtensions.includes(value.name.split('.').pop().toLowerCase())
-);
-
-const pdfSchema = yup.mixed().test(
-  'fileType',
-  'Unsupported file format',
-  value => value && value.name && pdfExtensions.includes(value.name.split('.').pop().toLowerCase())
-);
-
-const imageExtensions = ['jpeg', 'jpg', 'png'];
-const pdfExtensions = ['pdf'];
-
 export const trainerSchema = yup.object().shape({
   fname: yup
     .string()

@@ -89,7 +89,8 @@ const TrainerSchema = mongoose.Schema({
     },
     price: {
         type: Number,
-        trim: true
+        trim: true,
+        required: true
     },
     availableSlots: [{
         type: String,

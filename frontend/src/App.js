@@ -1,5 +1,7 @@
 import "./styles.css";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from "./Pages/UserPages/Home";
 import About from "./Pages/UserPages/About";
 import Trainers from "./Pages/UserPages/Trainers";
@@ -23,19 +25,19 @@ import Payment from "./Pages/UserPages/Payment";
 import PaymentSuccessScreen from "./Pages/UserPages/PaymentSuccessScreen";
 import UserProfilePage from "./Pages/UserPages/UserProfilePage";
 import ViewBookings from "./Pages/UserPages/ViewBookings";
-import ChatPage from "./Pages/UserPages/ChatPage";
+// import ChatPage from "./Pages/UserPages/ChatPage";
 import ChatApp from "./Pages/ChatHome/ChatApp";
-import RoomPage from "./Pages/ChatHome/RoomPage";
+// import RoomPage from "./Pages/ChatHome/RoomPage";
 import Room from "./Pages/ChatHome/Room";
 import UserChatPage from "./Pages/UserPages/UserChatPage";
 import Bookings from "./Pages/TrainerPages/Bookings";
 import TrainerChat from "./Pages/TrainerPages/TrainerChat";
 import EditProfile from "./Pages/UserPages/EditProfile";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Wallets from "./Pages/UserPages/Wallets";
 import ForgotPass from "./Pages/UserPages/ForgotPass";
 import NewPass from "./Pages/UserPages/NewPass";
+// import ChatPage from "./Pages/UserPages/ChatPage";
+import VideoChat from "./Pages/VideoChat/VideoChat";
 
 export default function App() {
 
@@ -62,8 +64,7 @@ export default function App() {
         <Route path="/editUserProfile/:id" element={<EditProfile />} />
         <Route path="/viewPlan/:id" element={<ViewBookings />} />
         <Route path="/userWallet/:id" element={<Wallets />} />
-        <Route path="/videoChat" element={<RoomPage />} />
-
+        <Route path="/videoChat/:id" element={<VideoChat />} />
         <Route path="/chat" element={<ChatApp />} />
         <Route path="/room/:roomId" element={<Room />} />
         <Route path='/textChat' element={<UserChatPage />} />
@@ -78,6 +79,7 @@ export default function App() {
         <Route path="/editDetails/:id" element={<EditDetails />} />
         <Route path="/viewTrainerPlan/:id" element={<Bookings />} />
         <Route path='/trainerMessages' element={<TrainerChat />} />
+
         <Route path="*" element={<E404 />} />
       </Routes>
     </div>

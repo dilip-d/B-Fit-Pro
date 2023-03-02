@@ -163,7 +163,6 @@ export const getTrainerDetail = async (id) => {
   }
 };
 
-
 export const getTrainerToCheckAvailable = async (token, id) => {
   const config = {
     headers: {

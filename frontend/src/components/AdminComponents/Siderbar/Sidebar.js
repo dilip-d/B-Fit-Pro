@@ -14,7 +14,7 @@ const Sidebar = ({ setPage }) => {
   const [expanded, setExpaned] = useState(true)
 
   const handleLogout = () => {
-    dispatch(setAdminLogout())
+    dispatchEvent(setAdminLogout())
   }
 
   const sidebarVariants = {

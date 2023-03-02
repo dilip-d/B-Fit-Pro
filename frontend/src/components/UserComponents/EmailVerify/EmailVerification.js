@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { verifyOTP } from '../../../axios/services/HomeService';
@@ -10,6 +10,8 @@ function EmailVerification(props) {
 
     const [passShow, setPassShow] = useState(false)
     const [password, setpassword] = useState('');
+
+    const formRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ function EmailVerification(props) {
                                     <div className="card-body p-4 p-md-5 mx-4">
                                         <h3 className="mb-3 text-start">Enter the OTP send to your mail here</h3>
 
-                                        <form onSubmit={onSubmit}>
+                                        <form onSubmit={onSubmit} ref={formRef}>
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-outline">

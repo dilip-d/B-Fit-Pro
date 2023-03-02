@@ -9,18 +9,21 @@ function EditProfile(props) {
     const id = props.trainerId;
 
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     const token = JSON.parse(localStorage.getItem('trainer'))?.token;
 
     async function fetchData() {
         const data = await getProfile(token, id);
-        setUser(data[0]);
+        if(data.error){
+            navigate('*')
+        }else{
+            setUser(data[0]);
+        }
     }
     useEffect(() => {
         fetchData();
     }, []);
-
-    const navigate = useNavigate();
 
     function handleBackButtonClick() {
         navigate(-1);

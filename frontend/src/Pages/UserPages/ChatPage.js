@@ -5,6 +5,7 @@ import VideoPlayer from '../../components/UserComponents/VideoChat/VideoPlayer';
 import { AppBar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ContextProvider } from '../../SocketContext';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -43,17 +44,20 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatPage = () => {
 
+    const {id} = useParams();
+    console.log('receiver id',id);
+
     const classes = useStyles();
 
     return (
-        <ContextProvider>
+        <ContextProvider receiverId={id} >
             <div className={classes.wrapper}>
                 <AppBar className={classes.appBar} position='static' color='inherit'>
                     <Typography variant='h2' align='center'>Video Chat</Typography>
                 </AppBar>
-                <VideoPlayer />
-                <Options>
-                    <Notifications />
+                <VideoPlayer receiverId={id}/>
+                <Options receiverId={id}>
+                    <Notifications receiverId={id}/>
                 </Options>
             </div>
         </ContextProvider>

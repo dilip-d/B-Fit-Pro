@@ -60,3 +60,20 @@ export const postConversation = async (userid, trainerId) => {
   }
 }
 
+export const getVideoConversation = async (id,userId) => {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ',
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const {data} = await axiosConversationInstance.get(`/videoConversation/${id}/${userId}`, config)
+    if (data) {
+      return data
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}

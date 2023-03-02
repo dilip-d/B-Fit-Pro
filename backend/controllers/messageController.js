@@ -23,4 +23,3 @@ export const getMessage = async (req, res) => {
         res.json({ error: 'Internal Server Error !' });
     }
 }
-

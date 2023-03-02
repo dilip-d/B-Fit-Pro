@@ -26,7 +26,8 @@ function TrainerDetailedView(props) {
         if (!user) {
             navigate('/login')
         } else if (data.error) {
-            setError(data.error)
+            // setError(data.error)
+            navigate('*')
         } else {
             setDetails(data.trainer);
             setTiming(data.availableTimings);

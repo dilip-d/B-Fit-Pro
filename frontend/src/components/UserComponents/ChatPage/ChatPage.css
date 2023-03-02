@@ -24,19 +24,22 @@
     padding-right: 10px;
 }
 
-.chatBoxBottom {
+/* @media (max-width: 576px) {
+    .emojiPicker {
+      height: 30vh;
+      width: 80vw;
+      max-width: none;
+    }
+  }   */
+  
+/* .chatBoxBottom {
     margin-top: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
-.chatMessageInput {
-    width: 90%;
-    height: 90px;
-    padding: 10px;
-}
-
+/* 
 .chatSubmitButton {
     width: 70px;
     height: 40px;
@@ -52,7 +55,7 @@
     padding: 10px 0;
     border: none;
     border-bottom: 1px solid gray;
-}
+} */
 
 .chatMenuWrapper,
 .chatBoxWrapper {

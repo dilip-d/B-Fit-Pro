@@ -5,10 +5,12 @@ const Schema = mongoose.Schema;
 const conversationSchema = new Schema({
     members: {
         type: Array,
+    },
+    roomId: {
+        type: String
     }
 }, {
     timestamps: true
 });
 
 export default mongoose.model('Conversation', conversationSchema);
-

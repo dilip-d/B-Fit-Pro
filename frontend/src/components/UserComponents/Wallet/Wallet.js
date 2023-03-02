@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCol,MDBRow, MDBCard,  MDBCardBody, MDBCardImage, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
 import rupee from '../../../assets/rupee.png'
 import { getUserProfile } from '../../../axios/services/HomeService';
@@ -9,7 +9,6 @@ export default function Wallet(props) {
     const id = props.userId;
 
     const [details, setDetails] = useState([]);
-    const [error, setError] = useState(null);
 
     const token = JSON.parse(localStorage.getItem('user'))?.token;
     const user = JSON.parse(localStorage.getItem('user'))
@@ -21,9 +20,10 @@ export default function Wallet(props) {
         } else {
             const data = await getUserProfile(token, id);
             if (data.expired) {
-                setError(data.expired)
+   
             } else if (data.error) {
-                setError(data.error);
+                // setError(data.error);
+                navigate('*')
             } else {
                 setDetails(data[0]);
             }

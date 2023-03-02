@@ -37,30 +37,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Options = ({ children }) => {
+const Options = ({ children ,receiverId}) => {
 
     const { me, callAccepted, name, setName, leaveCall, callEnded, callUser } = useContext(SocketContext)
     const [idToCall, setIdToCall] = useState('')
     console.log(idToCall);
     const classes = useStyles();
-    console.log(callUser);
 
-    const [details, setDetails] = useState([]);
+    // const [details, setDetails] = useState([]);
 
-    async function fetchData() {
-        const token = JSON.parse(localStorage.getItem('user')).token;
-        const result = JSON.parse(localStorage.getItem('user'))
-        const id = result.user._id
-        const data = await getUserProfile(token, id);
-        console.log('in user profile');
-        console.log(data);
-        setDetails(data[0]);
-    }
+    const token = JSON.parse(localStorage.getItem('user'))?.token || JSON.parse(localStorage.getItem('trainer'))?.token
+    const result = JSON.parse(localStorage.getItem('user')) || JSON.parse(localStorage.getItem('trainer'))
+    const id = result?.user?._id || result?.trainer?._id
+    const nam = result?.user?.fname || result?.trainer?.fname
+    console.log('result',id);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // async function fetchData() {
+    //     const id = result.user._id
+    //     const data = await getUserProfile(token, id);
+    //     console.log('in user profile');
+    //     setDetails(data[0]);
+    // }
 
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
     return (
         <Container className={classes.container}>
@@ -69,7 +70,7 @@ const Options = ({ children }) => {
                     <Grid container className={classes.gridContainer}>
                         <Grid item xs={12} md={6} className={classes.padding}>
                             <Typography gutterBottom variant='h6'>Account Info</Typography>
-                            <TextField label='Name' value={name} onChange={(e) => setName(e.target.value)} fullWidth ></TextField>
+                            <TextField label='Name' value={nam} onChange={(e) => setName(e.target.value)} fullWidth ></TextField>
                             {console.log(me)}
                             <CopyToClipboard text={me} className={classes.margin}>
                                 <Button variant='contained' color='primary' fullWidth startIcon={<Assignment fontSize='large' />}>
@@ -79,7 +80,7 @@ const Options = ({ children }) => {
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.padding}>
                             <Typography gutterBottom variant='h6'>Make a call</Typography>
-                            <TextField label='ID to call' value={details._id} onChange={(e) => setIdToCall(details._id)} fullWidth ></TextField>
+                            <TextField label='ID to call' value={me} onChange={(e) => setIdToCall(me)} fullWidth ></TextField>
                             {callAccepted && !callEnded ? (
                                 <Button
                                     variant='contained'

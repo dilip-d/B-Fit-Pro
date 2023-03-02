@@ -24,13 +24,12 @@ function UserChatPage() {
                     size={25}
                     aria-label="Loading Spinner"
                     data-testid="loader"
-
                 />
             ) : (
                 <>
                     <Navbar />
                     <ChatPage/>
-                    <Footer />
+                    {/* <Footer /> */}
                 </>
             )}
         </>

@@ -12,7 +12,6 @@ import {
 import { getTrainerList } from '../../../axios/services/HomeService';
 import './TrainerList.css'
 import { Link } from 'react-router-dom';
-import {toast} from 'react-toastify';
 
 function TrainerList() {
 

@@ -11,25 +11,23 @@ import messageRouter from './routes/messagesRoute.js';
 import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
 import { Server } from 'socket.io';
-import { sockets } from './sockets/socket.js'; 
-
-dotenv.config();
+// import { sockets } from './sockets/socket.js';
 
 const app = express();
-
-app.use(morgan('dev'));
-app.use(express.json({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
-app.use(express.urlencoded({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
-
-app.use(fileUpload({
-  useTempFiles: true
-}))
+dotenv.config();
 
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
   optionSuccessStatus: 200,
 };
+
+app.use(morgan('dev'));
+app.use(express.json({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
+app.use(express.urlencoded({ extended: true, parameterLimit: 1000000, limit: '10000kb' }))
+app.use(fileUpload({
+  useTempFiles: true
+}))
 app.use(cors(corsOptions));
 
 app.use('/', userRouter);
@@ -53,7 +51,7 @@ try {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: "http://localhost:3000",
     cors: true,
   }
 });
@@ -61,34 +59,42 @@ const io = new Server(server, {
 // io.on('connection', sockets);
 
 // to create socketId according to email incoming
-const emailToSocketMapping = new Map();
-const socketToEmailMapping = new Map();
+// const emailToSocketMapping = new Map();
+// const socketToEmailMapping = new Map();
 
 let users = [];
+// let videoUsers = [];
 
 const adduser = (userId, socketId) => {
-  !users.some(user => user.userId === userId) &&
+  !users.some((user) => user.userId === userId) &&
     users.push({ userId, socketId })
 }
 
 const getUser = (userId) => {
-  console.log("users",users);
-  return users.find(user => user.userId === userId)
+  return users.find((user) => user.userId === userId)
 }
 
 const removeUser = (socketId) => {
-  users = users.filter((user => user.socketId !== socketId))
+  users = users.filter((user) => user.socketId !== socketId)
 }
 
-
 io.on("connection", (socket) => {
-  console.log("New Connection");
+  console.log("Socket Connected");
 
   // take userid and socketid from the user
-  socket.on("addUser", userId => {
+  socket.on("addUser", (userId) => {
     adduser(userId, socket.id)
     io.emit("getUsers", users)
   })
+
+  //send and get message
+  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+    const user = getUser(receiverId);
+    io.to(user?.socketId).emit("getMessage", {
+      senderId,
+      text,
+    })
+  });
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
@@ -96,70 +102,57 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users)
   })
 
-  //send and get message
-  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-    const user = getUser(receiverId);
-    console.log(111, user);
-    io.to(user?.socketId).emit("getMessage", {
-      senderId,
-      text,
-    })
-  });
+  // socket.emit('me', socket.id);
+  // socket.on("addUserVideo", (userId) => {
+  //   adduser(userId, socket.id)
+  //   io.emit("getUserVideo", videoUsers)
+  // })
+  // console.log(' video socket connected');
 
-  socket.on("join-room", (data) => {
-    const { userid } = data;
-    console.log("User", userid, "Joined Room");
-    emailToSocketMapping.set(userid, socket.id);
-    socketToEmailMapping.set(socket.id, userid);
-    socket.join(userid);
-    socket.emit("joined-room", { userid });
-    console.log('joineddddd');
-    socket.broadcast.to(userid).emit("user-joined", { userid });
-  });
+  // socket.on('disconnectCall', () => {
+  //   socket.broadcast.emit('callEnded');
+  // })
 
-  socket.on("call-user", (data) => {
-    const { emailId, offer } = data;
-    const fromEmail = socketToEmailMapping.get(socket.id);
-    const socketId = emailToSocketMapping.get(emailId);
-    socket.to(socketId).emit('incoming-call', { from: fromEmail, offer });
-  });
+  // socket.on('callUser', (data ) => {
+  //   console.log('logging caller',data);
+    // console.log(userToCall);
+    // console.log(signalData);
+    // console.log(from);
+    // console.log(name);
 
-  socket.on("call-accepted", (data) => {
-    const { emailId, ans } = data;
-    const socketId = emailToSocketMapping.get(emailId);
-    socket.to(socketId).emit("call-accepted", { ans })
-  });
+    // io.to(userToCall).emit("callUser", {
+    //   signal: signalData,
+    //   from,
+    //   name,
+    // });
+  // });
+
+  // socket.on('answerCall', (data) => {
+  //   io.to(data.to).emit('callAccepted', data.signal);
+  // })
 
 });
+ 
+  //   socket.on("join-room", (data) => {
+  //     const { userid } = data;
+  //     console.log("User", userid, "Joined Room");
+  //     emailToSocketMapping.set(userid, socket.id);
+  //     socketToEmailMapping.set(socket.id, userid);
+  //     socket.join(userid);
+  //     socket.emit("joined-room", { userid });
+  //     console.log('joineddddd');
+  //     socket.broadcast.to(userid).emit("user-joined", { userid });
+  //   });
 
-//connecting with an event & event listener
-// io.on('connection', (socket) => {
-//   socket.emit('me', socket.id);
-//   console.log('socket connected');
+  //   socket.on("call-user", (data) => {
+  //     const { emailId, offer } = data;
+  //     const fromEmail = socketToEmailMapping.get(socket.id);
+  //     const socketId = emailToSocketMapping.get(emailId);
+  //     socket.to(socketId).emit('incoming-call', { from: fromEmail, offer });
+  //   });
 
-//   socket.on('disconnect', () => {
-//     socket.broadcast.emit('callEnded');
-//   })
-
-//   socket.on('callUser', ({ userToCall, signalData, from, name }) => {
-//     console.log(userToCall);
-//     console.log(signalData);
-//     console.log(from);
-//     console.log(name);
-
-//     userSchema.findOne({ email: from}).then((user) => {
-//       console.log(user);
-//       io.to(user.socketId).emit("callUser", {
-//         signal: signalData,
-//         from,
-//         name,
-//       });
-//     });
-//   });
-//     // io.to(userToCall).emit('callUser', { signal: signalData, from, name })
-//   // })
-
-//   socket.on('answerCall', (data) => {
-//     io.to(data.to).emit('callAccepted', data.signal);
-//   })
-// })
+  //   socket.on("call-accepted", (data) => {
+  //     const { emailId, ans } = data;
+  //     const socketId = emailToSocketMapping.get(emailId);
+  //     socket.to(socketId).emit("call-accepted", { ans })
+  //   });

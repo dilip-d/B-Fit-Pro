@@ -39,7 +39,6 @@ const UserSchema = mongoose.Schema({
         trim: true,
         required: [true, 'Please enter an email'],
         unique: true,
-        // validate: [ true,'Please enter a valid email']
     },
     phone: {
         type: Number,

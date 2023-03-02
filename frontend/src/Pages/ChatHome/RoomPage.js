@@ -37,7 +37,7 @@ const RoomPage = () => {
     const offer = await createOffer();
     console.log(offer);
     socket.emit('call-user', { userid, offer });
-    setRemoteEmailId(emailId)
+    setRemoteEmailId(userid)
   },
     [createOffer, socket]
   );

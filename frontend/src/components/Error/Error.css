@@ -20,17 +20,28 @@
 
 .error {
   font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-decoration: none;
-  padding: 15px;
-  background: #6200ee;
+  padding: 8px;
+  background: #050505;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.back {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 8px;
+  background: #050505;
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
 }
 
 .button:hover {
-  background-color: #aaad00;
+  background-color: #b4b4ac;
   transition: 0.5s;
 }
 
