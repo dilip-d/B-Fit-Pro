@@ -67,9 +67,9 @@ const VideoChat = () => {
   const navigate = useNavigate();
 
   function handleBackButtonClick() {
-   zegoRef.current.destroy();
-      navigate(-1);
-    }
+    zegoRef.current.destroy();
+    navigate(-1);
+  }
 
   return (
     <>
@@ -82,4 +82,4 @@ const VideoChat = () => {
   )
 }
 
-export default VideoChat
+export default VideoChat;

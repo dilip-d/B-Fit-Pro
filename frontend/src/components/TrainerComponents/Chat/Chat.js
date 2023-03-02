@@ -1,4 +1,4 @@
-import React, {  useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { getConversations } from '../../../axios/services/ConversationServices'
 import { getMessages, postMessages } from '../../../axios/services/MessageServices'
 import Conversation from '../../../components/TrainerComponents/Conversation/Conversation'
@@ -30,30 +30,27 @@ function Chat() {
     useEffect(() => {
         if (socket.current) {
             socket.current.on("getMessage", (data) => {
-                console.log('new msg',data);
                 setArrivalMessage({
                     sender: data.senderId,
                     text: data.text,
                     createdAt: Date.now(),
                 });
+                console.log('new msg', data);
             })
         }
-    }, [socket.current])
+    }, [socket])
 
     useEffect(() => {
-        console.log('triggered', arrivalMessage);
         arrivalMessage && currentChat?.members.includes(arrivalMessage?.sender) &&
             setMessages((prev) => [...prev, arrivalMessage])
+        console.log('triggered');
     }, [arrivalMessage, currentChat])
-
-    // useEffect(() => {
-    //     socket.current.emit("addUser", userid);
-    //     socket.current.on('getUsers', (users) => {
-    //     })
-    // }, [user])
 
     useEffect(() => {
         socket.current.emit("addUser", userid)
+        socket.current.on('getUsers', (users) => {
+            // console.log(users);
+        })
     }, [userid])
 
     useEffect(() => {
@@ -115,7 +112,6 @@ function Chat() {
             <div className='messenger mt-2 mx-2'>
                 <div className='chatMenu' style={{ background: 'lightgrey', borderRadius: "20px" }}>
                     <div className="chatMenuWrapper">
-                        {/* <input type="text" placeholder='Search' className='chatMenuInput' /> */}
                         {conversations.map((c) => (
                             <div onClick={() => setcurrentChat(c)}>
                                 <Conversation conversation={c} currentUser={userid} key={c._id} />

@@ -13,12 +13,13 @@ function ClientSignUp() {
   const [error, setError] = useState('');
 
   const onSubmit = async (values) => {
-    const status = await clientRegister(values);
-    if (status.status === 'error') {
-      setError('Client already existed');
-    } else if (status.status === 'pending') {
-      const id = status.data.userId
-      toast.success(status.send)
+    const response = await clientRegister(values);
+    if (response.error) {
+      setError(response.error);
+      toast.error(response.error)
+    } else if (response.status) {
+      const id = response.data.userId
+      toast.success(response.send)
       navigate(`/emailVerification/${id}`);
     }
   };
@@ -65,18 +66,16 @@ function ClientSignUp() {
                       <div className="row" >
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">First Name</label>
-                            <input
-                              style={{ background: "white" }}
+                            <label className="form-label text-black">First Name</label>
+                            <input style={{ background: "white" }}
                               type="text"
                               id="fname"
                               value={values.fname}
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              className={
-                                errors.fname && touched.fname
-                                  ? 'form-control form-control-sm input-error'
-                                  : 'form-control form-control-sm'
+                              className={errors.fname && touched.fname
+                                ? 'form-control form-control-sm input-error'
+                                : 'form-control form-control-sm'
                               } />
                             {errors.fname && touched.fname && (
                               <p className="red-error">{errors.fname}</p>
@@ -85,7 +84,7 @@ function ClientSignUp() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Last Name</label>
+                            <label className="form-label text-black">Last Name</label>
                             <input
                               style={{ background: "white" }}
                               type="text"
@@ -107,7 +106,7 @@ function ClientSignUp() {
                       <div className="row">
                         <div className="col-md-6 d-flex align-items-center">
                           <div className="form-outline datepicker w-100">
-                            <label className="form-label">Birth Date</label>
+                            <label className="form-label text-black">Birth Date</label>
                             <input style={{ background: "white" }}
                               type="date"
                               className={
@@ -126,7 +125,7 @@ function ClientSignUp() {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          <p className="mt-2 text-dark">Gender</p>
+                          <label className="mt-2 text-black">Gender</label>
                           <div className='d-flex justify-content-center mx-5'>
                             <div className="form-check form-check-inline" id="clr">
                               <label className="form-check-label">Female</label>
@@ -170,7 +169,7 @@ function ClientSignUp() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Email</label>
+                            <label className="form-label text-black">Email</label>
                             <input
                               style={{ background: "white" }}
                               type="email"
@@ -191,7 +190,7 @@ function ClientSignUp() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label text-black">Phone Number</label>
                             <input
                               style={{ background: "white" }}
                               type="tel"
@@ -214,7 +213,7 @@ function ClientSignUp() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Password</label>
+                            <label className="form-label text-black">Password</label>
                             <input
                               style={{ background: "white" }}
                               type="Password"
@@ -235,7 +234,7 @@ function ClientSignUp() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Confirm Password</label>
+                            <label className="form-label text-black">Confirm Password</label>
                             <input
                               style={{ background: "white" }}
                               type="Password"
@@ -258,7 +257,7 @@ function ClientSignUp() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Weight(Kg)</label>
+                            <label className="form-label text-black">Weight(Kg)</label>
                             <input
                               style={{ background: "white" }}
                               type="number"
@@ -279,7 +278,7 @@ function ClientSignUp() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Height(Cm)</label>
+                            <label className="form-label text-black">Height(Cm)</label>
                             <input
                               style={{ background: "white" }}
                               type="number"

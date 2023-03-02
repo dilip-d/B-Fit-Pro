@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import GridLoader from 'react-spinners/GridLoader';
-import VerificationSuccess from '../../components/UserComponents/EmailVerify';
+import VerificationSuccess from '../../components/UserComponents/EmailVerify/VerificationSuccess';
 import Footer from '../../components/UserComponents/Footer/Footer';
 import Navbar from '../../components/UserComponents/Navbar/Navbar';
 

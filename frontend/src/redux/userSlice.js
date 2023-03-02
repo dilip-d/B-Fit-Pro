@@ -42,18 +42,6 @@ const userSlice = createSlice({
                 state.pending = false
                 state.error = action.payload.message
             })
-        // .addCase(userRegister.pending, (state) => {
-        //     state.pending = true
-        // })
-        // .addCase(userRegister.fulfilled, (state, action) => {
-        //     state.pending = false
-        //     state.user = action.payload
-        //     state.success = action.payload
-        // })
-        // .addCase(userRegister.rejected, (state, action) => {
-        //     state.pending = false
-        //     state.error = action.payload.message
-        // })
     }
 })
 

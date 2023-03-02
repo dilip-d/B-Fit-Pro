@@ -12,7 +12,7 @@ export const clientRegister = async (value) => {
     },
   };
   const { data } = await axiosClientInstance.post('/clientRegister', value, config);
-  if (data.status) {
+  if (data) {
     return data;
   }
 };
@@ -130,7 +130,7 @@ export const trainerRegister = async (value) => {
     },
   };
   const { data } = await axiosTrainerInstance.post('/trainerRegister', value, config);
-  if (data.status) {
+  if (data) {
     return data;
   }
 };

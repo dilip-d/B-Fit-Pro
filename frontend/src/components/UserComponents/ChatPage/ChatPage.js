@@ -1,4 +1,4 @@
-import React, {  useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { getConversations } from '../../../axios/services/ConversationServices'
 import { getMessages, postMessages } from '../../../axios/services/MessageServices'
 import Conversation from '../../../components/UserComponents/Conversation/Conversation'
@@ -30,31 +30,27 @@ function ChatPage() {
     useEffect(() => {
         if (socket.current) {
             socket.current.on("getMessage", (data) => {
-                console.log('new msg',data);
                 setArrivalMessage({
                     sender: data.senderId,
                     text: data.text,
                     createdAt: Date.now()
                 });
+                console.log('new msg', data);
             })
         }
-    }, [socket.current])
+    }, [socket])
 
     useEffect(() => {
-        console.log('triggered', arrivalMessage);
         arrivalMessage && currentChat?.members.includes(arrivalMessage?.sender) &&
             setMessages((prev) => [...prev, arrivalMessage])
+        console.log('triggered');
     }, [arrivalMessage, currentChat])
-
-    // useEffect(() => {
-    //     socket.current.emit("addUser", userid);
-    //     socket.current.on('getUsers', (users) => {
-    //         // console.log(users);
-    //     })
-    // }, [user])
 
     useEffect(() => {
         socket.current.emit("addUser", userid)
+        socket.current.on('getUsers', (users) => {
+            // console.log(users);
+        })
     }, [userid])
 
     useEffect(() => {
@@ -111,7 +107,7 @@ function ChatPage() {
         // console.log('scrolling');
         scrollRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages])
-  
+
     return (
         <>
             <div className='messenger' style={{ marginTop: "80px", marginLeft: '2rem', marginBottom: '14px' }}>

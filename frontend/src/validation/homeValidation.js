@@ -1,11 +1,9 @@
 import * as yup from 'yup';
 
-//password rule
 const passwordRule = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 const link =
   /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 
-//schema
 export const userSchema = yup.object().shape({
   fname: yup
     .string()
@@ -53,15 +51,6 @@ export const userSchema = yup.object().shape({
     .max(400)
     .required('Required'),
 });
-export const userUpdateSchema = yup.object().shape({
-  email: yup.string().email('Please enter a valid email').required('Required'),
-  phone: yup
-    .number('Phone number must be a 10 digit number')
-    .positive()
-    .integer()
-    .test('len', 'Phone number should be a 10 digit number', val => /^\d{10}$/.test(val))
-    .required('Required'),
-});
 
 export const trainerSchema = yup.object().shape({
   fname: yup
@@ -105,20 +94,4 @@ export const trainerSchema = yup.object().shape({
   // fileb: yup
   // .string()
   // .required('Required'),
-});
-
-export const editTrainerSchema = yup.object().shape({
-  fname: yup
-    .string()
-    .min(2, 'First name must be at least 2 characters')
-    .max(20)
-    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed'),
-  lname: yup
-    .string()
-    .min(1)
-    .max(20)
-    .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed'),
-  link: yup
-    .string()
-    .matches(link, 'Please paste a valid youtube link here')
 });

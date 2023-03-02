@@ -39,7 +39,7 @@ function ResendEmail() {
                                     style={{ borderRadius: '15px' }}
                                 >
                                     <div className="card-body p-4 p-md-5 mx-4">
-                                        <h3 className="mb-3 text-start">Enter your email</h3>
+                                        <h5 className="mb-3 text-center">Enter your email</h5>
                                         <form onSubmit={onSubmit} ref={formRef}>
                                             <div className="row">
                                                 <div className="col-md-12">

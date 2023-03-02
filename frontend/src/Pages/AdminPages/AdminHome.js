@@ -11,7 +11,7 @@ import MainDash from "../../components/AdminComponents/MainDash/MainDash";
 const AdminHome = () => {
   const navigate = useNavigate();
   const [pages, setPage] = useState('dashboard')
-  
+
   useEffect(() => {
     const token = localStorage.getItem('admin');
     if (!token) {
@@ -19,7 +19,7 @@ const AdminHome = () => {
     } else {
       navigate('/admin');
     }
-  }, [navigate]);
+  });
 
   const App = styled.div`
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);

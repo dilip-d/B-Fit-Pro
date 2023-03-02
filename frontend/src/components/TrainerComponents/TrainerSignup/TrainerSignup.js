@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { trainerRegister } from '../../../axios/services/HomeService';
 import { trainerSchema } from '../../../validation/homeValidation';
 import './TrainerSignup.css';
+import { toast } from 'react-toastify';
 
 function TrainerSignup() {
 
@@ -15,10 +16,12 @@ function TrainerSignup() {
   const [error, setError] = useState('');
 
   const onSubmit = async (values) => {
-    const status = await trainerRegister({ values, file1: filef, file2: fileb });
-    if (status.status === 'error') {
+    const response = await trainerRegister({ values, file1: filef, file2: fileb });
+    console.log(response);
+    if (response.error) {
       setError('Trainer already existed');
-    } else if (status.status === 'success') {
+      toast.error(response.error)
+    } else if (response.status) {
       navigate('/trainerLogin');
     }
   };
@@ -50,9 +53,9 @@ function TrainerSignup() {
     }
   }
 
-  useEffect(()=>{
-    const token =  JSON.parse(localStorage.getItem('trainer'))?.token;
-    if(token){
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('trainer'))?.token;
+    if (token) {
       navigate('/trainerHome')
     }
   })
@@ -95,7 +98,7 @@ function TrainerSignup() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">First Name</label>
+                            <label className="form-label text-black">First Name</label>
                             <input
                               style={{ background: "white" }}
                               type="text"
@@ -116,7 +119,7 @@ function TrainerSignup() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Last Name</label>
+                            <label className="form-label text-black">Last Name</label>
                             <input
                               style={{ background: "white" }}
                               type="text"
@@ -141,7 +144,7 @@ function TrainerSignup() {
                       <div className="row">
                         <div className="col-md-6 d-flex align-items-center">
                           <div className="form-outline datepicker w-100">
-                            <label className="form-label">Birth Date</label>
+                            <label className="form-label text-black">Birth Date</label>
                             <input
                               style={{ background: "white" }}
                               type="date"
@@ -162,12 +165,8 @@ function TrainerSignup() {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          <p className="mb-2 pt-2 text-dark">Gender: </p>
-
-                          <div
-                            className="form-check form-check-inline"
-                            id="clr"
-                          >
+                          <p className="mb-2 pt-2 text-black text-sm">Gender: </p>
+                          <div className="form-check form-check-inline" id="clr">
                             <input
                               style={{ background: "white" }}
                               className="form-check-input inputColor"
@@ -215,7 +214,7 @@ function TrainerSignup() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Email</label>
+                            <label className="form-label text-black">Email</label>
                             <input
                               style={{ background: "white" }}
                               type="email"
@@ -237,7 +236,7 @@ function TrainerSignup() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label text-black">Phone Number</label>
                             <input
                               style={{ background: "white" }}
                               type="tel"
@@ -260,7 +259,7 @@ function TrainerSignup() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Password</label>
+                            <label className="form-label text-black">Password</label>
                             <input
                               style={{ background: "white" }}
                               type="Password"
@@ -282,7 +281,7 @@ function TrainerSignup() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">Confirm Password</label>
+                            <label className="form-label text-black">Confirm Password</label>
                             <input
                               style={{ background: "white" }}
                               type="password"
@@ -306,7 +305,7 @@ function TrainerSignup() {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">
+                            <label className="form-label text-black">
                               Profile Photo
                             </label>
                             <input
@@ -317,23 +316,17 @@ function TrainerSignup() {
                               accept="image/*"
                               // value={values.filef}
                               onChange={handleImage1}
-                              // onChange={handleChange}
-                              // onBlur={handleBlur}
                               className={
                                 errors.filef && touched.filef
                                   ? 'form-control form-control-sm input-error'
                                   : 'form-control form-control-sm'
-                              }
-                            />
-
-                            {/* {values.filef ? <img className='trainerSignup-idproof' alt="Posts" src={values.filef ? URL.createObjectURL(values.filef) : ""}></img> : ""} */}
+                              } />
                             {errors.filef && touched.filef && <p className='red-error'>{errors.filef}</p>}
-
                           </div>
                         </div>
                         <div className="col-md-6">
                           <div className="form-outline">
-                            <label className="form-label">
+                            <label className="form-label text-black">
                               Certificate
                             </label>
                             <input
@@ -348,18 +341,16 @@ function TrainerSignup() {
                                 errors.fileb && touched.fileb
                                   ? 'form-control form-control-sm input-error'
                                   : 'form-control form-control-sm'
-                              }
-                            />
+                              } />
                             {errors.fileb && touched.fileb && <p className='red-error'>{errors.fileb}</p>}
                           </div>
                         </div>
                       </div>
                       <div className="row">
                         <div className="form-outline pt-2">
-                          <label className="form-label">
-
+                          <label className="form-label text-black">
                             Upload Video Link <br></br>(Paste a link to your
-                            YouTube video introducing yourself and training a
+                            youtube video introducing yourself and training a
                             client.)
                           </label>
                           <input
@@ -373,34 +364,14 @@ function TrainerSignup() {
                               errors.link && touched.link
                                 ? 'form-control form-control-sm input-error'
                                 : 'form-control form-control-sm'
-                            }
-                          />
+                            } />
                           {errors.link && touched.link && (
                             <p className="red-error">{errors.link}</p>
                           )}
                         </div>
                       </div>
-                      {/* 
-                                        <div className="row">
-                                            <div className="col-12">
-
-                                                <select className="select form-control-lg">
-                                                    <option value="1" disabled>Choose option</option>
-                                                    <option value="2">Subject 1</option>
-                                                    <option value="3">Subject 2</option>
-                                                    <option value="4">Subject 3</option>
-                                                </select>
-                                                <label className="form-label select-label">Choose option</label>
-
-                                            </div>
-                                        </div> */}
-
                       <div className="mt-4 pt-2">
-                        <input
-                          className="btn btn-primary btn-md"
-                          type="submit"
-                          value="Submit"
-                        />
+                        <input className="btn btn-primary btn-md" type="submit" value="Submit" />
                       </div>
                     </div>
                   </form>

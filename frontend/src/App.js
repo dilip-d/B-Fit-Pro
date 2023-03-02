@@ -36,7 +36,6 @@ import EditProfile from "./Pages/UserPages/EditProfile";
 import Wallets from "./Pages/UserPages/Wallets";
 import ForgotPass from "./Pages/UserPages/ForgotPass";
 import NewPass from "./Pages/UserPages/NewPass";
-// import ChatPage from "./Pages/UserPages/ChatPage";
 import VideoChat from "./Pages/VideoChat/VideoChat";
 
 export default function App() {

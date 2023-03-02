@@ -6,9 +6,6 @@ const conversationSchema = new Schema({
     members: {
         type: Array,
     },
-    roomId: {
-        type: String
-    }
 }, {
     timestamps: true
 });
