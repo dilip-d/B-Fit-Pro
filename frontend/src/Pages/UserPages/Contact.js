@@ -2,7 +2,7 @@ import Hero from "../../components/UserComponents/Hero/Hero";
 import Navbar from "../../components/UserComponents/Navbar/Navbar";
 import Footer from "../../components/UserComponents/Footer/Footer";
 import ContactForm from "../../components/UserComponents/Contact/ContactForm";
-import heroImg from '../../assets/2.jpg'
+import heroImg from '../../assets/19.jpg'
 
 function Contact() {
   return (

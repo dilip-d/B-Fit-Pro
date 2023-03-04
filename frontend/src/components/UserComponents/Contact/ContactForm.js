@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import "./ContactFormStyles.css";
 import emailjs from '@emailjs/browser'
+import { toast } from 'react-toastify'
 
 function ContactForm() {
   const form = useRef()
@@ -23,6 +24,8 @@ function ContactForm() {
     emailjs.sendForm('service_cxjguth', 'template_ia0gs0d', form.current, '8wVksha5u0skIfYTn')
       .then((result) => {
         console.log(result.text);
+        toast.success('Sent Successfully')
+        form.current.reset();
       }, (error) => {
         console.log(error.text);
       });

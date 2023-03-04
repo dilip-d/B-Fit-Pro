@@ -2,7 +2,7 @@ import Hero from "../../components/UserComponents/Hero/Hero";
 import Navbar from "../../components/UserComponents/Navbar/Navbar";
 import Footer from "../../components/UserComponents/Footer/Footer";
 import AboutUs from "../../components/UserComponents/About/AboutUs";
-import heroImg from '../../assets/night.jpg'
+import heroImg from '../../assets/cover10.jpeg'
 
 function About() {
   return (

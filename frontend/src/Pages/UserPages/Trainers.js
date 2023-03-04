@@ -1,7 +1,7 @@
 import Hero from "../../components/UserComponents/Hero/Hero";
 import Navbar from "../../components/UserComponents/Navbar/Navbar";
 import Footer from "../../components/UserComponents/Footer/Footer";
-import heroImg from '../../assets/15.jpg'
+import heroImg from '../../assets/cover7.jpg'
 import TrainerList from "../../components/UserComponents/TrainerList/TrainerList";
 
 function Trainers() {

@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.1fc695cb.chunk.css",
-    "main.js": "/static/js/main.74e3a632.chunk.js",
-    "main.js.map": "/static/js/main.74e3a632.chunk.js.map",
+    "main.js": "/static/js/main.2cbf3eab.chunk.js",
+    "main.js.map": "/static/js/main.2cbf3eab.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.2f981e36.js",
     "runtime-main.js.map": "/static/js/runtime-main.2f981e36.js.map",
     "static/css/2.69d64a17.chunk.css": "/static/css/2.69d64a17.chunk.css",
-    "static/js/2.eb7299ea.chunk.js": "/static/js/2.eb7299ea.chunk.js",
-    "static/js/2.eb7299ea.chunk.js.map": "/static/js/2.eb7299ea.chunk.js.map",
+    "static/js/2.60619318.chunk.js": "/static/js/2.60619318.chunk.js",
+    "static/js/2.60619318.chunk.js.map": "/static/js/2.60619318.chunk.js.map",
     "static/js/3.aa97cde9.chunk.js": "/static/js/3.aa97cde9.chunk.js",
     "static/js/3.aa97cde9.chunk.js.map": "/static/js/3.aa97cde9.chunk.js.map",
     "static/js/4.3ce89155.chunk.js": "/static/js/4.3ce89155.chunk.js",
@@ -17,7 +17,7 @@
     "index.html": "/index.html",
     "static/css/2.69d64a17.chunk.css.map": "/static/css/2.69d64a17.chunk.css.map",
     "static/css/main.1fc695cb.chunk.css.map": "/static/css/main.1fc695cb.chunk.css.map",
-    "static/js/2.eb7299ea.chunk.js.LICENSE.txt": "/static/js/2.eb7299ea.chunk.js.LICENSE.txt",
+    "static/js/2.60619318.chunk.js.LICENSE.txt": "/static/js/2.60619318.chunk.js.LICENSE.txt",
     "static/js/3.aa97cde9.chunk.js.LICENSE.txt": "/static/js/3.aa97cde9.chunk.js.LICENSE.txt",
     "static/js/4.3ce89155.chunk.js.LICENSE.txt": "/static/js/4.3ce89155.chunk.js.LICENSE.txt",
     "static/js/5.2184a21f.chunk.js.LICENSE.txt": "/static/js/5.2184a21f.chunk.js.LICENSE.txt",
@@ -27,18 +27,20 @@
     "static/media/16.c6e69fd4.jpg": "/static/media/16.c6e69fd4.jpg",
     "static/media/17.3f37edf5.jpg": "/static/media/17.3f37edf5.jpg",
     "static/media/18.9c18363f.jpg": "/static/media/18.9c18363f.jpg",
+    "static/media/19.b1c04750.jpg": "/static/media/19.b1c04750.jpg",
     "static/media/2.bbb41348.jpg": "/static/media/2.bbb41348.jpg",
     "static/media/20.3d8e6bc8.jpg": "/static/media/20.3d8e6bc8.jpg",
     "static/media/24.ea2c61ae.jpg": "/static/media/24.ea2c61ae.jpg",
     "static/media/25.112b80ed.jpg": "/static/media/25.112b80ed.jpg",
     "static/media/3.84d5235c.jpg": "/static/media/3.84d5235c.jpg",
     "static/media/4.0c7885e9.jpg": "/static/media/4.0c7885e9.jpg",
+    "static/media/cover10.7c5f855e.jpeg": "/static/media/cover10.7c5f855e.jpeg",
     "static/media/cover6.34693fcb.jpg": "/static/media/cover6.34693fcb.jpg",
+    "static/media/cover7.6dbb88b8.jpg": "/static/media/cover7.6dbb88b8.jpg",
     "static/media/img1.a0fca9c5.png": "/static/media/img1.a0fca9c5.png",
     "static/media/img2.f5f922c9.png": "/static/media/img2.f5f922c9.png",
     "static/media/img3.6b148454.png": "/static/media/img3.6b148454.png",
     "static/media/logo6.400555b2.png": "/static/media/logo6.400555b2.png",
-    "static/media/night.ac6d287d.jpg": "/static/media/night.ac6d287d.jpg",
     "static/media/profileLogo.6c53c0a1.png": "/static/media/profileLogo.6c53c0a1.png",
     "static/media/rupee.cd890f35.png": "/static/media/rupee.cd890f35.png",
     "static/media/trainerdetail1.2f5bb52e.png": "/static/media/trainerdetail1.2f5bb52e.png"
@@ -46,8 +48,8 @@
   "entrypoints": [
     "static/js/runtime-main.2f981e36.js",
     "static/css/2.69d64a17.chunk.css",
-    "static/js/2.eb7299ea.chunk.js",
+    "static/js/2.60619318.chunk.js",
     "static/css/main.1fc695cb.chunk.css",
-    "static/js/main.74e3a632.chunk.js"
+    "static/js/main.2cbf3eab.chunk.js"
   ]
 }
