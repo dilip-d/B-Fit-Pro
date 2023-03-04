@@ -195,7 +195,7 @@ export const signin = async (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid Credentials" })
 
-        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "1d" });
+        const toke = jwt.sign({ name: oldUser.fname, email: oldUser.email, id: oldUser._id }, process.env.CLIENTJWT_SECRET, { expiresIn: "5h" });
 
         res.status(200).json({ token: toke, status: 'Login success', user: oldUser })
 
@@ -503,9 +503,19 @@ export const getBookings = async (req, res) => {
 
 export const cancelPlan = async (req, res) => {
     try {
-        const userId = req.params.id;
-        const booking = await bookingModel.findOneAndUpdate({ clientId: userId }, { serviceStatus: 'Cancelled' })
-        await User.findByIdAndUpdate(userId, { $inc: { wallet: booking.amount } })
+        const booking = await bookingModel.findOneAndUpdate({
+            $and: [
+                { clientId: req.body.userId },
+                { trainerId: req.query.trainerId },
+                { timing: req.query.timing }
+            ]
+        },
+            {
+                serviceStatus: 'Cancelled',
+                timing: null
+            }
+        );
+        await User.findByIdAndUpdate(req.body.userId, { $inc: { wallet: booking.amount } })
         res.json({ status: true })
     } catch (err) {
         console.log(err);

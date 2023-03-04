@@ -11,7 +11,7 @@ import {
     MDBListGroup,
     MDBListGroupItem,
 } from 'mdb-react-ui-kit';
-import { json, Link, useNavigate } from 'react-router-dom';
+import {  Link, useNavigate } from 'react-router-dom';
 import { deleteService, deleteTips, getProfile } from '../../../axios/services/TrainerService';
 
 export default function TrainerProfile() {
@@ -31,8 +31,9 @@ export default function TrainerProfile() {
         } else {
             const data = await getProfile(token, id);
             if (data.expired) {
-                setError(data.expired)
-            } else if (data.error) {
+                localStorage.removeItem("trainer");
+                navigate('/trainerLogin')
+              }else if (data.error) {
                 setError(data.error);
             } else {
                 setDetails(data[0]);

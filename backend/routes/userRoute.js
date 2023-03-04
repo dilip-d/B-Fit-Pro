@@ -29,6 +29,6 @@ router.post('/api/editProfile/:id', clientProtect, editUserProfile);
 
 //payment & cancellation
 router.get('/api/getBookings/:id', clientProtect, getBookings);
-router.get('/api/cancelPlan/:id', clientProtect, cancelPlan);
+router.get('/api/cancelPlan', clientProtect, cancelPlan);
 
 export default router;

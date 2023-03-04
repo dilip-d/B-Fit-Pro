@@ -23,8 +23,8 @@ function ChatPage() {
     const userid = user?.user?._id;
 
     useEffect(() => {
-        socket.current = io("ws://localhost:5000");
-        // socket.current = io("https://bfitprobackend.onrender.com");
+        // socket.current = io("ws://localhost:5000");
+        socket.current = io("https://bfitprobackend.onrender.com");
     }, [])
 
     useEffect(() => {
@@ -143,12 +143,12 @@ function ChatPage() {
                                             <div className="col-2 col-md-1 mb-2 mb-md-0">
                                                 <button onClick={handleEmojiPickerToggle} className="btn btn-dark btn-sm">😀</button>
                                             </div>
-                                            <div className="col-md-7 mb-2 mb-md-0">
-                                                <input type="text" class="form-control input-lg" placeholder="Write message..."
+                                            <div className="col-md-9 mb-2 mb-md-0">
+                                                <input type="text" class="form-control input-lg w-100" placeholder="Write message..."
                                                     onChange={(e) => setNewMessage(e.target.value)} value={newMessage} />
                                             </div>
-                                            <div className="col-md-4 d-flex justify-content-end align-items-center">
-                                                <button className="btn btn-primary btn-sm me-2" onClick={handleSubmit}>Send</button>
+                                            <div className="col-md-2 d-flex justify-content-end align-items-center">
+                                                <button className="btn btn-dark btn-sm me-2" onClick={handleSubmit}>Send</button>
                                                 <Link to={`/videoChat/${receiverId}`} className="btn btn-secondary btn-sm"><i className="fas fa-video"></i></Link>
                                                 {/* <button onClick={handleJoinRoom} className="btn btn-secondary btn-sm"><i className="fas fa-video"></i></button> */}
                                             </div>

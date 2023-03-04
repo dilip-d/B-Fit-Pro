@@ -2,7 +2,7 @@ import Trainer from "../../components/UserComponents/Trainer/Trainer";
 import Footer from "../../components/UserComponents/Footer/Footer";
 import Hero from "../../components/UserComponents/Hero/Hero";
 import Navbar from "../../components/UserComponents/Navbar/Navbar";
-import AboutImg from '../../assets/13.jpg'
+import AboutImg from '../../assets/cover6.jpg'
 import Testimonials from "../../components/UserComponents/Testimonials/Testimonials";
 
 function Home() {

@@ -32,7 +32,7 @@ function AdminLogin() {
             <div className="container">
                 <div className="body d-md-flex align-items-center justify-content-between">
                     <div className="box-1 mt-md-0 ">
-                        <img src={img1} alt="image" />
+                        <img src={img1} alt="images" />
                     </div>
                     <div class=" box-2 d-flex flex-column h-100">
                         <div

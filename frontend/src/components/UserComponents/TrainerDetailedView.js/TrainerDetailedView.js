@@ -77,8 +77,8 @@ function TrainerDetailedView(props) {
                                         <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                             <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                                                 <img src={details.profileImage}
-                                                    alt="Generic placeholder image" className="img-fluid img-thumbnail mt-4 mb-2"
-                                                    style={{ width: '150px', zIndex: 1 }} />
+                                                    alt="images" className="img-fluid img-thumbnail mt-4 mb-2"
+                                                    style={{ width: '150px' }} />
                                             </div>
                                             <div className="ms-3" style={{ marginTop: '130px' }}>
                                                 <h5 className='fw-bold'>{details.fname} {details.lname}</h5>
@@ -88,7 +88,11 @@ function TrainerDetailedView(props) {
                                         <div className="card-body p-4 mt-3 text-black">
                                             {user ? (
                                                 <>
-                                                    <Link to="/textChat" onClick={postConversatn}><button className='float-start btn-sm btn-dark' style={{ marginLeft: "1rem", marginTop: "4rem" }}>Message Me</button></Link>
+                                                    <div className="text-center my-3">
+                                                        <Link to="/textChat" onClick={postConversatn}>
+                                                            <button className="btn float-start btn-sm mt-5 ms-3 btn-dark">Message Me</button>
+                                                        </Link>
+                                                    </div>
                                                     <div className="d-flex flex-row-end justify-content-end ">
                                                         <form onSubmit={onSubmit} className="w-50 mb-5 mb-md-0">
                                                             <h4 className='text-center'>Please check the availability first !</h4>

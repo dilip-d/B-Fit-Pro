@@ -8,6 +8,10 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from './redux/store';
 
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
+
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 

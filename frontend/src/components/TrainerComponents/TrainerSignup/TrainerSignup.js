@@ -71,6 +71,7 @@ function TrainerSignup() {
         phone: '',
         password: '',
         cpassword: '',
+        charge:'',
         link: '',
         // filef:'',
         // fileb:'',
@@ -347,6 +348,28 @@ function TrainerSignup() {
                         </div>
                       </div>
                       <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-outline">
+                            <label className="form-label text-black">Charge/Month in Rupees</label>
+                            <input
+                              style={{ background: "white" }}
+                              type="text"
+                              id="charge"
+                              value={values.charge}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              className={
+                                errors.charge && touched.charge
+                                  ? 'form-control form-control-sm input-error'
+                                  : 'form-control form-control-sm'
+                              }
+                            />
+                            {errors.charge && touched.charge && (<p className="red-error">{errors.charge}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
                         <div className="form-outline pt-2">
                           <label className="form-label text-black">
                             Upload Video Link <br></br>(Paste a link to your
@@ -380,9 +403,9 @@ function TrainerSignup() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </div >
+      </section >
+    </div >
   );
 }
 

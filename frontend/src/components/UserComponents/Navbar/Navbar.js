@@ -51,7 +51,7 @@ const Navbar = () => {
           </MDBDropdown>
         ) : (
           <li className="nav-links-mobile">
-            <Link to='/signup'><button className="btn-sm">Sign Up</button></Link>
+            <Link to='/signup'><button className="nav-links-mobile">Sign Up</button></Link>
           </li>
         )}
       </ul>

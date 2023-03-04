@@ -7,16 +7,22 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import "./MainDash.css";
 import { groupBy } from 'lodash';
+import { useNavigate } from "react-router-dom";
 
 const MainDash = () => {
   const tableRef = useRef(null);
 
   const [details, setDetails] = useState([]);
+  const navigate = useNavigate();
 
   const token = JSON.parse(localStorage.getItem('admin'))?.token;
 
   async function fetchData() {
     const data = await getAllDetails(token);
+    if (data.expired) {
+      localStorage.removeItem("admin");
+      navigate('/adminLogin')
+    }
     setDetails(data);
   };
 

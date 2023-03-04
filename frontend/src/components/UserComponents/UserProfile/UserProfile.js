@@ -20,10 +20,12 @@ export default function UserProfile() {
             const id = user.user._id;
             const data = await getUserProfile(token, id);
             if (data.expired) {
-                setError(data.expired)
-            } else if (data.error) {
-                setError(data.error);
-            } else {
+                localStorage.removeItem("user");
+                navigate('/login')
+              } else if (data.error) {
+                // setError(data.error);
+                navigate('*')
+              } else {
                 setDetails(data[0]);
             }
         }

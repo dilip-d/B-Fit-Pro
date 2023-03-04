@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import { useNavigate } from 'react-router-dom';
 import {
     getActiveTrainerInfo,
     unBlockTrainer,
@@ -11,13 +12,21 @@ function TrainerManagement() {
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate()
 
-    const token =  JSON.parse(localStorage.getItem('admin')).token;
+    const token = JSON.parse(localStorage.getItem('admin')).token;
 
     async function fetchData() {
         const data = await getActiveTrainerInfo(token);
-        setDetails(data.activetrainerDetails);
-        setFilterDetails(data.activetrainerDetails)
+        if (data.expired) {
+            localStorage.removeItem("admin");
+            setIsLoggedIn(false);
+        } else {
+            setIsLoggedIn(true);
+            setDetails(data.activetrainerDetails);
+            setFilterDetails(data.activetrainerDetails)
+        }
     }
 
     useEffect(() => {
@@ -91,6 +100,12 @@ function TrainerManagement() {
             },
         }
     ];
+
+    if (!isLoggedIn) {
+        navigate('/adminLogin');
+        return null;
+    }
+
     return (
         <div className='row justify-content-center'>
             <div className="d-flex flex-column align-items-center">

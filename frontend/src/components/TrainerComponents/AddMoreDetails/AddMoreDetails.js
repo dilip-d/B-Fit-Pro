@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { addDescription, addPrice, addService, addTips } from '../../../axios/services/TrainerService';
+import { addDescription, addPrice, addService, addTips, getProfile } from '../../../axios/services/TrainerService';
 import { trainerSchema } from '../../../validation/homeValidation';
 
 function AddMoreDetails() {
@@ -22,6 +22,18 @@ function AddMoreDetails() {
   function handleBackButtonClick() {
     navigate(-1);
   }
+
+  async function fetchData() {
+    const data = await getProfile(token, id);
+    if (data.expired) {
+      localStorage.removeItem("trainer");
+      navigate('/trainerLogin')
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -93,7 +105,7 @@ function AddMoreDetails() {
     }
   }, [service])
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  // const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
         description: '',

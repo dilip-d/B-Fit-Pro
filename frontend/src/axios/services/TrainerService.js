@@ -15,7 +15,6 @@ export const trainerLogin = createAsyncThunk('trainer/trainerLogin', async ({ va
 })
 
 export const getProfile = async (token, id) => {
-  console.log('in get profile')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -30,7 +29,6 @@ export const getProfile = async (token, id) => {
 };
 
 export const addService = async (token, values, id) => {
-  console.log('in add service')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -46,7 +44,6 @@ export const addService = async (token, values, id) => {
 };
 
 export const addTips = async (token, values, id) => {
-  console.log('in add tips')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -62,7 +59,6 @@ export const addTips = async (token, values, id) => {
 };
 
 export const addDescription = async (token, values, id) => {
-  console.log('in add description')
   console.log(id);
   const config = {
     headers: {
@@ -79,7 +75,6 @@ export const addDescription = async (token, values, id) => {
 };
 
 export const addPrice = async (token, values, id) => {
-  console.log('in add price')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -95,7 +90,6 @@ export const addPrice = async (token, values, id) => {
 };
 
 export const editProfile = async (token, values, id) => {
-  console.log('in edit profile')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -110,7 +104,6 @@ export const editProfile = async (token, values, id) => {
 };
 
 export const deleteService = async (token, value, id) => {
-  console.log('i axios',value);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -125,7 +118,6 @@ export const deleteService = async (token, value, id) => {
 };
 
 export const deleteTips = async (token, value, id) => {
-  console.log('i axios',value);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -140,7 +132,6 @@ export const deleteTips = async (token, value, id) => {
 };
 
 export const getTrainerBookings = async (token, id) => {
-  console.log('in add price')
   const config = {
     headers: {
       Accept: 'application/json',

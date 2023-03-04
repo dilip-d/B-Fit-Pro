@@ -18,7 +18,10 @@ function ViewTrainerBookings(props) {
 
     async function fetchData() {
         const data = await getTrainerBookings(token, id);
-        if (data.error) {
+        if (data.expired) {
+            localStorage.removeItem("trainer");
+            navigate('/trainerLogin')
+        } else if (data.error) {
             navigate('*')
         } else {
             setDetails(data);

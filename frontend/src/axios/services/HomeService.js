@@ -18,7 +18,6 @@ export const clientRegister = async (value) => {
 };
 
 export const verifyOTP = async (values, id) => {
-  console.log('in verify otp')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -33,7 +32,6 @@ export const verifyOTP = async (values, id) => {
 };
 
 export const getUserValid = async (token, id) => {
-  console.log('in user valid')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -48,7 +46,6 @@ export const getUserValid = async (token, id) => {
 };
 
 export const setNewPassword = async (token, id, values) => {
-  console.log('in set password')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -64,7 +61,6 @@ export const setNewPassword = async (token, id, values) => {
 
 
 export const resendOTP = async (values) => {
-  console.log('in resend otp')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -79,7 +75,6 @@ export const resendOTP = async (values) => {
 };
 
 export const sendResetLink = async (values) => {
-  console.log('send reset link')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -178,7 +173,6 @@ export const getTrainerToCheckAvailable = async (token, id) => {
 };
 
 export const CheckAvailability = async (token, values, id) => {
-  console.log('in check availability');
   const config = {
     headers: {
       Accept: 'application/json',
@@ -193,7 +187,6 @@ export const CheckAvailability = async (token, values, id) => {
 };
 
 export const placeBooking = async (token, trainerData, userId) => {
-  console.log('in booking');
   const config = {
     headers: {
       Accept: 'application/json',
@@ -225,7 +218,6 @@ export const orderVerifyPayment = async (token, res, order) => {
 };
 
 export const getUserProfile = async (token, id) => {
-  console.log('in get user profile')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -258,7 +250,6 @@ export const editUserProfile = async (token, values, id) => {
 };
 
 export const getBookings = async (token, id) => {
-  console.log('in get bookings')
   const config = {
     headers: {
       Accept: 'application/json',
@@ -272,16 +263,22 @@ export const getBookings = async (token, id) => {
   }
 };
 
-export const cancelPlan = async (token, id) => {
-  console.log('in cancel plan')
-  const config = {
+export const cancelPlan = async (token, value) => {
+  // const config = {
+  //   headers: {
+  //     Accept: 'application/json',
+  //     Authorization: `Bearer ${token}`,
+  //     'Content-Type': 'application/json',
+  //   },
+  // };
+  const { data } = await axiosClientInstance.get('/cancelPlan', {
+    params: value,
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-  };
-  const { data } = await axiosClientInstance.get(`/cancelPlan/${id}`, config);
+  });
   if (data) {
     return data;
   }

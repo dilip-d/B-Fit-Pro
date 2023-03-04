@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import { useNavigate } from 'react-router-dom';
 import { cancelPlan, getBookings } from '../../../axios/services/HomeService';
+import Modal from 'react-modal';
 
 function ViewPlan(props) {
 
@@ -10,6 +11,8 @@ function ViewPlan(props) {
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedTrainerId, setSelectedTrainerId] = useState({});
 
     const navigate = useNavigate()
 
@@ -17,8 +20,11 @@ function ViewPlan(props) {
 
     async function fetchData() {
         const data = await getBookings(token, id);
-        if (data.error) {
-            // setError(data.error)
+        if (data.expired) {
+            localStorage.removeItem("user");
+            navigate('/login')
+        } else if (data.error) {
+            // setError(data.error);
             navigate('*')
         } else {
             setDetails(data);
@@ -37,15 +43,21 @@ function ViewPlan(props) {
     //     setFilterDetails(result)
     // }, [search, details])
 
-    async function cancel(clientId) {
-        const data = await cancelPlan(token, clientId);
-        if (data.status) {
-            fetchData()
-        }
-    }
-
     function handleBackButtonClick() {
         navigate(-1);
+    }
+
+    async function cancel(trainerId, timing) {
+        setSelectedTrainerId({ trainerId: trainerId, timing: timing });
+        setIsModalOpen(true);
+    }
+
+    async function handleConfirm() {
+        const data = await cancelPlan(token, selectedTrainerId);
+        if (data.status) {
+            setIsModalOpen(false);
+            fetchData();
+        }
     }
 
     const columns = [
@@ -86,17 +98,50 @@ function ViewPlan(props) {
             selector: (row) => {
                 return (
                     <div>
-                        {row.serviceStatus === 'Active' ? (
-                            <button
-                                key={row._id}
-                                className="btn-danger px-3"
-                                onClick={() => cancel(row.clientId)}
-                            >
-                                Cancel
-                            </button>
-                        ) : (
+                        {row.serviceStatus === 'Active' ?
+                            <>
+                                <button
+                                    key={row._id}
+                                    className="btn-danger px-3 d-inline d-md-inline"
+                                    onClick={() => cancel(row.trainerId, row.timing)}
+                                >
+                                    Cancel
+                                </button>
+
+                                <Modal
+                                    isOpen={isModalOpen}
+                                    onRequestClose={() => setIsModalOpen(false)}
+                                    style={{
+                                        overlay: {
+                                            backgroundColor: 'white',
+                                        },
+                                        content: {
+                                            top: '50%',
+                                            left: '50%',
+                                            right: 'auto',
+                                            bottom: 'auto',
+                                            marginRight: '-50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            backgroundColor: 'black',
+                                            borderRadius: '10px',
+                                            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+                                            padding: '20px',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                        },
+                                    }}
+                                >
+                                    <h5 className='text-white'>Are you sure you want to cancel this plan?</h5>
+                                    <div className="d-flex justify-content-center">
+                                        <button className="btn-danger m-2 d-inline d-md-inline" onClick={handleConfirm}>Confirm</button>
+                                        <button className="btn-success m-2 d-inline d-md-inline" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                                    </div>
+                                </Modal>
+                            </>
+                            :
                             <p className='text-danger'>Cancelled</p>
-                        )}
+                        }
                     </div>
                 );
             },
@@ -111,7 +156,7 @@ function ViewPlan(props) {
                         <DataTable
                             columns={columns}
                             data={details}
-                            fixedHeader
+                            // fixedHeader
                             fixedHeaderScrollHeight="500px"
                             // selectableRows
                             selectableRowsHighlight

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import { useNavigate } from 'react-router-dom';
 import {
   blockunsrinfo,
   getUserInfo,
@@ -11,13 +12,21 @@ function UserManagement() {
   const [details, setDetails] = useState([]);
   const [search, setSearch] = useState('')
   const [filterDetails, setFilterDetails] = useState([])
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate()
 
   const token = JSON.parse(localStorage.getItem('admin'))?.token;
 
   async function fetchData() {
     const data = await getUserInfo(token);
-    setDetails(data.clientDetails);
-    setFilterDetails(data.clientDetails);
+    if (data.expired) {
+      localStorage.removeItem("admin");
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+      setDetails(data.clientDetails);
+      setFilterDetails(data.clientDetails);
+    }
   }
 
   useEffect(() => {
@@ -96,6 +105,11 @@ function UserManagement() {
       },
     },
   ];
+
+  if (!isLoggedIn) {
+    navigate('/adminLogin');
+    return null;
+  }
 
   return (
     <div className='row justify-content-center'>

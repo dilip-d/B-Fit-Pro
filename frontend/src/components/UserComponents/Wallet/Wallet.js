@@ -20,11 +20,12 @@ export default function Wallet(props) {
         } else {
             const data = await getUserProfile(token, id);
             if (data.expired) {
-   
-            } else if (data.error) {
+                localStorage.removeItem("user");
+                navigate('/login')
+              } else if (data.error) {
                 // setError(data.error);
                 navigate('*')
-            } else {
+              }else {
                 setDetails(data[0]);
             }
         }

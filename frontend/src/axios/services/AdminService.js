@@ -141,7 +141,6 @@ export const getBookingInfo = async (token) => {
 };
 
 export const getAllDetails = async (token) => {
-
   const config = {
     headers: {
       Accept: 'application/json',

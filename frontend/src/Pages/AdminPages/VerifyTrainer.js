@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import {
     getTrainerdetails,
@@ -9,12 +10,20 @@ import {
 function VerifyTrainer() {
 
     const [details, setDetails] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate()
 
     const token = JSON.parse(localStorage.getItem('admin')).token;
 
     async function fetchData() {
         const data = await getTrainerdetails(token);
-        setDetails(data.trainerDetails);
+        if (data.expired) {
+            localStorage.removeItem("admin");
+            setIsLoggedIn(false);
+        } else {
+            setIsLoggedIn(true);
+            setDetails(data.trainerDetails);
+        }
     }
 
     useEffect(() => {
@@ -42,6 +51,11 @@ function VerifyTrainer() {
      text-decoration: underline;
    }
    `;
+
+    if (!isLoggedIn) {
+        navigate('/adminLogin');
+        return null;
+    }
 
     return (
         <>

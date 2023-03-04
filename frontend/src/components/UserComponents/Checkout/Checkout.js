@@ -14,14 +14,12 @@ import { useNavigate } from "react-router-dom";
 
 function Checkout(props) {
 
-    console.log('in checkout');
     const id = props.data.id;
     const date = props.data.date;
     const time = props.data.time;
     const trainerData = { id, date, time };
 
     const [details, setDetails] = useState([]);
-    console.log(details);
     const token = JSON.parse(localStorage.getItem('user'))?.token;
     const userId = JSON.parse(localStorage.getItem('user'))?.user._id;
 
@@ -32,6 +30,9 @@ function Checkout(props) {
         const data = await getTrainerDetail(id);
         console.log(data);
         if (!user) {
+            navigate('/login')
+        } else if (data.expired) {
+            localStorage.removeItem("user");
             navigate('/login')
         } else if (data.error) {
             navigate('*')

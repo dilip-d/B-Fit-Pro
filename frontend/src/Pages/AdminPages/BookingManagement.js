@@ -1,5 +1,6 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import { Redirect, useNavigate } from 'react-router-dom';
 import { getBookingInfo } from '../../axios/services/AdminService';
 
 function BookingManagement() {
@@ -7,16 +8,23 @@ function BookingManagement() {
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate()
 
     const token = JSON.parse(localStorage.getItem('admin'))?.token;
 
-    async function fetchData() {
-        const data = await getBookingInfo(token);
-        setDetails(data.booking);
-        setFilterDetails(data.booking)
-    }
-
     useEffect(() => {
+        async function fetchData() {
+            const data = await getBookingInfo(token);
+            if (data.expired) {
+                localStorage.removeItem("admin");
+                setIsLoggedIn(false);
+            } else {
+                setIsLoggedIn(true);
+                setDetails(data.booking);
+                setFilterDetails(data.booking)
+            }
+        }
         fetchData();
     }, []);
 
@@ -60,6 +68,11 @@ function BookingManagement() {
             selector: (row) => row.serviceStatus,
         },
     ];
+
+    if (!isLoggedIn) {
+        navigate('/adminLogin');
+        return null;
+    }
 
     return (
         <div className='row justify-content-center'>

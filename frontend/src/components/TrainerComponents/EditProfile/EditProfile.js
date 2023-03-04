@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { editProfile, getProfile } from '../../../axios/services/TrainerService';
-import { toast, ToastContainer } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 function EditProfile(props) {
@@ -15,9 +14,12 @@ function EditProfile(props) {
 
     async function fetchData() {
         const data = await getProfile(token, id);
-        if(data.error){
+        if (data.expired) {
+            localStorage.removeItem("trainer");
+            navigate('/trainerLogin')
+        } else if (data.error) {
             navigate('*')
-        }else{
+        } else {
             setUser(data[0]);
         }
     }

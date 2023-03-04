@@ -62,7 +62,7 @@ function TrainerLogin() {
                         <div className="row" >
                           <div className="col-md-12" >
                             <div className="form-outline" >
-                              <label className="form-label">Email</label>
+                              <label className="form-label text-black">Email</label>
                               <input
                                 style={{ background: "white" }}
                                 type="email"
@@ -81,7 +81,7 @@ function TrainerLogin() {
                         <div className="row">
                           <div className="col-md-12">
                             <div className="form-outline">
-                              <label className="form-label">Password</label>
+                              <label className="form-label text-black">Password</label>
                               <div className='two'>
                                 <input
                                   style={{ background: "white" }}

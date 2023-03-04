@@ -19,7 +19,7 @@ const AdminHome = () => {
     } else {
       navigate('/admin');
     }
-  });
+  },[]);
 
   const App = styled.div`
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
