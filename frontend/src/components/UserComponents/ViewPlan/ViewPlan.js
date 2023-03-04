@@ -149,7 +149,7 @@ function ViewPlan(props) {
     ];
     return (
         <>
-            <button className='btn-sm btn-dark mt-4' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
+            <button className='btn-sm btn-dark mt-4 m-2 d-inline d-md-inline' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
             <div className='row justify-content-center m-2'>
                 <div className="d-flex flex-column align-items-center" style={{ minHeight: '600px' }}>
                     <div className='table bg-dark'>

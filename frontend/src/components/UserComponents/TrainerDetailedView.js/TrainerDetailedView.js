@@ -85,43 +85,49 @@ function TrainerDetailedView(props) {
                                                 <p></p>
                                             </div>
                                         </div>
-                                        <div className="card-body p-4 mt-3 text-black">
+                                        <div className="card-body p-4 mt-2 text-black">
                                             {user ? (
                                                 <>
-                                                    <div className="text-center my-3">
-                                                        <Link to="/textChat" onClick={postConversatn}>
-                                                            <button className="btn float-start btn-sm mt-5 ms-3 btn-dark">Message Me</button>
-                                                        </Link>
+                                                    <div className="col-12 order-2 order-md-1">
+                                                        <div className="d-flex justify-content-start">
+                                                            <div className="text-center">
+                                                                <Link to="/textChat" onClick={postConversatn}>
+                                                                    <button className="btn float-start btn-sm mt-5 mb-2 ms-3 btn-dark">Message Me</button>
+                                                                </Link>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="d-flex flex-row-end justify-content-end ">
-                                                        <form onSubmit={onSubmit} className="w-50 mb-5 mb-md-0">
-                                                            <h4 className='text-center'>Please check the availability first !</h4>
-                                                            <DatePicker
-                                                                className="text-center mb-2"
-                                                                style={{ width: '100%' }}
-                                                                required
-                                                                format="DD-MM-YYYY"
-                                                                onChange={(value) =>
-                                                                    setSelectedDate(value)
-                                                                }
-                                                            />
-                                                            <select className="select w-100 mb-2 " required name="time">
-                                                                <option value="" disabled selected>Select an time</option>
-                                                                {timing?.map((item, index) => {
-                                                                    return (
-                                                                        <option key={index} value={item}>{item}</option>
-                                                                    )
-                                                                })}
-                                                            </select>
-                                                            <button type="submit" className="btn btn-primary mt-2 text-center w-100" >
-                                                                Check Availability
-                                                            </button>
-                                                        </form>
+                                                    <div className="col-12 order-1 order-md-2">
+                                                        <div className="d-flex flex-row-end justify-content-end ">
+                                                        <div className="row">
+                                                            <form onSubmit={onSubmit} className="w-100 mb-1 mb-md-0">
+                                                                <h4 className='text-center mt-1'>Check the availability here!</h4>
+                                                                <DatePicker
+                                                                    className="text-center mb-2"
+                                                                    style={{ width: '100%' }}
+                                                                    required
+                                                                    format="DD-MM-YYYY"
+                                                                    onChange={(value) => setSelectedDate(value)}
+                                                                />
+                                                                <select className="select w-100 mb-2 " required name="time">
+                                                                    <option value="" disabled selected>Select an time</option>
+                                                                    {timing?.map((item, index) => {
+                                                                        return (
+                                                                            <option key={index} value={item}>{item}</option>
+                                                                        )
+                                                                    })}
+                                                                </select>
+                                                                <button type="submit" className="btn btn-primary mt-2 text-center w-100" >
+                                                                    Check Availability
+                                                                </button>
+                                                            </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     {isAvailable ?
-                                                        <div className="d-flex justify-content-end">
+                                                        <div className="d-flex flex-row-end justify-content-end">
                                                             <div className="row">
-                                                                <h4 className='mr-auto mt-2' style={{ color: 'lightgreen' }}>Available ! Proceed with book now</h4>
+                                                                <h4 className='mr-auto mt-1' style={{ color: 'lightgreen' }}>Available! Proceed with book now</h4>
                                                                 <Link to={`/payment/${encodeURIComponent(JSON.stringify(isAvailable))}`}>
                                                                     <button className="btn btn-dark text-center" >
                                                                         Book Now

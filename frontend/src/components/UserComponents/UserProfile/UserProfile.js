@@ -57,9 +57,9 @@ export default function UserProfile() {
                                             <MDBCardBody className="p-4">
                                                 <MDBRow className="pt-1">
                                                     <MDBCol size="6" className=" d-flex mb-3 text-start">
-                                                        <Link to={`/viewPlan/${details._id}`}><button className='btn-dark btn-sm'>View Plan</button></Link>
-                                                        <Link to='/textChat'><button className='btn-primary mx-3 btn-sm'>Chat</button></Link>
-                                                        <Link to={`/userWallet/${details._id}`}><button className='btn-success mx-2 btn-sm'>Wallet</button></Link>
+                                                        <Link to={`/viewPlan/${details._id}`}><button className='btn-dark btn-sm m-2 d-inline d-md-inline'>View Plan</button></Link>
+                                                        <Link to='/textChat'><button className='btn-primary mx-3 btn-sm m-2 d-inline d-md-inline'>Chat</button></Link>
+                                                        <Link to={`/userWallet/${details._id}`}><button className='btn-success mx-2 btn-sm m-2 d-inline d-md-inline'>Wallet</button></Link>
                                                     </MDBCol>
                                                 </MDBRow>
                                                 <MDBTypography tag="h6">Information</MDBTypography>

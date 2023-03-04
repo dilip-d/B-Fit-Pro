@@ -23,8 +23,8 @@ function Chat() {
     const userid = user?.trainer?._id;
 
     useEffect(() => {
-        socket.current = io("ws://localhost:5000");
-        //    socket.current = io("https://bfitprobackend.onrender.com");
+        // socket.current = io("ws://localhost:5000");
+           socket.current = io("https://bfitprobackend.onrender.com");
     }, [])
 
     useEffect(() => {

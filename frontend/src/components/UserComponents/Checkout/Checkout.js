@@ -86,23 +86,25 @@ function Checkout(props) {
         }
     }, []);
 
+    function handleBackButtonClick() {
+        navigate(-1);
+    }
+
     return (
         <MDBContainer fluid className="p-5" style={{ backgroundColor: "white" }}>
             <MDBCard>
                 <MDBCardBody style={{ backgroundColor: "lightgrey" }}>
                     <MDBRow className="d-flex justify-content-center pb-5">
                         <MDBCol md="7" xl="5" className="mb-4 mb-md-0">
-                            <div className="py-4 d-flex flex-row">
+                            <div className="py-4 d-flex flex-wrap justify-content-between">
                                 <h5>
                                     <span className="far fa-check-square pe-2"></span>
-                                    <b>ELIGIBLE</b> |
-                                </h5>
-                                <span className="ps-2">Pay</span>
-                                <div className="d-flex">
-                                    <h6 className="mx-5">
-                                        <a href="#!">Cancel and return to website</a>
-                                    </h6>
-                                </div>
+                                    <b>ELIGIBLE</b>
+                                    <span className="ps-2">Pay</span>
+                                </h5>                               
+                                <button className="btn-sm btn-dark ms-auto ms-md-0 d-inline d-md-inline" onClick={handleBackButtonClick}>
+                                    Cancel & go back
+                                </button>
                             </div>
                             <MDBCol md="5" xl="12" offsetXl="1">
                                 {" "}

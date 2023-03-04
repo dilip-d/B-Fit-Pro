@@ -31,10 +31,10 @@ function TrainerList() {
         <MDBRow className='row-cols-1 row-cols-md-4 m-5'>
             {details.map((item, index) => {
                 return (
-                    <MDBCol className='m-2' style={{width:'18rem'}}>
+                    <MDBCol className='my-1' lg='3' md='6' sm='12'>
                         <MDBCard className='card'>
                             <MDBCardImage
-                                className="small-image"
+                                className="small-image fluid"
                                 src={item.profileImage}
                                 alt='...'
                                 position='top'
@@ -45,8 +45,8 @@ function TrainerList() {
                                     ₹ {item.price} /Month
                                 </MDBCardText>
                                 <div className="d-flex justify-content-between">
-                                    <Link to={`/trainerDetailedView/${item._id}`}><MDBBtn className='mx-2'>Details</MDBBtn></Link>
-                                    <Link to={`/bookTrainer/${item._id}`}><MDBBtn className='mx-2'>Book</MDBBtn></Link>
+                                    <Link to={`/trainerDetailedView/${item._id}`}><MDBBtn className='mx-1'>Details</MDBBtn></Link>
+                                    <Link to={`/bookTrainer/${item._id}`}><MDBBtn className='mx-1'>Book</MDBBtn></Link>
                                 </div>
                             </MDBCardBody>
                         </MDBCard>
