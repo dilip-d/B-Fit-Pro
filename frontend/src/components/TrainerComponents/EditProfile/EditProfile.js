@@ -80,7 +80,7 @@ function EditProfile(props) {
         >
             {({ isSubmitting, setFieldValue, values }) => (
                 <>
-                    <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
+                    <button className='btn-sm btn-dark mt-4 mb-3 d-inline d-md-inline' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
                     <div className="mt-3" style={{ minHeight: "600px" }}>
                         <div className="row justify-content-center" >
                             <div className="col-lg-6">

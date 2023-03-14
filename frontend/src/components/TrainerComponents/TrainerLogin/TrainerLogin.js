@@ -77,7 +77,6 @@ function TrainerLogin() {
                             </div>
                           </div>
                         </div>
-
                         <div className="row">
                           <div className="col-md-12">
                             <div className="form-outline">
@@ -110,9 +109,9 @@ function TrainerLogin() {
                         </div>
                       </div>
                     </form>
-                    <h6 className="d-flex justify-content-center pt-2 CreatSingup-textcolour">
-                      Create an account ?
-                      <Link to="/trainerSignup" className='btnhover'> Sign Up</Link></h6>
+                    <h6 className="d-flex justify-content-center pt-4 CreatSingup-textcolour">
+                      Create an account ? 
+                      <Link to="/trainerSignup" className='btnhover px-2'> Sign Up</Link></h6>
                   </div>
                 </div>
               </div>

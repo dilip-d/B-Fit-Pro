@@ -119,7 +119,7 @@ function AddMoreDetails() {
 
   return (
     <>
-      <button className='btn-sm btn-dark mt-4 mb-3' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
+      <button className='btn-sm btn-dark mt-4 mb-3 d-inline d-md-inline' onClick={handleBackButtonClick}><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>  Go Back</button>
       <div className="row">
         <div className="col-sm-6 py-3 px-5">
           <div className="card" style={{ border: "3px solid #336699", borderRadius: "10px" }}>

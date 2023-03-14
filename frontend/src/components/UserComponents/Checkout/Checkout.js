@@ -28,7 +28,6 @@ function Checkout(props) {
     async function fetchData() {
         const user = JSON.parse(localStorage.getItem('user'));
         const data = await getTrainerDetail(id);
-        console.log(data);
         if (!user) {
             navigate('/login')
         } else if (data.expired) {
@@ -81,7 +80,7 @@ function Checkout(props) {
             if (verification.message) {
                 navigate('/paymentSuccess');
             } else {
-                alert('error Pls try again...');
+                alert('Error Please try again...');
             }
         }
     }, []);

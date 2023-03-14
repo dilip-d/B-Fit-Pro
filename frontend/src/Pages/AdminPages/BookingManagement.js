@@ -8,7 +8,6 @@ function BookingManagement() {
     const [details, setDetails] = useState([]);
     const [search, setSearch] = useState('')
     const [filterDetails, setFilterDetails] = useState([])
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate()
 
     const token = JSON.parse(localStorage.getItem('admin'))?.token;
@@ -18,9 +17,8 @@ function BookingManagement() {
             const data = await getBookingInfo(token);
             if (data.expired) {
                 localStorage.removeItem("admin");
-                setIsLoggedIn(false);
+                navigate('/adminLogin')
             } else {
-                setIsLoggedIn(true);
                 setDetails(data.booking);
                 setFilterDetails(data.booking)
             }
@@ -68,11 +66,6 @@ function BookingManagement() {
             selector: (row) => row.serviceStatus,
         },
     ];
-
-    if (!isLoggedIn) {
-        navigate('/adminLogin');
-        return null;
-    }
 
     return (
         <div className='row justify-content-center'>

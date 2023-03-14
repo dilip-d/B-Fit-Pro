@@ -3,8 +3,6 @@ import { DatePicker } from "antd";
 import { CheckAvailability, getTrainerToCheckAvailable } from "../../../axios/services/HomeService";
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
-import { useDispatch } from "react-redux";
-import { setLogout } from "../../../redux/userSlice";
 
 const CheckAvailable = (props) => {
 
@@ -15,11 +13,10 @@ const CheckAvailable = (props) => {
   const [isAvailable, setIsAvailable] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   async function fetchData() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
     if (!user) {
       navigate('/login');
     } else {

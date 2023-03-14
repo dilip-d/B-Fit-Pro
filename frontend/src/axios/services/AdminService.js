@@ -14,7 +14,7 @@ export const getUserInfo = async (token) => {
   }
 };
 
-export const unBlockuserinfo = async (token, id) => {
+export const unBlockUser = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',
@@ -28,7 +28,7 @@ export const unBlockuserinfo = async (token, id) => {
   }
 };
 
-export const blockunsrinfo = async (token, id) => {
+export const blockUser = async (token, id) => {
   const config = {
     headers: {
       Accept: 'application/json',

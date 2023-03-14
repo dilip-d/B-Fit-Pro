@@ -10,7 +10,6 @@ import {
 function VerifyTrainer() {
 
     const [details, setDetails] = useState([]);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate()
 
     const token = JSON.parse(localStorage.getItem('admin')).token;
@@ -19,9 +18,8 @@ function VerifyTrainer() {
         const data = await getTrainerdetails(token);
         if (data.expired) {
             localStorage.removeItem("admin");
-            setIsLoggedIn(false);
+            navigate('/adminLogin')
         } else {
-            setIsLoggedIn(true);
             setDetails(data.trainerDetails);
         }
     }
@@ -51,12 +49,7 @@ function VerifyTrainer() {
      text-decoration: underline;
    }
    `;
-
-    if (!isLoggedIn) {
-        navigate('/adminLogin');
-        return null;
-    }
-
+   
     return (
         <>
             {details?.length < 0 ? (

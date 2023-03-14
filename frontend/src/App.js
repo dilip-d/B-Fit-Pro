@@ -25,9 +25,7 @@ import Payment from "./Pages/UserPages/Payment";
 import PaymentSuccessScreen from "./Pages/UserPages/PaymentSuccessScreen";
 import UserProfilePage from "./Pages/UserPages/UserProfilePage";
 import ViewBookings from "./Pages/UserPages/ViewBookings";
-// import ChatPage from "./Pages/UserPages/ChatPage";
 import ChatApp from "./Pages/ChatHome/ChatApp";
-// import RoomPage from "./Pages/ChatHome/RoomPage";
 import Room from "./Pages/ChatHome/Room";
 import UserChatPage from "./Pages/UserPages/UserChatPage";
 import Bookings from "./Pages/TrainerPages/Bookings";
@@ -49,12 +47,13 @@ export default function App() {
         <Route path="/trainers" element={<Trainers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Register />} />
+        <Route path="/login" element={<SignIn />} />
         <Route path="/emailVerification/:id" element={<EmailOTP />} />
         <Route path="/verificationSuccess" element={<VerificationDone />} />
         <Route path="/resendOtp" element={<ResendOtp />} />
         <Route path="/forgotPassword" element={<ForgotPass />} />
         <Route path="/enterPassword/:id/:token" element={<NewPass />} />
-        <Route path="/login" element={<SignIn />} />
+
         <Route path="/trainerDetailedView/:id" element={<TrainerDetails />} />
         <Route path="/bookTrainer/:id" element={<CheckAvailability />} />
         <Route path="/payment/:id" element={<Payment />} />
@@ -68,8 +67,10 @@ export default function App() {
         <Route path="/room/:roomId" element={<Room />} />
         <Route path='/textChat' element={<UserChatPage />} />
 
-        <Route path="/admin" element={<AdminHome />} />
+
         <Route path="/adminLogin" element={<AdminSignIn />} />
+        <Route path="/admin" element={<AdminHome />} />
+
 
         <Route path="/trainerSignup" element={<TrainerRegister />} />
         <Route path="/trainerLogin" element={<TrainerSignIn />} />

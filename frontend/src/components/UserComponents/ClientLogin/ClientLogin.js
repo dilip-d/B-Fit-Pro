@@ -81,9 +81,7 @@ function ClientLogin() {
                               />
                               <div className='showpass' onClick={() => setPassShow(!passShow)}>Show</div>
                             </div>
-                            <Link to='/forgotPassword' className="d-flex py-2 justify-content-end">
-                              <p className='text-warning'>Forgot Password ?</p>
-                            </Link>
+                            <p className="d-flex py-2 justify-content-end"> <Link to='/forgotPassword' className='btnhover'>Forgot Password ? </Link></p>
                           </div>
                         </div>
                       </div>

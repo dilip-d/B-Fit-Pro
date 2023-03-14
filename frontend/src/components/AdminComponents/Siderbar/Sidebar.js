@@ -48,7 +48,7 @@ const Sidebar = ({ setPage }) => {
                   key={index}
                   onClick={() => {
                     setPage(item.page)
-                    setSelected(index)
+                    // setSelected(index)
                   }}
                 >
                   <item.icon />
