@@ -23,11 +23,10 @@ export const trainerSignup = async (req, res) => {
 
         const profileImage = req.body.file1
         const certificateImage = req.body.file2
-        console.log('in signnn');
         const oldTrainer = await Trainer.findOne({ email: values.email });
 
         if (oldTrainer !== null)
-            return res.json({ error: "Trainer already exists !" })
+            return res.status(404).json({ error: "Trainer already exists !" })
 
         const hashedPassword = await bcrypt.hash(values.password, 12);
 
@@ -39,7 +38,7 @@ export const trainerSignup = async (req, res) => {
             folder: 'certificates'
         })
 
-        const result = await Trainer.create({
+        await Trainer.create({
             fname: values.fname,
             lname: values.lname,
             dob: values.dob,
@@ -52,11 +51,11 @@ export const trainerSignup = async (req, res) => {
             certificateImage: file2.url,
             link: values.link
         })
-        const token = jwt.sign({ email: result.email, id: result._id }, process.env.TRAINERJWT_SECRET, { expiresIn: "1d" });
-        res.json({ status: 'Successfully done' });
+
+        res.status(200).json({ status: 'Successfully done' });
     } catch (error) {
-        res.status(500).json({ error: 'Something went wrong' })
         console.log(error);
+        res.status(500).json({ error: 'Something went wrong' })
     }
 };
 
@@ -82,8 +81,8 @@ export const trainerLogin = async (req, res) => {
         res.status(200).json({ token: toke, status: 'Login success', trainer: oldTrainer })
 
     } catch (error) {
-        res.status(500).json({ message: 'Something went wrong' })
         console.log(error);
+        res.status(500).json({ message: 'Something went wrong' })
     }
 }
 
@@ -91,10 +90,10 @@ export const getProfile = async (req, res) => {
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.find({ _id: trainerId })
-        res.json(trainer)
+        res.status(200).json(trainer)
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -104,14 +103,14 @@ export const addService = async (req, res) => {
         const newService = req.body.service
         const data = await Trainer.findOne({ _id: trainerId, service: { $in: [newService] } });
         if (data) {
-            res.json({ error: 'Already Added' })
+            res.status(200).json({ error: 'Already Added' })
         } else {
             await Trainer.updateOne({ _id: trainerId }, { $push: { service: newService } });
-            res.json({ status: 'ok', message: 'Added Successfully' })
+            res.status(200).json({ message: 'Added Successfully' })
         }
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -124,11 +123,11 @@ export const addTips = async (req, res) => {
             res.json({ error: 'Already Added' })
         } else {
             await Trainer.updateOne({ _id: trainerId }, { $push: { tips: newTip } });
-            res.json({ status: 'ok', message: 'Added Successfully' })
+            res.status(200).json({ message: 'Added Successfully' })
         }
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -138,14 +137,14 @@ export const addDescription = async (req, res) => {
         const newDescription = req.body.description
         const data = await Trainer.findOne({ _id: trainerId, description: { $eq: newDescription } });
         if (data) {
-            res.json({ error: 'Already Added' })
+            res.status(200).json({ error: 'Already Added' })
         } else {
             await Trainer.updateOne({ _id: trainerId }, { $set: { description: newDescription } });
-            res.json({ status: 'ok', message: 'Added Successfully' })
+            res.status(200).json({ message: 'Added Successfully' })
         }
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -155,14 +154,14 @@ export const addPrice = async (req, res) => {
         const newPrice = req.body.price
         const data = await Trainer.findOne({ _id: trainerId, price: { $eq: newPrice } });
         if (data) {
-            res.json({ error: 'Already Added' })
+            res.status(200).json({ error: 'Already Added' })
         } else {
             await Trainer.updateOne({ _id: trainerId }, { $set: { price: newPrice } });
-            res.json({ status: 'ok', message: 'Added Successfully' })
+            res.status(200).json({ message: 'Added Successfully' })
         }
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -199,11 +198,11 @@ export const editProfile = async (req, res) => {
             }
         });
 
-        res.json({ status: 'ok', message: 'Added Successfully' })
+        res.status(200).json({ message: 'Added Successfully' })
 
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -211,10 +210,10 @@ export const getTrainerBookings = async (req, res) => {
     try {
         const Id = req.params.id
         const trainer = await bookingModel.find({ trainerId: Id })
-        res.json(trainer)
+        res.status(200).json(trainer)
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -222,10 +221,10 @@ export const deleteService = async (req, res) => {
     try {
         const Id = req.params.id;
         await Trainer.updateOne({ _id: Id }, { $pull: { service: req.body.item } });
-        res.json({ status: true });
+        res.status(200).json({ status: true });
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -233,9 +232,9 @@ export const deleteTips = async (req, res) => {
     try {
         const Id = req.params.id;
         await Trainer.updateOne({ _id: Id }, { $pull: { tips: req.body.item } });
-        res.json({ status: true });
+        res.status(200).json({ status: true });
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }

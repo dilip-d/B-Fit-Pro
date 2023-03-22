@@ -22,9 +22,11 @@ export const getProfile = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.get(`/getProfile/${id}`, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosTrainerInstance.get(`/getProfile/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -36,10 +38,11 @@ export const addService = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addService/${id}`, values, config);
-  if (data) {
-    console.log(data);
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/addService/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -51,15 +54,15 @@ export const addTips = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addTips/${id}`, values, config);
-  if (data) {
-    console.log(data);
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/addTips/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
 export const addDescription = async (token, values, id) => {
-  console.log(id);
   const config = {
     headers: {
       Accept: 'application/json',
@@ -67,10 +70,11 @@ export const addDescription = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addDescription/${id}`, values, config);
-  if (data) {
-    console.log(data);
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/addDescription/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -82,10 +86,11 @@ export const addPrice = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/addPrice/${id}`, values, config);
-  if (data) {
-    console.log(data);
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/addPrice/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -97,9 +102,11 @@ export const editProfile = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/editProfile/${id}`, values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/editProfile/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -111,9 +118,11 @@ export const deleteService = async (token, value, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/deleteService/${id}`, value, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/deleteService/${id}`, value, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -125,9 +134,11 @@ export const deleteTips = async (token, value, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post(`/deleteTip/${id}`, value, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post(`/deleteTip/${id}`, value, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -139,8 +150,10 @@ export const getTrainerBookings = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.get(`/getTrainerBookings/${id}`, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosTrainerInstance.get(`/getTrainerBookings/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };

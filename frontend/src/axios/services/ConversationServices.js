@@ -9,10 +9,8 @@ export const getConversations = async (userid) => {
     },
   };
   try {
-    const data = await axiosConversationInstance.get('/' + userid, config)
-    if (data) {
-      return data
-    }
+    const response = await axiosConversationInstance.get('/' + userid, config)
+    return response;
   } catch (err) {
     console.log(err);
   }
@@ -26,9 +24,11 @@ export const trainerDetails = async (trainerId) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosConversationInstance.get('/trainerDetails/' + trainerId, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosConversationInstance.get('/trainerDetails/' + trainerId, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -40,9 +40,11 @@ export const userDetails = async (userId) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosConversationInstance.get('/userdetails/' + userId, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosConversationInstance.get('/userdetails/' + userId, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -54,13 +56,15 @@ export const postConversation = async (userid, trainerId) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosConversationInstance.post('/', { userid, trainerId, config })
-  if (data) {
-    return data
+  try {
+    const response = await axiosConversationInstance.post('/', { userid, trainerId, config })
+    return response.data
+  } catch (error) {
+    console.log(error);
   }
 }
 
-export const getVideoConversation = async (id,userId) => {
+export const getVideoConversation = async (id, userId) => {
   const config = {
     headers: {
       Accept: 'application/json',
@@ -69,10 +73,8 @@ export const getVideoConversation = async (id,userId) => {
     },
   };
   try {
-    const {data} = await axiosConversationInstance.get(`/videoConversation/${id}/${userId}`, config)
-    if (data) {
-      return data
-    }
+    const response = await axiosConversationInstance.get(`/videoConversation/${id}/${userId}`, config)
+    return response.data
   } catch (err) {
     console.log(err);
   }

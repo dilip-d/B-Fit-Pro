@@ -11,9 +11,11 @@ export const clientRegister = async (value) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post('/clientRegister', value, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post('/clientRegister', value, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -25,9 +27,11 @@ export const verifyOTP = async (values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(`/verifyOTP/${id}`, values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post(`/verifyOTP/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -39,9 +43,11 @@ export const getUserValid = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/forgotPassword/${id}/${token}`, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.get(`/forgotPassword/${id}/${token}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -53,9 +59,12 @@ export const setNewPassword = async (token, id, values) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(`/changePassword/${id}/${token}`, values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post(`/changePassword/${id}/${token}`, values, config);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -68,9 +77,11 @@ export const resendOTP = async (values) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post('/resendOTP', values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post('/resendOTP', values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -82,9 +93,12 @@ export const sendResetLink = async (values) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post('/resetLink', values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post('/resetLink', values, config);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -124,9 +138,11 @@ export const trainerRegister = async (value) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosTrainerInstance.post('/trainerRegister', value, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosTrainerInstance.post('/trainerRegister', value, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -138,9 +154,11 @@ export const getTrainerList = async () => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get('/trainerList', config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.get('/trainerList', config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -152,9 +170,11 @@ export const getTrainerDetail = async (id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/trainerDetail/${id}`, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.get(`/trainerDetail/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -166,9 +186,11 @@ export const getTrainerToCheckAvailable = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/trainerCheckAvailable/${id}`, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.get(`/trainerCheckAvailable/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -180,9 +202,11 @@ export const CheckAvailability = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(`/checkAvailability/${id}`, values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post(`/checkAvailability/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -194,9 +218,11 @@ export const placeBooking = async (token, trainerData, userId) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(`/payment/${userId}`, trainerData, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post(`/payment/${userId}`, trainerData, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -226,10 +252,8 @@ export const getUserProfile = async (token, id) => {
     },
   };
   try {
-    const { data } = await axiosClientInstance.get(`/getUserProfile/${id}`, config);
-    if (data) {
-      return data;
-    }
+    const response = await axiosClientInstance.get(`/getUserProfile/${id}`, config);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -243,9 +267,11 @@ export const editUserProfile = async (token, values, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.post(`/editProfile/${id}`, values, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.post(`/editProfile/${id}`, values, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -257,9 +283,11 @@ export const getBookings = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosClientInstance.get(`/getBookings/${id}`, config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.get(`/getBookings/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -271,15 +299,17 @@ export const cancelPlan = async (token, value) => {
   //     'Content-Type': 'application/json',
   //   },
   // };
-  const { data } = await axiosClientInstance.get('/cancelPlan', {
-    params: value,
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-  });
-  if (data) {
-    return data;
+  try {
+    const response = await axiosClientInstance.get('/cancelPlan', {
+      params: value,
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };

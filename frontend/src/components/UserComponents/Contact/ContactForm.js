@@ -4,6 +4,7 @@ import emailjs from '@emailjs/browser'
 import { toast } from 'react-toastify'
 
 function ContactForm() {
+
   const form = useRef()
 
   const sendEmail = (e) => {
@@ -30,6 +31,7 @@ function ContactForm() {
         console.log(error.text);
       });
   }
+
   return (
     <div className="form-container">
       <h1>Send a message to us!</h1>

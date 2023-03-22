@@ -25,8 +25,8 @@ export const adminSignup = async (req, res) => {
         })
         res.status(201).json({ result, token });
     } catch (error) {
-        res.status(500).json({ message: 'Something went wrong' })
         console.log(error);
+        res.status(500).json({ message: 'Something went wrong' })
     }
 };
 
@@ -47,18 +47,18 @@ export const adminSignin = async (req, res) => {
 
         res.status(200).json({ token: toke, status: 'Login success', admin: oldAdmin })
     } catch (error) {
-        res.status(500).json({ message: 'Something went wrong' })
         console.log(error);
+        res.status(500).json({ message: 'Something went wrong' })
     }
 }
 
 export const userInfo = async (req, res) => {
     try {
         const users = await User.find();
-        res.json({ clientDetails: users, status: 'ok' })
+        res.status(200).json({ clientDetails: users, status: 'ok' })
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -66,10 +66,10 @@ export const blockUser = async (req, res) => {
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: true })
-        res.json({ status: 'ok', block: true, clientDetails: user })
+        res.status(200).json({ block: true, clientDetails: user })
     } catch (err) {
-        res.json({ error: 'Internal Server Error !' });
         console.log(err);
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -77,20 +77,20 @@ export const unblockUser = async (req, res) => {
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: false })
-        res.json({ status: 'ok', unBlock: true, clientDetails: user })
+        res.status(200).json({ unBlock: true, clientDetails: user })
     } catch (err) {
-        res.json({ error: 'Internal Server Error !' });
         console.log(err);
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
 export const activeTrainerInfo = async (req, res) => {
     try {
         const trainers = await Trainer.find({ isVerified: true });
-        res.json({ activetrainerDetails: trainers, status: 'ok' })
+        res.status(200).json({ activetrainerDetails: trainers, status: 'ok' })
     } catch (err) {
-        res.json({ error: 'Internal Server Error !' });
         console.log(err);
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -98,10 +98,10 @@ export const blockTrainer = async (req, res) => {
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: true })
-        res.json({ status: 'ok', block: true, trainerDetails: trainer })
+        res.status(200).json({ block: true, trainerDetails: trainer })
     } catch (err) {
-        res.json({ error: 'Internal Server Error !' });
         console.log(err);
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -109,20 +109,20 @@ export const unBlockTrainer = async (req, res) => {
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isBlocked: false })
-        res.json({ status: 'ok', unBlock: true, trainerDetails: trainer })
+        res.status(200).json({ unBlock: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
 export const approvalPendingTrainers = async (req, res) => {
     try {
         const trainers = await Trainer.find({ isVerified: false });
-        res.json({ trainerDetails: trainers, status: 'ok' })
+        res.status(200).json({ trainerDetails: trainers })
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -130,10 +130,10 @@ export const rejectTrainer = async (req, res) => {
     try {
         const trainerId = req.params.id
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isVerified: true })
-        res.json({ status: 'ok', rejected: true, trainerDetails: trainer })
+        res.status(200).json({ rejected: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
@@ -141,20 +141,20 @@ export const approveTrainer = async (req, res) => {
     try {
         const trainerId = req.params.id;
         const trainer = await Trainer.findByIdAndUpdate({ _id: trainerId }, { isVerified: true })
-        res.json({ status: 'ok', approved: true, trainerDetails: trainer })
+        res.status(200).json({ approved: true, trainerDetails: trainer })
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 
 export const bookingInfo = async (req, res) => {
     try {
         const bookings = await bookingModel.find();
-        res.json({ booking: bookings, status: 'ok' })
+        res.status(200).json({ booking: bookings })
     } catch (err) {
         console.log(err);
-        res.json({ error: 'Internal Server Error !' });
+        res.status(500).json({ error: 'Internal Server Error !' });
     }
 }
 

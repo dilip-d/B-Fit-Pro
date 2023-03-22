@@ -23,8 +23,8 @@ function ChatPage() {
     const userid = user?.user?._id;
 
     useEffect(() => {
-        // socket.current = io("ws://localhost:5000");
-        socket.current = io("https://bfitprobackend.onrender.com");
+        socket.current = io("ws://localhost:5000");
+        // socket.current = io("https://bfitprobackend.onrender.com");
     }, [])
 
     useEffect(() => {
@@ -114,7 +114,7 @@ function ChatPage() {
                 <div className='chatMenu' style={{ background: 'grey', borderRadius: "20px" }}>
                     <div className="chatMenuWrapper">
                         {/* <input type="text" placeholder='Search' className='chatMenuInput' /> */}
-                        {conversations.map((c) => (
+                        {conversations?.map((c) => (
                             <div onClick={() => setcurrentChat(c)}>
                                 <Conversation conversation={c} currentUser={userid} key={c._id} />
                             </div>
@@ -128,7 +128,7 @@ function ChatPage() {
                                 ? (
                                     <>
                                         <div className="chatBoxTop">
-                                            {messages.map((m, index) => (
+                                            {messages?.map((m, index) => (
                                                 <div ref={scrollRef} key={index}>
                                                     <Message message={m} own={m.sender === userid} />
                                                 </div>

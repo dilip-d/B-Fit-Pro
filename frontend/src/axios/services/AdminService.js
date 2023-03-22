@@ -8,9 +8,11 @@ export const getUserInfo = async (token) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get('/userInfo', config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get('/userInfo', config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -22,9 +24,11 @@ export const unBlockUser = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(`/unBlockuserinfo/${id}`, config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get(`/unBlockuserinfo/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -36,9 +40,11 @@ export const blockUser = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(`/blockUserinfo/${id}`, config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get(`/blockUserinfo/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -50,9 +56,11 @@ export const getActiveTrainerInfo = async (token) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get('/activeTrainerInfo', config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get('/activeTrainerInfo', config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -64,9 +72,11 @@ export const blockTrainer = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(`/blockTrainer/${id}`, config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get(`/blockTrainer/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -78,9 +88,11 @@ export const unBlockTrainer = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(`/unBlockTrainer/${id}`, config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get(`/unBlockTrainer/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -92,9 +104,11 @@ export const getTrainerdetails = async (token) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get('/getTrainerDetails', config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get('/getTrainerDetails', config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -106,9 +120,11 @@ export const trainerReject = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(`/trainerReject/${id}`, config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get(`/trainerReject/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -120,9 +136,11 @@ export const trainerApproval = async (token, id) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get(`/trainerApproval/${id}`, config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get(`/trainerApproval/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -134,9 +152,11 @@ export const getBookingInfo = async (token) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get('/bookingInfo', config);
-  if (data.status) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get('/bookingInfo', config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -148,8 +168,10 @@ export const getAllDetails = async (token) => {
       'Content-Type': 'application/json',
     },
   };
-  const { data } = await axiosAdminInstance.get('/getAllDetails', config);
-  if (data) {
-    return data;
+  try {
+    const response = await axiosAdminInstance.get('/getAllDetails', config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 }
